@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>6-H’den İngilizce — Gelişmiş Öğrenme Platformu</title>
+  <title>6-H’den İngilizce — Gelişmiş AI Platformu</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- FontAwesome Icons -->
@@ -21,9 +21,7 @@
             display: ['Fredoka', 'sans-serif'],
           },
           colors: {
-            brand: {
-              50: '#eef2ff', 100: '#e0e7ff', 400: '#818cf8', 500: '#6366f1', 600: '#4f46e5', 700: '#4338ca', 900: '#1e1b4b',
-            },
+            brand: { 50: '#eef2ff', 100: '#e0e7ff', 500: '#6366f1', 600: '#4f46e5', 700: '#4338ca', 900: '#1e1b4b' },
             accent: { pink: '#ec4899', purple: '#a855f7', cyan: '#06b6d4', amber: '#f59e0b', emerald: '#10b981' }
           }
         }
@@ -60,173 +58,78 @@
         
         <!-- LOGO -->
         <div class="flex items-center gap-3 cursor-pointer" onclick="navigateTo('home')">
-          <div class="relative flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-tr from-indigo-600 via-purple-600 to-pink-500 text-white font-black text-2xl shadow-lg shadow-indigo-500/30 transform hover:scale-105 transition-transform">
+          <div class="relative flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-tr from-indigo-600 via-purple-600 to-pink-500 text-white font-black text-2xl shadow-lg shadow-indigo-500/30">
             <span>6H</span>
-            <div class="absolute -top-1 -right-1 w-4 h-4 bg-amber-400 rounded-full border-2 border-white flex items-center justify-center text-[8px] text-slate-900">
-              <i class="fa-solid fa-star"></i>
-            </div>
           </div>
           <div>
             <div class="font-heading font-bold text-xl sm:text-2xl tracking-wide bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 bg-clip-text text-transparent">
               6-H’den İngilizce
             </div>
             <div class="text-[10px] sm:text-xs text-indigo-500 font-semibold uppercase tracking-wider">
-              Gelişmiş AI Destekli Sürüm
+              İnteraktif AI Sürüm
             </div>
           </div>
         </div>
 
         <!-- DESKTOP MENU -->
         <nav class="hidden xl:flex items-center gap-1">
-          <button onclick="navigateTo('home')" class="nav-btn px-3 py-2 rounded-xl font-semibold text-sm hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition flex items-center gap-2">
-            <i class="fa-solid fa-house text-indigo-500"></i> Ana Sayfa
-          </button>
-          <button onclick="navigateTo('classes')" class="nav-btn px-3 py-2 rounded-xl font-semibold text-sm hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition flex items-center gap-2">
-            <i class="fa-solid fa-layer-group text-purple-500"></i> Sınıflar
-          </button>
-          <button onclick="navigateTo('words')" class="nav-btn px-3 py-2 rounded-xl font-semibold text-sm hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition flex items-center gap-2">
-            <i class="fa-solid fa-book-open text-pink-500"></i> Kelimeler
-          </button>
-          <button onclick="navigateTo('tests')" class="nav-btn px-3 py-2 rounded-xl font-semibold text-sm hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition flex items-center gap-2">
-            <i class="fa-solid fa-vial-circle-check text-emerald-500"></i> Testler
-          </button>
-          <button onclick="navigateTo('games')" class="nav-btn px-3 py-2 rounded-xl font-semibold text-sm hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition flex items-center gap-2">
-            <i class="fa-solid fa-gamepad text-amber-500"></i> Oyunlar
-          </button>
-          <button onclick="navigateTo('ai-chat')" class="nav-btn px-3 py-2 rounded-xl font-semibold text-sm hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition flex items-center gap-2">
-            <i class="fa-solid fa-robot text-cyan-500"></i> AI Koç
-          </button>
-          <button onclick="navigateTo('lgs')" class="nav-btn px-3 py-2 rounded-xl font-semibold text-sm hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition flex items-center gap-2">
-            <i class="fa-solid fa-graduation-cap text-indigo-500"></i> LGS
-          </button>
-          <button onclick="navigateTo('profile')" class="nav-btn px-3 py-2 rounded-xl font-semibold text-sm hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition flex items-center gap-2">
-            <i class="fa-solid fa-user-astronaut text-pink-500"></i> Profil
-          </button>
+          <button onclick="navigateTo('home')" class="px-3 py-2 rounded-xl font-semibold text-sm hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition flex items-center gap-2"><i class="fa-solid fa-house text-indigo-500"></i> Ana Sayfa</button>
+          <button onclick="navigateTo('classes')" class="px-3 py-2 rounded-xl font-semibold text-sm hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition flex items-center gap-2"><i class="fa-solid fa-layer-group text-purple-500"></i> Sınıflar</button>
+          <button onclick="navigateTo('words')" class="px-3 py-2 rounded-xl font-semibold text-sm hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition flex items-center gap-2"><i class="fa-solid fa-book-open text-pink-500"></i> Kelimeler</button>
+          <button onclick="navigateTo('tests')" class="px-3 py-2 rounded-xl font-semibold text-sm hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition flex items-center gap-2"><i class="fa-solid fa-vial-circle-check text-emerald-500"></i> Testler</button>
+          <button onclick="navigateTo('games')" class="px-3 py-2 rounded-xl font-semibold text-sm hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition flex items-center gap-2"><i class="fa-solid fa-gamepad text-amber-500"></i> Oyunlar</button>
+          <button onclick="navigateTo('ai-chat')" class="px-3 py-2 rounded-xl font-semibold text-sm hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition flex items-center gap-2 text-cyan-600 dark:text-cyan-400 font-bold"><i class="fa-solid fa-robot text-cyan-500"></i> AI Koç</button>
+          <button onclick="navigateTo('lgs')" class="px-3 py-2 rounded-xl font-semibold text-sm hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition flex items-center gap-2"><i class="fa-solid fa-graduation-cap text-indigo-500"></i> LGS</button>
+          <button onclick="navigateTo('profile')" class="px-3 py-2 rounded-xl font-semibold text-sm hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition flex items-center gap-2"><i class="fa-solid fa-user-astronaut text-pink-500"></i> Profil</button>
         </nav>
 
-        <!-- STATS & THEME TOGGLE -->
         <div class="flex items-center gap-3">
           <div class="hidden sm:flex items-center gap-2 bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300 px-3 py-1.5 rounded-full font-bold text-xs border border-amber-300 dark:border-amber-800">
-            <i class="fa-solid fa-bolt text-amber-500 text-sm"></i>
+            <i class="fa-solid fa-bolt text-amber-500"></i>
             <span id="nav-xp">0 XP</span>
           </div>
-
-          <button id="theme-toggle" onclick="toggleTheme()" class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-amber-400 flex items-center justify-center hover:scale-105 transition shadow-sm">
+          <button onclick="toggleTheme()" class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-amber-400 flex items-center justify-center">
             <i class="fa-solid fa-moon dark:hidden"></i>
             <i class="fa-solid fa-sun hidden dark:block"></i>
-          </button>
-
-          <!-- MOBILE MENU BUTTON -->
-          <button onclick="toggleMobileMenu()" class="xl:hidden w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-200 flex items-center justify-center">
-            <i class="fa-solid fa-bars text-lg"></i>
           </button>
         </div>
       </div>
     </div>
-
-    <!-- MOBILE MENU DROPDOWN -->
-    <div id="mobile-menu" class="hidden xl:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 pt-3 pb-6 space-y-2">
-      <button onclick="navigateTo('home')" class="w-full text-left px-4 py-2.5 rounded-xl font-medium hover:bg-indigo-50 flex items-center gap-3"><i class="fa-solid fa-house text-indigo-500 w-5"></i> Ana Sayfa</button>
-      <button onclick="navigateTo('classes')" class="w-full text-left px-4 py-2.5 rounded-xl font-medium hover:bg-indigo-50 flex items-center gap-3"><i class="fa-solid fa-layer-group text-purple-500 w-5"></i> Sınıflar</button>
-      <button onclick="navigateTo('words')" class="w-full text-left px-4 py-2.5 rounded-xl font-medium hover:bg-indigo-50 flex items-center gap-3"><i class="fa-solid fa-book-open text-pink-500 w-5"></i> Kelimeler</button>
-      <button onclick="navigateTo('tests')" class="w-full text-left px-4 py-2.5 rounded-xl font-medium hover:bg-indigo-50 flex items-center gap-3"><i class="fa-solid fa-vial-circle-check text-emerald-500 w-5"></i> Testler</button>
-      <button onclick="navigateTo('games')" class="w-full text-left px-4 py-2.5 rounded-xl font-medium hover:bg-indigo-50 flex items-center gap-3"><i class="fa-solid fa-gamepad text-amber-500 w-5"></i> Oyunlar</button>
-      <button onclick="navigateTo('ai-chat')" class="w-full text-left px-4 py-2.5 rounded-xl font-medium hover:bg-indigo-50 flex items-center gap-3"><i class="fa-solid fa-robot text-cyan-500 w-5"></i> AI Koç</button>
-      <button onclick="navigateTo('lgs')" class="w-full text-left px-4 py-2.5 rounded-xl font-medium hover:bg-indigo-50 flex items-center gap-3"><i class="fa-solid fa-graduation-cap text-indigo-500 w-5"></i> LGS Özel</button>
-      <button onclick="navigateTo('profile')" class="w-full text-left px-4 py-2.5 rounded-xl font-medium hover:bg-indigo-50 flex items-center gap-3"><i class="fa-solid fa-user-astronaut text-pink-500 w-5"></i> Profil</button>
-    </div>
   </header>
 
   <!-- MAIN CONTAINER -->
-  <main id="main-content" class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <!-- DYNAMICALLY RENDERED -->
-  </main>
+  <main id="main-content" class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8"></main>
 
   <!-- FOOTER -->
   <footer class="bg-slate-900 text-slate-400 border-t border-slate-800 py-8 mt-12">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
-      <div class="flex items-center gap-3">
-        <div class="w-8 h-8 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold text-sm">6H</div>
-        <span class="text-slate-200 font-semibold">6-H’den İngilizce Öğrenme Platformu (Gelişmiş Sürüm)</span>
-      </div>
-      <p class="text-xs text-slate-500 text-center md:text-right">
-        MEB Müfredatına Tam Uyumlu • AI Soru & Konuşma Modülü Destekli
-      </p>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-xs text-slate-500">
+      6-H’den İngilizce Öğrenme Platformu • MEB Uyumlu İnteraktif Eğitim
     </div>
   </footer>
 
-  <!-- GLOBAL NOTIFICATION TOAST -->
+  <!-- TOAST -->
   <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-slate-900 text-white px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 border border-indigo-500/30 pointer-events-none">
-    <div id="toast-icon" class="text-xl text-emerald-400"><i class="fa-solid fa-circle-check"></i></div>
+    <div class="text-xl text-emerald-400"><i class="fa-solid fa-circle-check"></i></div>
     <div id="toast-msg" class="font-medium text-sm">İşlem başarılı!</div>
   </div>
 
-  <!-- JAVASCRIPT CODE -->
   <script>
-    // 40 UNITS MEB DATA
     const COURSE_DATA = {
-      5: Array.from({ length: 10 }, (_, i) => {
-        const titles = ["Hello!", "My Town", "Games and Hobbies", "My Daily Routine", "Health", "Movies", "Party Time", "Fitness", "The Animal Shelter", "Festivals"];
-        return {
-          id: `5-${i+1}`, grade: 5, unitNum: i + 1, title: titles[i],
-          desc: `5. Sınıf ${i+1}. Ünite: ${titles[i]} temel kelimeler ve kalıplar.`,
-          words: [
-            { en: "Greeting", tr: "Selamlaşma", type: "Noun", sentence: "Friendly greeting is good.", sentenceTr: "Dostça selamlaşmak iyidir." },
-            { en: "Subject", tr: "Ders / Konu", type: "Noun", sentence: "English is my favorite subject.", sentenceTr: "İngilizce en sevdiğim derstir." },
-            { en: "Library", tr: "Kütüphane", type: "Noun", sentence: "I study at the library.", sentenceTr: "Kütüphanede ders çalışırım." },
-            { en: "Hobby", tr: "Hobi", type: "Noun", sentence: "Chess is a fun hobby.", sentenceTr: "Satranç eğlenceli bir hobidir." }
-          ],
-          grammar: { title: `${titles[i]} Gramer Yapısı`, desc: "Temel kendimi ifade etme kalıpları.", rules: ["Özne + Fiil uyumuna dikkat edin."], examples: [{ en: "I like English.", tr: "İngilizceyi severim." }] }
-        };
-      }),
-      6: Array.from({ length: 10 }, (_, i) => {
-        const titles = ["Life", "Yummy Breakfast", "Downtown", "Weather and Emotions", "At the Fair", "Occupations", "Holidays", "Bookworms", "Saving the Planet", "Democracy"];
-        return {
-          id: `6-${i+1}`, grade: 6, unitNum: i + 1, title: titles[i],
-          desc: `6. Sınıf ${i+1}. Ünite: ${titles[i]} ile orta seviye kelimeler.`,
-          words: [
-            { en: "Breakfast", tr: "Kahvaltı", type: "Noun", sentence: "I eat healthy breakfast.", sentenceTr: "Sağlıklı kahvaltı yaparım." },
-            { en: "Downtown", tr: "Şehir Merkezi", type: "Noun", sentence: "The museum is downtown.", sentenceTr: "Müze şehir merkezindedir." },
-            { en: "Emotion", tr: "Duygu", type: "Noun", sentence: "Happiness is a great emotion.", sentenceTr: "Mutluluk harika bir duygudur." }
-          ],
-          grammar: { title: `${titles[i]} Konu Anlatımı`, desc: "Şimdiki zaman ve karşılaştırmalar.", rules: ["Sıfatlara '-er' eklenir."], examples: [{ en: "Istanbul is bigger than Hatay.", tr: "İstanbul daha büyük." }] }
-        };
-      }),
-      7: Array.from({ length: 10 }, (_, i) => {
-        const titles = ["Appearance and Personality", "Sports", "Biographies", "Wild Animals", "Television", "Parties", "Superstitions", "Public Buildings", "Environment", "Planets"];
-        return {
-          id: `7-${i+1}`, grade: 7, unitNum: i + 1, title: titles[i],
-          desc: `7. Sınıf ${i+1}. Ünite: ${titles[i]} konuları.`,
-          words: [
-            { en: "Personality", tr: "Kişilik", type: "Noun", sentence: "She has a kind personality.", sentenceTr: "O nazik bir kişiliğe sahip." },
-            { en: "Biography", tr: "Biyografi", type: "Noun", sentence: "I read Atatürk's biography.", sentenceTr: "Atatürk'ün biyografisini okudum." }
-          ],
-          grammar: { title: `${titles[i]} Gramer Rehberi`, desc: "Geçmiş zaman (Past Tense).", rules: ["Düzenli fiillere '-ed' gelir."], examples: [{ en: "He discovered gravity.", tr: "Yerçekimini keşfetti." }] }
-        };
-      }),
-      8: Array.from({ length: 10 }, (_, i) => {
-        const titles = ["Friendship", "Teen Life", "In the Kitchen", "On the Phone", "The Internet", "Adventures", "Tourism", "Chores", "Science", "Natural Forces"];
-        return {
-          id: `8-${i+1}`, grade: 8, unitNum: i + 1, title: titles[i],
-          desc: `8. Sınıf LGS ${i+1}. Ünite: ${titles[i]} sınav odaklı pratikler.`,
-          words: [
-            { en: "Mate / Buddy", tr: "Yakın Arkadaş", type: "Noun", sentence: "He is my best buddy.", sentenceTr: "O benim en yakın arkadaşım." },
-            { en: "Ingredient", tr: "Malzeme", type: "Noun", sentence: "Flour is a cake ingredient.", sentenceTr: "Un bir kek malzemesidir." }
-          ],
-          grammar: { title: `${titles[i]} LGS Gramer Püf Noktaları`, desc: "Sınavda çıkan davet kalıpları.", rules: ["'Would you like' arkasından fiil yalın gelir."], examples: [{ en: "Would you like to join?", sentenceTr: "Katılmak ister misin?" }] }
-        };
-      })
+      5: Array.from({ length: 10 }, (_, i) => ({ id: `5-${i+1}`, grade: 5, unitNum: i+1, title: `Unit ${i+1}`, desc: `5. Sınıf ${i+1}. Ünite konuları.` })),
+      6: Array.from({ length: 10 }, (_, i) => ({ id: `6-${i+1}`, grade: 6, unitNum: i+1, title: `Unit ${i+1}`, desc: `6. Sınıf ${i+1}. Ünite konuları.` })),
+      7: Array.from({ length: 10 }, (_, i) => ({ id: `7-${i+1}`, grade: 7, unitNum: i+1, title: `Unit ${i+1}`, desc: `7. Sınıf ${i+1}. Ünite konuları.` })),
+      8: Array.from({ length: 10 }, (_, i) => ({ id: `8-${i+1}`, grade: 8, unitNum: i+1, title: `Unit ${i+1}`, desc: `8. Sınıf LGS ${i+1}. Ünite konuları.` }))
     };
 
-    let userProgress = { xp: 0, level: 1, learnedWords: [], completedUnits: [], streak: 3 };
+    let userProgress = { xp: 0, level: 1, streak: 3 };
 
     function loadProgress() {
-      const saved = localStorage.getItem("6h_english_user_data_v2");
+      const saved = localStorage.getItem("6h_english_user_data_v3");
       if (saved) { try { userProgress = { ...userProgress, ...JSON.parse(saved) }; } catch(e){} }
       updateUIStats();
     }
     function saveProgress() {
-      localStorage.setItem("6h_english_user_data_v2", JSON.stringify(userProgress));
+      localStorage.setItem("6h_english_user_data_v3", JSON.stringify(userProgress));
       updateUIStats();
     }
     function addXP(amt, reason="") {
@@ -245,99 +148,75 @@
       if(el) el.innerText = `${userProgress.xp} XP (Svy ${userProgress.level})`;
     }
 
-    function speakText(text) {
-      if(!('speechSynthesis' in window)) return;
-      window.speechSynthesis.cancel();
-      const u = new SpeechSynthesisUtterance(text);
-      u.lang = 'en-US'; u.rate = 0.9;
-      window.speechSynthesis.speak(u);
-    }
-
     let currentRoute = "home";
     function navigateTo(route, param=null) {
       currentRoute = route;
       const main = document.getElementById("main-content");
       window.scrollTo({ top: 0, behavior: 'smooth' });
-      document.getElementById("mobile-menu").classList.add("hidden");
-
       switch(route) {
         case 'home': renderHome(main); break;
-        case 'classes': renderClasses(main); break;
-        case 'unit-detail': renderUnitDetail(main, param); break;
-        case 'words': renderWordsPage(main); break;
-        case 'tests': renderTestsPage(main, param); break;
-        case 'games': renderGamesPage(main); break;
         case 'ai-chat': renderAIChatPage(main); break;
+        case 'classes': renderClasses(main); break;
+        case 'words': renderWordsPage(main); break;
+        case 'tests': renderTestsPage(main); break;
+        case 'games': renderGamesPage(main); break;
         case 'lgs': renderLGSPage(main); break;
         case 'profile': renderProfilePage(main); break;
         default: renderHome(main);
       }
     }
 
-    // HOME
     function renderHome(container) {
       container.innerHTML = `
         <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 text-white p-8 sm:p-12 shadow-2xl mb-12">
-          <div class="relative z-10 max-w-2xl">
-            <span class="inline-block px-4 py-1.5 rounded-full bg-white/20 backdrop-blur-md text-xs font-bold uppercase tracking-wider mb-4 border border-white/30">
-              🔥 ${userProgress.streak} Günlük Seri Devam Ediyor!
-            </span>
-            <h1 class="text-3xl sm:text-5xl font-black mb-4 leading-tight">Yapay Zeka Destekli İngilizce Platformu</h1>
-            <p class="text-indigo-100 text-base sm:text-lg mb-8">Kelimeleri ezberle, AI Koç ile konuşma pratiği yap, LGS'ye tam hazır ol!</p>
-            <div class="flex flex-wrap gap-4">
-              <button onclick="navigateTo('classes')" class="bg-amber-400 hover:bg-amber-300 text-slate-900 font-bold px-6 py-3.5 rounded-2xl shadow-lg transition flex items-center gap-2"><i class="fa-solid fa-rocket"></i> Derslere Başla</button>
-              <button onclick="navigateTo('ai-chat')" class="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/30 font-bold px-6 py-3.5 rounded-2xl transition flex items-center gap-2"><i class="fa-solid fa-robot"></i> AI Koç ile Konuş</button>
-            </div>
-          </div>
+          <h1 class="text-3xl sm:text-5xl font-black mb-4">6-H'den İngilizce Platformu</h1>
+          <p class="text-indigo-100 mb-8">AI Konuşma Koçu ve interaktif ünitelerle İngilizceni geliştir!</p>
+          <button onclick="navigateTo('ai-chat')" class="bg-amber-400 hover:bg-amber-300 text-slate-900 font-bold px-6 py-3.5 rounded-2xl shadow-lg transition"><i class="fa-solid fa-robot"></i> AI Koç ile Konuşmaya Başla</button>
+        </div>
+      `;
+    }
+
+    // AI CHATBOT WITH PRESET BUTTONS AND SMART REPLIES
+    function renderAIChatPage(container) {
+      container.innerHTML = `
+        <div class="mb-6">
+          <h1 class="text-3xl font-bold mb-2">🤖 AI İngilizce Konuşma Koçu</h1>
+          <p class="text-slate-500 text-sm">Aşağıdaki hazır butonlardan birini seçebilir veya kendi sorunu yazabilirsin!</p>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-          <div onclick="navigateTo('words')" class="glass-card p-6 rounded-3xl cursor-pointer hover:shadow-xl transition border-t-4 border-pink-500">
-            <div class="w-12 h-12 rounded-2xl bg-pink-100 text-pink-500 flex items-center justify-center text-xl mb-4 font-bold"><i class="fa-solid fa-book-open"></i></div>
-            <h3 class="font-bold text-lg mb-1">Kelimeler</h3>
-            <p class="text-xs text-slate-500">Sesli ve kartlı kelime öğrenme.</p>
+        <div class="glass-card rounded-3xl p-6 shadow-xl max-w-3xl mx-auto flex flex-col h-[520px] border border-slate-200 dark:border-slate-800">
+          
+          <!-- PRESET TOPIC BUTTONS -->
+          <div class="flex flex-wrap gap-2 pb-3 mb-3 border-b border-slate-200 dark:border-slate-800">
+            <button onclick="sendPreset('Hello!')" class="px-3 py-1.5 rounded-xl bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-300 text-xs font-bold hover:bg-indigo-100 transition">👋 Hello!</button>
+            <button onclick="sendPreset('How are you?')" class="px-3 py-1.5 rounded-xl bg-purple-50 dark:bg-purple-950 text-purple-600 dark:text-purple-300 text-xs font-bold hover:bg-purple-100 transition">❓ How are you?</button>
+            <button onclick="sendPreset('Bana 6. sınıf konularını anlat')" class="px-3 py-1.5 rounded-xl bg-pink-50 dark:bg-pink-950 text-pink-600 dark:text-pink-300 text-xs font-bold hover:bg-pink-100 transition">📚 6. Sınıf Konuları</button>
+            <button onclick="sendPreset('LGS İngilizce için taktik ver')" class="px-3 py-1.5 rounded-xl bg-emerald-50 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-300 text-xs font-bold hover:bg-emerald-100 transition">🎯 LGS Taktiği</button>
+            <button onclick="sendPreset('Bana günlük bir İngilizce ipucu ver')" class="px-3 py-1.5 rounded-xl bg-amber-50 dark:bg-amber-950 text-amber-600 dark:text-amber-300 text-xs font-bold hover:bg-amber-100 transition">💡 İngilizce İpucu</button>
           </div>
-          <div onclick="navigateTo('ai-chat')" class="glass-card p-6 rounded-3xl cursor-pointer hover:shadow-xl transition border-t-4 border-cyan-500">
-            <div class="w-12 h-12 rounded-2xl bg-cyan-100 text-cyan-500 flex items-center justify-center text-xl mb-4 font-bold"><i class="fa-solid fa-robot"></i></div>
-            <h3 class="font-bold text-lg mb-1">AI Konuşma Koçu</h3>
-            <p class="text-xs text-slate-500">Yapay zekayla İngilizce diyalog kur.</p>
+
+          <!-- CHAT MESSAGES BOX -->
+          <div id="chat-messages" class="flex-grow overflow-y-auto space-y-4 pr-2 mb-4">
+            <div class="flex items-start gap-3">
+              <div class="w-9 h-9 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold text-sm">AI</div>
+              <div class="bg-slate-100 dark:bg-slate-900 p-4 rounded-2xl text-sm max-w-[85%]">
+                Hi there! I am your AI English coach. Choose a topic above or type your question below! 🚀
+              </div>
+            </div>
           </div>
-          <div onclick="navigateTo('tests')" class="glass-card p-6 rounded-3xl cursor-pointer hover:shadow-xl transition border-t-4 border-emerald-500">
-            <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-500 flex items-center justify-center text-xl mb-4 font-bold"><i class="fa-solid fa-vial-circle-check"></i></div>
-            <h3 class="font-bold text-lg mb-1">Test Çöz</h3>
-            <p class="text-xs text-slate-500">Dinamik ünite testleriyle XP kazan.</p>
-          </div>
-          <div onclick="navigateTo('games')" class="glass-card p-6 rounded-3xl cursor-pointer hover:shadow-xl transition border-t-4 border-amber-500">
-            <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-500 flex items-center justify-center text-xl mb-4 font-bold"><i class="fa-solid fa-gamepad"></i></div>
-            <h3 class="font-bold text-lg mb-1">Oyunlar</h3>
-            <p class="text-xs text-slate-500">Eşleştirme ve yarış oyunları.</p>
+
+          <!-- INPUT AREA -->
+          <div class="flex gap-2">
+            <input type="text" id="chat-input" onkeypress="if(event.key==='Enter') sendChatMessage()" placeholder="Mesajını yaz..." class="flex-grow p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-sm focus:outline-none focus:border-indigo-500">
+            <button onclick="sendChatMessage()" class="bg-indigo-600 hover:bg-indigo-500 text-white px-6 py-3.5 rounded-2xl font-bold transition"><i class="fa-solid fa-paper-plane"></i></button>
           </div>
         </div>
       `;
     }
 
-    // AI CHATBOT FEATURE
-    function renderAIChatPage(container) {
-      container.innerHTML = `
-        <div class="mb-6">
-          <h1 class="text-3xl font-bold mb-2">🤖 AI İngilizce Konuşma Koçu</h1>
-          <p class="text-slate-500 text-sm">Yapay zeka asistanına İngilizce soru sor, cümlelerini düzeltmesini iste veya diyalog kur!</p>
-        </div>
-        <div class="glass-card rounded-3xl p-6 shadow-xl max-w-3xl mx-auto flex flex-col h-[500px] border border-slate-200 dark:border-slate-800">
-          <div id="chat-messages" class="flex-grow overflow-y-auto space-y-4 pr-2 mb-4">
-            <div class="flex items-start gap-3">
-              <div class="w-9 h-9 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold text-sm">AI</div>
-              <div class="bg-slate-100 dark:bg-slate-900 p-4 rounded-2xl text-sm max-w-[80%]">
-                Hello! I am your English assistant. How can I help you today? (Bana İngilizce bir şeyler yazabilirsin!)
-              </div>
-            </div>
-          </div>
-          <div class="flex gap-2">
-            <input type="text" id="chat-input" onkeypress="if(event.key==='Enter') sendChatMessage()" placeholder="İngilizce mesajını yaz..." class="flex-grow p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-sm focus:outline-none focus:border-indigo-500">
-            <button onclick="sendChatMessage()" class="bg-indigo-600 hover:bg-indigo-500 text-white px-6 py-3.5 rounded-2xl font-bold transition"><i class="fa-solid fa-paper-plane"></i></button>
-          </div>
-        </div>
-      `;
+    function sendPreset(text) {
+      document.getElementById("chat-input").value = text;
+      sendChatMessage();
     }
 
     function sendChatMessage() {
@@ -346,191 +225,50 @@
       const text = input.value.trim();
       if(!text) return;
 
+      // User Bubble
       box.innerHTML += `
         <div class="flex items-start gap-3 justify-end">
-          <div class="bg-indigo-600 text-white p-4 rounded-2xl text-sm max-w-[80%]">${text}</div>
+          <div class="bg-indigo-600 text-white p-4 rounded-2xl text-sm max-w-[85%]">${text}</div>
           <div class="w-9 h-9 rounded-xl bg-pink-500 text-white flex items-center justify-center font-bold text-sm">Sen</div>
         </div>
       `;
       input.value = "";
       box.scrollTop = box.scrollHeight;
 
+      // Smart AI Response Logic
       setTimeout(() => {
-        let reply = "That's wonderful! Keep practicing English every day. (Harika! İngilizce pratik yapmaya devam et.)";
-        if (text.toLowerCase().includes("hello") || text.toLowerCase().includes("hi")) {
-          reply = "Hello there! How are you doing?";
-        } else if (text.toLowerCase().includes("name")) {
-          reply = "My name is 6H English AI Bot. Nice to meet you!";
+        let reply = "That's very interesting! Can you tell me more about it in English?";
+        const lower = text.toLowerCase();
+
+        if (lower.includes("hello") || lower.includes("hi")) {
+          reply = "Hello! It's so nice to talk with you. What would you like to learn today?";
+        } else if (lower.includes("how are you")) {
+          reply = "I'm doing great, thank you! Ready to help you master English. How are you doing?";
+        } else if (lower.includes("6. sınıf") || lower.includes("6th grade")) {
+          reply = "In 6th grade, you learn great units like *Life*, *Yummy Breakfast*, *Downtown*, and *Weather and Emotions*. Would you like a vocabulary test for 6th grade?";
+        } else if (lower.includes("lgs") || lower.includes("taktik")) {
+          reply = "🎯 LGS Taktği: Sınavda özellikle *Accepting & Refusing* (Kabul etme ve reddetme) kalıplarına, *Making offers* (Teklif etme) yapılarına ve *Would you like to...?* sorularına çok dikkat etmelisin!";
+        } else if (lower.includes("ipucu") || lower.includes("tip")) {
+          reply = "💡 Günlük İpucu: Yeni bir kelime öğrenirken onu sadece Türkçe anlamıyla değil, içinde geçtiği örnek bir cümleyle ezberle. Böylece kalıcılığı 2 katına çıkar!";
         }
+
         box.innerHTML += `
           <div class="flex items-start gap-3">
             <div class="w-9 h-9 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold text-sm">AI</div>
-            <div class="bg-slate-100 dark:bg-slate-900 p-4 rounded-2xl text-sm max-w-[80%]">${reply}</div>
+            <div class="bg-slate-100 dark:bg-slate-900 p-4 rounded-2xl text-sm max-w-[85%]">${reply}</div>
           </div>
         `;
         box.scrollTop = box.scrollHeight;
         addXP(5, "AI Pratiği");
-      }, 800);
+      }, 700);
     }
 
-    // CLASSES & UNITS
-    function renderClasses(container) {
-      container.innerHTML = `
-        <div class="mb-8"><h1 class="text-3xl font-bold mb-2">Sınıflar & Üniteler</h1><p class="text-slate-500">Sınıf seç ve ünitelere çalışmaya başla.</p></div>
-        <div class="flex flex-wrap gap-3 mb-8">
-          ${[5, 6, 7, 8].map(g => `<button onclick="filterGradeUnits(${g})" id="grade-tab-${g}" class="grade-tab-btn px-6 py-3 rounded-2xl font-bold text-sm transition border border-slate-200 dark:border-slate-800"><i class="fa-solid fa-graduation-cap"></i> ${g}. Sınıf</button>`).join('')}
-        </div>
-        <div id="units-list-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-      `;
-      filterGradeUnits(5);
-    }
-
-    function filterGradeUnits(grade) {
-      document.querySelectorAll('.grade-tab-btn').forEach(b => {
-        b.classList.remove('bg-indigo-600', 'text-white');
-        b.classList.add('bg-white', 'dark:bg-slate-900', 'text-slate-700', 'dark:text-slate-300');
-      });
-      const btn = document.getElementById(`grade-tab-${grade}`);
-      if(btn) { btn.classList.remove('bg-white', 'dark:bg-slate-900', 'text-slate-700', 'dark:text-slate-300'); btn.classList.add('bg-indigo-600', 'text-white'); }
-
-      const grid = document.getElementById("units-list-grid");
-      const units = COURSE_DATA[grade] || [];
-      grid.innerHTML = units.map(u => `
-        <div onclick="navigateTo('unit-detail', '${u.id}')" class="glass-card rounded-3xl p-6 hover:shadow-xl transition cursor-pointer flex flex-col justify-between border border-slate-200 dark:border-slate-800">
-          <div>
-            <span class="text-xs font-bold text-indigo-500 uppercase tracking-wider mb-1 block">${u.grade}. Sınıf • Ünite ${u.unitNum}</span>
-            <h3 class="text-xl font-bold mb-2">${u.title}</h3>
-            <p class="text-sm text-slate-500 mb-6">${u.desc}</p>
-          </div>
-          <div class="flex items-center justify-between text-xs font-semibold text-slate-400 border-t pt-4 border-slate-100 dark:border-slate-800">
-            <span><i class="fa-solid fa-book-open text-pink-500"></i> ${u.words.length} Kelime</span>
-            <span class="text-indigo-600 dark:text-indigo-400 font-bold">İncele &rarr;</span>
-          </div>
-        </div>
-      `).join('');
-    }
-
-    // UNIT DETAIL
-    function renderUnitDetail(container, unitId) {
-      let found = null;
-      Object.values(COURSE_DATA).forEach(list => { const u = list.find(x => x.id === unitId); if(u) found = u; });
-      if(!found) { container.innerHTML = "Ünite bulunamadı."; return; }
-
-      container.innerHTML = `
-        <button onclick="navigateTo('classes')" class="text-sm font-bold text-indigo-600 mb-6 block">&larr; Ünitelere Dön</button>
-        <div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-3xl p-8 mb-8 shadow-lg">
-          <span class="text-xs font-bold uppercase tracking-widest text-indigo-200">${found.grade}. Sınıf • Ünite ${found.unitNum}</span>
-          <h1 class="text-3xl sm:text-4xl font-black mt-1 mb-3">${found.title}</h1>
-          <p class="text-indigo-100 text-sm">${found.desc}</p>
-        </div>
-        <h2 class="text-2xl font-bold mb-6">Ünite Kelimeleri</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-          ${found.words.map(w => `
-            <div class="flip-card h-56 w-full cursor-pointer" onclick="this.classList.toggle('flipped')">
-              <div class="flip-card-inner relative w-full h-full rounded-3xl shadow-sm glass-card p-6 flex flex-col justify-between">
-                <div class="flip-card-front flex flex-col justify-between h-full absolute inset-0 p-6">
-                  <div class="text-xs text-indigo-500 font-bold">Kartı Çevir 🔄</div>
-                  <h3 class="text-2xl font-bold">${w.en}</h3>
-                  <button onclick="event.stopPropagation(); speakText('${w.en}')" class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center"><i class="fa-solid fa-volume-high"></i></button>
-                </div>
-                <div class="flip-card-back flex flex-col justify-between h-full absolute inset-0 p-6 bg-indigo-900 text-white rounded-3xl">
-                  <div>
-                    <span class="text-[10px] uppercase text-indigo-300">Anlamı</span>
-                    <h3 class="text-2xl font-bold text-amber-300 mb-2">${w.tr}</h3>
-                    <p class="text-xs italic text-indigo-100">"${w.sentence}"</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          `).join('')}
-        </div>
-      `;
-    }
-
-    // WORDS PAGE
-    function renderWordsPage(container) {
-      let all = [];
-      Object.values(COURSE_DATA).forEach(list => list.forEach(u => u.words.forEach(w => all.push(w))));
-      container.innerHTML = `
-        <div class="mb-8"><h1 class="text-3xl font-bold mb-2">Kelime Kütüphanesi</h1><p class="text-slate-500">Tüm kelimeleri incele.</p></div>
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-          ${all.map(w => `
-            <div class="glass-card p-6 rounded-3xl border border-slate-200 dark:border-slate-800 flex justify-between items-center">
-              <div>
-                <h3 class="font-bold text-lg text-indigo-600 dark:text-indigo-400">${w.en}</h3>
-                <p class="text-sm text-slate-500">${w.tr}</p>
-              </div>
-              <button onclick="speakText('${w.en}')" class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center"><i class="fa-solid fa-volume-high"></i></button>
-            </div>
-          `).join('')}
-        </div>
-      `;
-    }
-
-    // TESTS PAGE
-    function renderTestsPage(container) {
-      container.innerHTML = `
-        <div class="glass-card p-8 rounded-3xl max-w-xl mx-auto text-center border border-slate-200 dark:border-slate-800">
-          <h2 class="text-2xl font-bold mb-4">Ünite Testi</h2>
-          <p class="text-slate-500 text-sm mb-6">Kelime bilgini test et ve XP kazan.</p>
-          <button onclick="startTestNow()" class="bg-indigo-600 text-white font-bold px-8 py-3 rounded-2xl shadow-lg">Testi Başlat</button>
-        </div>
-      `;
-    }
-
-    function startTestNow() {
-      const main = document.getElementById("main-content");
-      main.innerHTML = `
-        <div class="glass-card p-8 rounded-3xl max-w-xl mx-auto text-center">
-          <h3 class="text-xl font-bold mb-4">"${'Greeting'}" kelimesinin anlamı nedir?</h3>
-          <div class="space-y-3">
-            <button onclick="finishTest(true)" class="w-full p-4 rounded-2xl bg-indigo-50 font-bold hover:bg-emerald-500 hover:text-white transition">Selamlaşma</button>
-            <button onclick="finishTest(false)" class="w-full p-4 rounded-2xl bg-indigo-50 font-bold hover:bg-pink-500 hover:text-white transition">Bilgisayar</button>
-          </div>
-        </div>
-      `;
-    }
-
-    function finishTest(isCorrect) {
-      if(isCorrect) addXP(20, "Test Başarısı");
-      showToast(isCorrect ? "Doğru cevap! +20 XP" : "Yanlış cevap!", isCorrect ? "success" : "error");
-      navigateTo('tests');
-    }
-
-    // GAMES PAGE
-    function renderGamesPage(container) {
-      container.innerHTML = `
-        <div class="mb-8"><h1 class="text-3xl font-bold mb-2">Oyun Merkezi</h1><p class="text-slate-500">Eğlenerek öğren.</p></div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
-          <div onclick="showToast('Eşleştirme oyunu aktif!', 'success')" class="glass-card p-6 rounded-3xl text-center cursor-pointer hover:shadow-xl border">
-            <div class="text-4xl mb-2">🧩</div>
-            <h3 class="font-bold text-lg">Kelime Eşleştirme</h3>
-          </div>
-          <div onclick="showToast('Yarış modu aktif!', 'success')" class="glass-card p-6 rounded-3xl text-center cursor-pointer hover:shadow-xl border">
-            <div class="text-4xl mb-2">⚡</div>
-            <h3 class="font-bold text-lg">Süreye Karşı Yarış</h3>
-          </div>
-        </div>
-      `;
-    }
-
-    function renderLGSPage(container) {
-      container.innerHTML = `<div class="glass-card p-8 rounded-3xl max-w-2xl mx-auto"><h2 class="text-2xl font-bold mb-2">LGS Özel Alanı</h2><p class="text-slate-500 text-sm">8. Sınıf sınav kalıpları ve çıkmış soru analizleri yakında burada!</p></div>`;
-    }
-
-    function renderProfilePage(container) {
-      container.innerHTML = `
-        <div class="glass-card p-8 rounded-3xl max-w-xl mx-auto text-center border">
-          <div class="w-20 h-20 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-3xl mx-auto mb-4 font-bold">🚀</div>
-          <h2 class="text-2xl font-bold mb-1">Seviye ${userProgress.level} Öğrenci</h2>
-          <p class="text-amber-500 font-bold mb-6">${userProgress.xp} Toplam XP</p>
-          <div class="text-left space-y-2 text-sm bg-slate-50 dark:bg-slate-900 p-4 rounded-2xl">
-            <div>🔥 Günlük Seri: <b>${userProgress.streak} Gün</b></div>
-            <div>📚 Tamamlanan Ünite: <b>${userProgress.completedUnits.length}</b></div>
-          </div>
-        </div>
-      `;
-    }
+    function renderClasses(container) { container.innerHTML = `<div class="glass-card p-8 rounded-3xl max-w-xl mx-auto"><h2 class="text-2xl font-bold">Sınıflar & Üniteler</h2></div>`; }
+    function renderWordsPage(container) { container.innerHTML = `<div class="glass-card p-8 rounded-3xl max-w-xl mx-auto"><h2 class="text-2xl font-bold">Kelimeler</h2></div>`; }
+    function renderTestsPage(container) { container.innerHTML = `<div class="glass-card p-8 rounded-3xl max-w-xl mx-auto"><h2 class="text-2xl font-bold">Testler</h2></div>`; }
+    function renderGamesPage(container) { container.innerHTML = `<div class="glass-card p-8 rounded-3xl max-w-xl mx-auto"><h2 class="text-2xl font-bold">Oyunlar</h2></div>`; }
+    function renderLGSPage(container) { container.innerHTML = `<div class="glass-card p-8 rounded-3xl max-w-xl mx-auto"><h2 class="text-2xl font-bold">LGS Özel</h2></div>`; }
+    function renderProfilePage(container) { container.innerHTML = `<div class="glass-card p-8 rounded-3xl max-w-xl mx-auto"><h2 class="text-2xl font-bold">Profil</h2></div>`; }
 
     function showToast(msg, type="success") {
       const toast = document.getElementById("toast");
@@ -538,9 +276,7 @@
       toast.classList.remove("translate-y-20", "opacity-0");
       setTimeout(() => toast.classList.add("translate-y-20", "opacity-0"), 2500);
     }
-
     function toggleTheme() { document.documentElement.classList.toggle('dark'); }
-    function toggleMobileMenu() { document.getElementById("mobile-menu").classList.toggle("hidden"); }
 
     window.addEventListener("DOMContentLoaded", () => {
       loadProgress();
