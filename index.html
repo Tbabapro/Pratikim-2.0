@@ -19,7 +19,6 @@
             --secondary-hover: #0284c7;
             --accent-active: #10b981;
             --accent-active-hover: #059669;
-            --accent-active-light: #d1fae5;
             --dark-bg: #0f172a;
             --dark-surface: #1e293b;
             --dark-card: rgba(30, 41, 59, 0.7);
@@ -42,7 +41,6 @@
             --shadow-lg: 0 16px 32px rgba(0, 0, 0, 0.12);
         }
 
-        /* Base Reset */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -61,7 +59,6 @@
             overflow-x: hidden;
         }
 
-        /* Dark / Light Variables Binding */
         body.dark-mode {
             --bg-color: var(--dark-bg);
             --surface-color: var(--dark-surface);
@@ -84,7 +81,6 @@
             --glass-border: rgba(0, 0, 0, 0.08);
         }
 
-        /* Glassmorphism Styles */
         .glass-card {
             background: var(--glass-bg);
             backdrop-filter: blur(16px);
@@ -94,7 +90,6 @@
             box-shadow: var(--shadow-md);
         }
 
-        /* Header / Navbar */
         header {
             position: sticky;
             top: 0;
@@ -177,11 +172,6 @@
             font-weight: 600;
         }
 
-        .nav-link.active-badge:hover, .nav-link.active-badge.active {
-            background: rgba(16, 185, 129, 0.2);
-            color: var(--accent-active);
-        }
-
         .header-actions {
             display: flex;
             align-items: center;
@@ -217,7 +207,6 @@
             cursor: pointer;
         }
 
-        /* Layout Main */
         main {
             flex: 1;
             max-width: 1300px;
@@ -240,7 +229,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Common Page Header */
         .section-header {
             margin-bottom: 2rem;
             text-align: center;
@@ -260,7 +248,6 @@
             margin: 0 auto;
         }
 
-        /* Search Banner */
         .hero-banner {
             text-align: center;
             padding: 3.5rem 1.5rem;
@@ -349,7 +336,6 @@
             font-size: 1.1rem;
         }
 
-        /* Section Cards Grid */
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -424,7 +410,6 @@
             font-weight: 600;
         }
 
-        /* Buttons */
         .btn {
             padding: 0.65rem 1.2rem;
             border-radius: var(--radius-sm);
@@ -477,7 +462,6 @@
             font-size: 0.82rem;
         }
 
-        /* Forms */
         .form-group {
             margin-bottom: 1.2rem;
         }
@@ -512,7 +496,6 @@
             min-height: 100px;
         }
 
-        /* Tool Detail Panel */
         .tool-container {
             max-width: 850px;
             margin: 0 auto;
@@ -532,7 +515,6 @@
             display: none;
         }
 
-        /* PRATİKİM ACTIVE STYLES */
         .active-hero {
             background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(14, 165, 233, 0.15));
             border: 1px solid rgba(16, 185, 129, 0.25);
@@ -618,7 +600,6 @@
             border-color: var(--accent-active);
         }
 
-        /* Modal Overlay */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -669,7 +650,6 @@
             margin-bottom: 6px;
         }
 
-        /* Plan Items */
         .plan-item {
             display: flex;
             align-items: center;
