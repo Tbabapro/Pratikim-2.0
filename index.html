@@ -1,1605 +1,1441 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="tr" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PRATİKİM - Her işin kolay bir yolu var.</title>
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts: Inter -->
+    <title>PRATİKİM – Her işin kolay bir yolu var.</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Plus Jakarta Sans & Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f3ff',
+                            100: '#e0e7ff',
+                            400: '#818cf8',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            800: '#3730a3',
+                            900: '#312e81',
+                            dark: '#0b0f19',
+                            card: '#151c2e'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
-        :root {
-            --primary: #6366f1;
-            --primary-hover: #4f46e5;
-            --primary-light: #e0e7ff;
-            --secondary: #0ea5e9;
-            --secondary-hover: #0284c7;
-            --accent-active: #10b981;
-            --accent-active-hover: #059669;
-            --dark-bg: #0f172a;
-            --dark-surface: #1e293b;
-            --dark-card: rgba(30, 41, 59, 0.7);
-            --dark-border: rgba(255, 255, 255, 0.1);
-            --dark-text: #f8fafc;
-            --dark-subtext: #94a3b8;
-            --light-bg: #f8fafc;
-            --light-surface: #ffffff;
-            --light-card: rgba(255, 255, 255, 0.8);
-            --light-border: rgba(0, 0, 0, 0.08);
-            --light-text: #0f172a;
-            --light-subtext: #64748b;
-            --radius-sm: 8px;
-            --radius-md: 14px;
-            --radius-lg: 20px;
-            --radius-full: 9999px;
-            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
-            --shadow-lg: 0 16px 32px rgba(0, 0, 0, 0.12);
+        /* Custom Scrollbar & Glassmorphism styles */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.6);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(99, 102, 241, 0.4);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(99, 102, 241, 0.8);
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            transition: background-color 0.3s ease, color 0.3s ease;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            overflow-x: hidden;
-        }
-
-        body.dark-mode {
-            --bg-color: var(--dark-bg);
-            --surface-color: var(--dark-surface);
-            --card-bg: var(--dark-card);
-            --border-color: var(--dark-border);
-            --text-color: var(--dark-text);
-            --subtext-color: var(--dark-subtext);
-            --glass-bg: rgba(30, 41, 59, 0.65);
-            --glass-border: rgba(255, 255, 255, 0.12);
-        }
-
-        body.light-mode {
-            --bg-color: var(--light-bg);
-            --surface-color: var(--light-surface);
-            --card-bg: var(--light-card);
-            --border-color: var(--light-border);
-            --text-color: var(--light-text);
-            --subtext-color: var(--light-subtext);
-            --glass-bg: rgba(255, 255, 255, 0.75);
-            --glass-border: rgba(0, 0, 0, 0.08);
-        }
-
-        .glass-card {
-            background: var(--glass-bg);
+        .glass-panel {
+            background: rgba(21, 28, 46, 0.75);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow-md);
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
-        header {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            background: var(--glass-bg);
+        .light .glass-panel {
+            background: rgba(255, 255, 255, 0.88);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border-bottom: 1px solid var(--border-color);
-            padding: 0.85rem 1.5rem;
+            border: 1px solid rgba(0, 0, 0, 0.08);
         }
 
-        .nav-container {
-            max-width: 1300px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+        .glass-btn {
+            background: rgba(99, 102, 241, 0.15);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            transition: all 0.25s ease;
         }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            text-decoration: none;
-            color: var(--text-color);
-            font-weight: 800;
-            font-size: 1.4rem;
-            letter-spacing: -0.5px;
-            cursor: pointer;
-        }
-
-        .logo-icon {
-            width: 38px;
-            height: 38px;
-            border-radius: 12px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.1rem;
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
-        }
-
-        .logo span {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            list-style: none;
-        }
-
-        .nav-link {
-            padding: 8px 14px;
-            border-radius: var(--radius-sm);
-            text-decoration: none;
-            color: var(--subtext-color);
-            font-size: 0.92rem;
-            font-weight: 500;
-            transition: var(--transition);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .nav-link:hover, .nav-link.active {
-            color: var(--primary);
-            background: rgba(99, 102, 241, 0.08);
-        }
-
-        .nav-link.active-badge {
-            color: var(--accent-active);
-            background: rgba(16, 185, 129, 0.1);
-            font-weight: 600;
-        }
-
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .icon-btn {
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            border: 1px solid var(--border-color);
-            background: var(--surface-color);
-            color: var(--text-color);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .icon-btn:hover {
-            border-color: var(--primary);
-            color: var(--primary);
-            transform: translateY(-2px);
-        }
-
-        .hamburger {
-            display: none;
-            font-size: 1.3rem;
-            background: none;
-            border: none;
-            color: var(--text-color);
-            cursor: pointer;
-        }
-
-        main {
-            flex: 1;
-            max-width: 1300px;
-            width: 100%;
-            margin: 0 auto;
-            padding: 2rem 1.5rem;
-        }
-
-        .page-section {
-            display: none;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .page-section.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .section-header {
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-
-        .section-header h1 {
-            font-size: 2.2rem;
-            font-weight: 800;
-            margin-bottom: 0.5rem;
-            letter-spacing: -0.5px;
-        }
-
-        .section-header p {
-            color: var(--subtext-color);
-            font-size: 1.05rem;
-            max-width: 650px;
-            margin: 0 auto;
-        }
-
-        .hero-banner {
-            text-align: center;
-            padding: 3.5rem 1.5rem;
-            border-radius: var(--radius-lg);
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(14, 165, 233, 0.15));
-            border: 1px solid var(--border-color);
-            margin-bottom: 2.5rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-banner h1 {
-            font-size: 2.8rem;
-            font-weight: 800;
-            margin-bottom: 0.8rem;
-            background: linear-gradient(135deg, var(--text-color), var(--primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .search-box-wrap {
-            max-width: 600px;
-            margin: 1.8rem auto 0 auto;
-            position: relative;
-        }
-
-        .search-input {
-            width: 100%;
-            padding: 1rem 1.2rem 1rem 3.2rem;
-            border-radius: var(--radius-full);
-            border: 1px solid var(--border-color);
-            background: var(--surface-color);
-            color: var(--text-color);
-            font-size: 1rem;
-            outline: none;
-            box-shadow: var(--shadow-md);
-            transition: var(--transition);
-        }
-
-        .search-input:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 1.2rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--subtext-color);
-            font-size: 1.1rem;
-        }
-
-        .search-results-dropdown {
-            position: absolute;
-            top: 110%;
-            left: 0;
-            right: 0;
-            background: var(--surface-color);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow-lg);
-            z-index: 500;
-            max-height: 350px;
-            overflow-y: auto;
-            display: none;
-            text-align: left;
-        }
-
-        .search-item {
-            padding: 12px 16px;
-            border-bottom: 1px solid var(--border-color);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            transition: var(--transition);
-        }
-
-        .search-item:hover {
-            background: rgba(99, 102, 241, 0.08);
-        }
-
-        .search-item i {
-            color: var(--primary);
-            font-size: 1.1rem;
-        }
-
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2.5rem;
-        }
-
-        .card {
-            padding: 1.5rem;
-            border-radius: var(--radius-md);
-            transition: var(--transition);
-            cursor: pointer;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-lg);
-            border-color: rgba(99, 102, 241, 0.4);
-        }
-
-        .card-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 1rem;
-        }
-
-        .card-icon {
-            width: 46px;
-            height: 46px;
-            border-radius: 12px;
-            background: rgba(99, 102, 241, 0.12);
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3rem;
-            flex-shrink: 0;
-        }
-
-        .card-icon.active-icon {
-            background: rgba(16, 185, 129, 0.12);
-            color: var(--accent-active);
-        }
-
-        .card-title {
-            font-size: 1.15rem;
-            font-weight: 700;
-            line-height: 1.3;
+        .glass-btn:hover {
+            background: rgba(99, 102, 241, 0.3);
+            border-color: rgba(99, 102, 241, 0.6);
+            transform: translateY(-1px);
         }
 
-        .card-desc {
-            color: var(--subtext-color);
-            font-size: 0.9rem;
-            line-height: 1.5;
-            margin-bottom: 1.2rem;
+        /* 3D Flip Card Styles */
+        .perspective-1000 {
+            perspective: 1000px;
         }
-
-        .card-footer {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: auto;
-            padding-top: 0.8rem;
-            border-top: 1px solid var(--border-color);
-            font-size: 0.85rem;
-            color: var(--primary);
-            font-weight: 600;
-        }
-
-        .btn {
-            padding: 0.65rem 1.2rem;
-            border-radius: var(--radius-sm);
-            font-size: 0.92rem;
-            font-weight: 600;
-            border: none;
-            cursor: pointer;
-            transition: var(--transition);
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            text-decoration: none;
-        }
-
-        .btn-primary {
-            background: var(--primary);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: var(--primary-hover);
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
-        }
-
-        .btn-active {
-            background: var(--accent-active);
-            color: white;
-        }
-
-        .btn-active:hover {
-            background: var(--accent-active-hover);
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 1px solid var(--border-color);
-            color: var(--text-color);
-        }
-
-        .btn-outline:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: var(--primary);
-            color: var(--primary);
-        }
-
-        .btn-sm {
-            padding: 0.4rem 0.8rem;
-            font-size: 0.82rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.2rem;
-        }
-
-        .form-label {
-            display: block;
-            font-size: 0.88rem;
-            font-weight: 600;
-            margin-bottom: 0.4rem;
-            color: var(--text-color);
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            border-radius: var(--radius-sm);
-            border: 1px solid var(--border-color);
-            background: var(--surface-color);
-            color: var(--text-color);
-            font-size: 0.95rem;
-            outline: none;
-            transition: var(--transition);
-        }
-
-        .form-control:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
-        }
-
-        textarea.form-control {
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        .tool-container {
-            max-width: 850px;
-            margin: 0 auto;
-            padding: 2rem;
-            border-radius: var(--radius-lg);
-        }
-
-        .result-box {
-            margin-top: 1.5rem;
-            padding: 1.2rem;
-            border-radius: var(--radius-sm);
-            background: rgba(99, 102, 241, 0.08);
-            border: 1px solid rgba(99, 102, 241, 0.2);
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--primary);
-            display: none;
-        }
-
-        .active-hero {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(14, 165, 233, 0.15));
-            border: 1px solid rgba(16, 185, 129, 0.25);
-            border-radius: var(--radius-lg);
-            padding: 2.5rem 2rem;
-            text-align: center;
-            margin-bottom: 2.5rem;
-            position: relative;
-        }
-
-        .active-hero h1 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--text-color);
-            margin-bottom: 0.5rem;
-        }
-
-        .active-hero p {
-            color: var(--subtext-color);
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin: 0 auto 1.5rem auto;
-        }
-
-        .daily-featured-card {
-            background: var(--surface-color);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            border-radius: var(--radius-md);
-            padding: 1.8rem;
-            max-width: 750px;
-            margin: 0 auto;
-            text-align: left;
-            box-shadow: var(--shadow-md);
-        }
-
-        .badge-active {
-            display: inline-block;
-            padding: 4px 10px;
-            border-radius: var(--radius-full);
-            background: rgba(16, 185, 129, 0.15);
-            color: var(--accent-active);
-            font-size: 0.8rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 10px;
-        }
-
-        .badge-diff {
-            display: inline-block;
-            padding: 4px 10px;
-            border-radius: var(--radius-full);
-            background: rgba(99, 102, 241, 0.12);
-            color: var(--primary);
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        .active-tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 2rem;
-            overflow-x: auto;
-            padding-bottom: 5px;
-        }
-
-        .active-tab-btn {
-            padding: 0.75rem 1.4rem;
-            border-radius: var(--radius-full);
-            border: 1px solid var(--border-color);
-            background: var(--surface-color);
-            color: var(--subtext-color);
-            font-size: 0.95rem;
-            font-weight: 600;
-            cursor: pointer;
-            white-space: nowrap;
-            transition: var(--transition);
-        }
-
-        .active-tab-btn.active {
-            background: var(--accent-active);
-            color: white;
-            border-color: var(--accent-active);
-        }
-
-        .modal-overlay {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(6px);
-            z-index: 2000;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem;
+        .transform-style-3d {
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
-        .modal-overlay.active {
-            display: flex;
-        }
-
-        .timer-modal {
-            background: var(--surface-color);
-            border-radius: var(--radius-lg);
-            max-width: 500px;
-            width: 100%;
-            padding: 2.2rem;
-            text-align: center;
-            border: 1px solid var(--border-color);
-            box-shadow: var(--shadow-lg);
-            position: relative;
-        }
-
-        .timer-display {
-            font-size: 4rem;
-            font-weight: 800;
-            font-family: monospace;
-            color: var(--accent-active);
-            margin: 1.5rem 0;
-            letter-spacing: 2px;
-        }
-
-        .activity-steps-list {
-            text-align: left;
-            margin: 1rem 0;
-            padding-left: 1.2rem;
-            font-size: 0.95rem;
-            line-height: 1.6;
-            color: var(--subtext-color);
-        }
-
-        .activity-steps-list li {
-            margin-bottom: 6px;
+        .backface-hidden {
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
         }
-
-        .plan-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 1rem;
-            background: var(--surface-color);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-sm);
-            margin-bottom: 0.8rem;
-        }
-
-        .plan-item.done {
-            opacity: 0.6;
-            text-decoration: line-through;
+        .rotate-y-180 {
+            transform: rotateY(180deg);
         }
 
-        footer {
-            margin-top: auto;
-            border-top: 1px solid var(--border-color);
-            padding: 2rem 1.5rem;
-            text-align: center;
-            background: var(--surface-color);
-            color: var(--subtext-color);
-            font-size: 0.9rem;
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.05); }
         }
-
-        @media (max-width: 868px) {
-            .nav-links {
-                position: fixed;
-                top: 65px; left: 0; right: 0;
-                background: var(--surface-color);
-                border-bottom: 1px solid var(--border-color);
-                flex-direction: column;
-                padding: 1rem;
-                display: none;
-            }
-
-            .nav-links.mobile-open {
-                display: flex;
-            }
-
-            .hamburger {
-                display: block;
-            }
-
-            .hero-banner h1 {
-                font-size: 2rem;
-            }
-
-            .active-hero h1 {
-                font-size: 1.8rem;
-            }
-
-            .timer-display {
-                font-size: 3rem;
-            }
+        .animate-pulse-glow {
+            animation: pulseGlow 5s infinite ease-in-out;
         }
     </style>
 </head>
-<body class="dark-mode">
+<body class="bg-[#0b0f19] text-slate-100 font-sans min-h-screen flex flex-col selection:bg-brand-500 selection:text-white transition-colors duration-300 light:bg-slate-50 light:text-slate-800">
 
-    <!-- HEADER / NAVIGATION -->
-    <header>
-        <div class="nav-container">
-            <div class="logo" onclick="navTo('home')">
-                <div class="logo-icon"><i class="fa-solid fa-shapes"></i></div>
-                <span>PRATİKİM</span>
+    <!-- Glowing Background Orbs -->
+    <div class="fixed top-0 left-1/4 w-96 h-96 bg-brand-600/20 rounded-full blur-[128px] pointer-events-none animate-pulse-glow z-0"></div>
+    <div class="fixed bottom-10 right-1/4 w-96 h-96 bg-pink-600/15 rounded-full blur-[128px] pointer-events-none animate-pulse-glow z-0" style="animation-delay: 2.5s;"></div>
+
+    <!-- MAIN HEADER & NAVIGATION -->
+    <header class="sticky top-0 z-50 glass-panel border-b border-slate-800/80 light:border-slate-200/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- Logo -->
+            <a href="#home" onclick="navTo('home')" class="flex items-center space-x-3 group cursor-pointer">
+                <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-brand-600 via-indigo-500 to-pink-500 p-0.5 shadow-lg shadow-brand-500/30 group-hover:shadow-brand-500/50 transition-all duration-300">
+                    <div class="w-full h-full bg-[#0b0f19] light:bg-white rounded-[10px] flex items-center justify-center">
+                        <i class="fa-solid fa-bolt text-transparent bg-clip-text bg-gradient-to-tr from-brand-400 to-pink-500 text-xl group-hover:scale-110 transition-transform"></i>
+                    </div>
+                </div>
+                <div>
+                    <span class="text-2xl font-extrabold tracking-tight text-white light:text-slate-900 font-sans">PRATİKİM<span class="text-brand-500">.</span></span>
+                    <span class="block text-[10px] tracking-widest text-slate-400 uppercase -mt-1 font-semibold">Dijital Hizmet Platformu</span>
+                </div>
+            </a>
+
+            <!-- Navigation Links -->
+            <nav class="hidden lg:flex items-center space-x-1">
+                <button onclick="navTo('home')" id="nav-home" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-slate-300 light:text-slate-600 hover:text-white light:hover:text-slate-900 hover:bg-slate-800/50 transition-all">Ana Sayfa</button>
+                <button onclick="navTo('tools')" id="nav-tools" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-slate-300 light:text-slate-600 hover:text-white light:hover:text-slate-900 hover:bg-slate-800/50 transition-all">Akıllı Araçlar</button>
+                <button onclick="navTo('docs')" id="nav-docs" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-slate-300 light:text-slate-600 hover:text-white light:hover:text-slate-900 hover:bg-slate-800/50 transition-all">Belge Merkezi</button>
+                <button onclick="navTo('sport')" id="nav-sport" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-slate-300 light:text-slate-600 hover:text-white light:hover:text-slate-900 hover:bg-slate-800/50 transition-all">Spor & Egzersiz</button>
+                <button onclick="navTo('life')" id="nav-life" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-slate-300 light:text-slate-600 hover:text-white light:hover:text-slate-900 hover:bg-slate-800/50 transition-all">Günlük Yaşam</button>
+                <button onclick="navTo('ai')" id="nav-ai" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-slate-300 light:text-slate-600 hover:text-white light:hover:text-slate-900 hover:bg-slate-800/50 transition-all">Yapay Zekâ</button>
+                <button onclick="navTo('files')" id="nav-files" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-slate-300 light:text-slate-600 hover:text-white light:hover:text-slate-900 hover:bg-slate-800/50 transition-all">Dosya</button>
+                <button onclick="navTo('guides')" id="nav-guides" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-slate-300 light:text-slate-600 hover:text-white light:hover:text-slate-900 hover:bg-slate-800/50 transition-all">Rehber</button>
+            </nav>
+
+            <!-- Actions Right -->
+            <div class="flex items-center space-x-3">
+                <button onclick="toggleTheme()" class="p-2.5 rounded-xl bg-slate-800/80 light:bg-slate-200/80 text-slate-300 light:text-slate-700 hover:text-white transition-all border border-slate-700/50 light:border-slate-300">
+                    <i id="theme-icon" class="fa-solid fa-moon text-base"></i>
+                </button>
+                <button onclick="openFavoritesModal()" class="p-2.5 rounded-xl bg-slate-800/80 light:bg-slate-200/80 text-amber-400 hover:bg-slate-700/80 transition-all border border-slate-700/50 light:border-slate-300 relative">
+                    <i class="fa-solid fa-star text-base"></i>
+                    <span id="fav-badge" class="hidden absolute -top-1 -right-1 bg-amber-500 text-slate-950 font-bold text-[10px] w-4 h-4 rounded-full flex items-center justify-center">0</span>
+                </button>
+                <button onclick="toggleMobileMenu()" class="lg:hidden p-2.5 rounded-xl bg-slate-800/80 light:bg-slate-200/80 text-slate-300 light:text-slate-700">
+                    <i class="fa-solid fa-bars text-lg"></i>
+                </button>
             </div>
+        </div>
 
-            <ul class="nav-links" id="navLinks">
-                <li><a class="nav-link active" onclick="navTo('home')"><i class="fa-solid fa-house"></i> Ana Sayfa</a></li>
-                <li><a class="nav-link active-badge" onclick="navTo('active')"><i class="fa-solid fa-bolt"></i> PRATİKİM Active</a></li>
-                <li><a class="nav-link" onclick="navTo('smart-tools')"><i class="fa-solid fa-calculator"></i> Akıllı Araçlar</a></li>
-                <li><a class="nav-link" onclick="navTo('docs')"><i class="fa-solid fa-file-contract"></i> Belge Merkezi</a></li>
-                <li><a class="nav-link" onclick="navTo('daily')"><i class="fa-solid fa-calendar-check"></i> Günlük Yaşam</a></li>
-                <li><a class="nav-link" onclick="navTo('ai')"><i class="fa-solid fa-wand-magic-sparkles"></i> Yapay Zekâ</a></li>
-                <li><a class="nav-link" onclick="navTo('files')"><i class="fa-solid fa-folder-open"></i> Dosya Merkezi</a></li>
-            </ul>
-
-            <div class="header-actions">
-                <button class="icon-btn" onclick="toggleTheme()" title="Temayı Değiştir"><i class="fa-solid fa-moon" id="themeIcon"></i></button>
-                <button class="icon-btn" onclick="openFavModal()" title="Favorilerim"><i class="fa-solid fa-heart"></i></button>
-                <button class="hamburger" onclick="toggleMobileNav()"><i class="fa-solid fa-bars"></i></button>
-            </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden glass-panel border-b border-slate-800 px-4 py-4 space-y-2">
+            <button onclick="navTo('home'); toggleMobileMenu()" class="block w-full text-left px-4 py-2.5 rounded-lg text-sm font-medium text-slate-200 hover:bg-slate-800">Ana Sayfa</button>
+            <button onclick="navTo('tools'); toggleMobileMenu()" class="block w-full text-left px-4 py-2.5 rounded-lg text-sm font-medium text-slate-200 hover:bg-slate-800">Akıllı Araçlar</button>
+            <button onclick="navTo('docs'); toggleMobileMenu()" class="block w-full text-left px-4 py-2.5 rounded-lg text-sm font-medium text-slate-200 hover:bg-slate-800">Belge Merkezi</button>
+            <button onclick="navTo('sport'); toggleMobileMenu()" class="block w-full text-left px-4 py-2.5 rounded-lg text-sm font-medium text-slate-200 hover:bg-slate-800">Spor & Egzersiz</button>
+            <button onclick="navTo('life'); toggleMobileMenu()" class="block w-full text-left px-4 py-2.5 rounded-lg text-sm font-medium text-slate-200 hover:bg-slate-800">Günlük Yaşam</button>
+            <button onclick="navTo('ai'); toggleMobileMenu()" class="block w-full text-left px-4 py-2.5 rounded-lg text-sm font-medium text-slate-200 hover:bg-slate-800">Yapay Zekâ</button>
+            <button onclick="navTo('files'); toggleMobileMenu()" class="block w-full text-left px-4 py-2.5 rounded-lg text-sm font-medium text-slate-200 hover:bg-slate-800">Dosya Merkezi</button>
+            <button onclick="navTo('guides'); toggleMobileMenu()" class="block w-full text-left px-4 py-2.5 rounded-lg text-sm font-medium text-slate-200 hover:bg-slate-800">Bilgi Rehberi</button>
         </div>
     </header>
 
-    <!-- MAIN CONTENT AREA -->
-    <main>
+    <!-- CONTENT WRAPPER -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
 
-        <!-- 1. HOME SECTION -->
-        <section id="sec-home" class="page-section active">
-            <div class="hero-banner glass-card">
-                <span class="badge-active"><i class="fa-solid fa-sparkles"></i> Her İşin Kolay Bir Yolu Var</span>
-                <h1>İşlerini Kolaylaştır.</h1>
-                <p>İhtiyacın olan pratik araçlar, belge şablonları ve günlük hareket rehberi tek bir platformda.</p>
-                <div class="search-box-wrap">
-                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                    <input type="text" class="search-input" id="globalSearch" placeholder="Ne yapmak istiyorsun? (Örn: Yüzde hesapla, CV hazırla, Esneme...)" oninput="handleSearch(this.value)">
-                    <div class="search-results-dropdown" id="searchResults"></div>
+        <!-- ==================== PAGE 1: ANA SAYFA ==================== -->
+        <section id="page-home" class="page-content space-y-12">
+            <div class="text-center max-w-3xl mx-auto space-y-6 pt-6">
+                <span class="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-semibold bg-brand-500/10 border border-brand-500/30 text-brand-400">
+                    <i class="fa-solid fa-sparkles mr-2"></i> PRATİKİM V1.0 - Profesyonel Platform
+                </span>
+                <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white light:text-slate-900">
+                    İşlerini <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 via-indigo-400 to-pink-500">kolaylaştır.</span>
+                </h1>
+                <p class="text-lg text-slate-400 light:text-slate-600 leading-relaxed font-normal">
+                    İhtiyacın olan araçlar, bilgiler ve çözümler tek bir yerde.
+                </p>
+
+                <!-- Global Search Bar -->
+                <div class="relative max-w-2xl mx-auto pt-2">
+                    <div class="relative flex items-center">
+                        <i class="fa-solid fa-magnifying-glass absolute left-4 text-slate-400 text-lg"></i>
+                        <input type="text" id="global-search" oninput="handleGlobalSearch()" placeholder="Ne yapmak istiyorsun? (Örn: yüzde hesapla, CV hazırla, egzersiz takibi, yazım düzelt)..." 
+                            class="w-full pl-12 pr-12 py-4 rounded-2xl glass-panel text-white light:text-slate-900 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500 shadow-2xl transition-all">
+                        <button onclick="clearSearch()" id="search-clear-btn" class="hidden absolute right-4 text-slate-400 hover:text-white">
+                            <i class="fa-solid fa-xmark text-lg"></i>
+                        </button>
+                    </div>
+                    <div id="search-results" class="hidden absolute top-full left-0 right-0 mt-3 glass-panel rounded-2xl p-3 shadow-2xl z-50 text-left space-y-1 max-h-80 overflow-y-auto border border-slate-700"></div>
                 </div>
             </div>
 
-            <!-- PRATİKİM ACTIVE PROMOTIONAL CARD -->
-            <div class="glass-card" style="padding: 1.8rem; margin-bottom: 2.5rem; border: 1px solid rgba(16,185,129,0.3); background: linear-gradient(135deg, rgba(16,185,129,0.08), rgba(14,165,233,0.08));">
-                <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
-                    <div>
-                        <span class="badge-active"><i class="fa-solid fa-heart-pulse"></i> YENİ ÖZELLİK</span>
-                        <h2 style="font-size: 1.5rem; font-weight: 800; margin: 6px 0;">PRATİKİM ACTIVE ile Harekete Geç!</h2>
-                        <p style="color: var(--subtext-color); max-width: 600px;">Günlük hayatına dinamizm kat. Evde esneme, açık havada yürüyüş ve eğlenceli aktivite rehberi seni bekliyor.</p>
-                    </div>
-                    <button class="btn btn-active" onclick="navTo('active')"><i class="fa-solid fa-person-running"></i> Active'i Keşfet</button>
-                </div>
+            <!-- Category Quick Links -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3 pt-2">
+                <button onclick="navTo('tools')" class="p-4 rounded-2xl glass-panel hover:bg-brand-500/10 border border-slate-800 text-center transition group">
+                    <div class="w-10 h-10 mx-auto mb-2 rounded-xl bg-brand-500/20 text-brand-400 flex items-center justify-center group-hover:scale-110 transition"><i class="fa-solid fa-calculator"></i></div>
+                    <span class="text-xs font-semibold text-slate-300 light:text-slate-700">Akıllı Araçlar</span>
+                </button>
+                <button onclick="navTo('docs')" class="p-4 rounded-2xl glass-panel hover:bg-indigo-500/10 border border-slate-800 text-center transition group">
+                    <div class="w-10 h-10 mx-auto mb-2 rounded-xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center group-hover:scale-110 transition"><i class="fa-solid fa-file-contract"></i></div>
+                    <span class="text-xs font-semibold text-slate-300 light:text-slate-700">Belge Merkezi</span>
+                </button>
+                <button onclick="navTo('sport')" class="p-4 rounded-2xl glass-panel hover:bg-emerald-500/10 border border-slate-800 text-center transition group">
+                    <div class="w-10 h-10 mx-auto mb-2 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center group-hover:scale-110 transition"><i class="fa-solid fa-dumbbell"></i></div>
+                    <span class="text-xs font-semibold text-slate-300 light:text-slate-700">Spor & Egzersiz</span>
+                </button>
+                <button onclick="navTo('life')" class="p-4 rounded-2xl glass-panel hover:bg-amber-500/10 border border-slate-800 text-center transition group">
+                    <div class="w-10 h-10 mx-auto mb-2 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center group-hover:scale-110 transition"><i class="fa-solid fa-calendar-check"></i></div>
+                    <span class="text-xs font-semibold text-slate-300 light:text-slate-700">Günlük Yaşam</span>
+                </button>
+                <button onclick="navTo('ai')" class="p-4 rounded-2xl glass-panel hover:bg-pink-500/10 border border-slate-800 text-center transition group">
+                    <div class="w-10 h-10 mx-auto mb-2 rounded-xl bg-pink-500/20 text-pink-400 flex items-center justify-center group-hover:scale-110 transition"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                    <span class="text-xs font-semibold text-slate-300 light:text-slate-700">Yapay Zekâ</span>
+                </button>
+                <button onclick="navTo('files')" class="p-4 rounded-2xl glass-panel hover:bg-cyan-500/10 border border-slate-800 text-center transition group">
+                    <div class="w-10 h-10 mx-auto mb-2 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center group-hover:scale-110 transition"><i class="fa-solid fa-file-image"></i></div>
+                    <span class="text-xs font-semibold text-slate-300 light:text-slate-700">Dosya Araçları</span>
+                </button>
+                <button onclick="navTo('guides')" class="p-4 rounded-2xl glass-panel hover:bg-purple-500/10 border border-slate-800 text-center transition group">
+                    <div class="w-10 h-10 mx-auto mb-2 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center group-hover:scale-110 transition"><i class="fa-solid fa-book-open"></i></div>
+                    <span class="text-xs font-semibold text-slate-300 light:text-slate-700">Bilgi Rehberi</span>
+                </button>
             </div>
 
-            <h2 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 1.2rem;">Hızlı Erişim Merkezleri</h2>
-            <div class="cards-grid">
-                <div class="card glass-card" onclick="navTo('active')">
-                    <div>
-                        <div class="card-header">
-                            <div class="card-icon active-icon"><i class="fa-solid fa-person-running"></i></div>
-                            <div class="card-title">PRATİKİM ACTIVE</div>
-                        </div>
-                        <div class="card-desc">Günlük egzersiz, esneme molaları, yürüyüş ve eğlenceli hareket rehberi.</div>
-                    </div>
-                    <div class="card-footer"><span>Harekete Geç</span> <i class="fa-solid fa-arrow-right"></i></div>
+            <!-- Featured Tools Cards -->
+            <div class="space-y-6">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-xl font-bold text-white light:text-slate-900 flex items-center gap-2">
+                        <i class="fa-solid fa-fire text-amber-500"></i> Öne Çıkan Çalışan Araçlar
+                    </h2>
                 </div>
 
-                <div class="card glass-card" onclick="navTo('smart-tools')">
-                    <div>
-                        <div class="card-header">
-                            <div class="card-icon"><i class="fa-solid fa-calculator"></i></div>
-                            <div class="card-title">Akıllı Hesaplama Araçları</div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="glass-panel p-6 rounded-2xl border border-slate-800 hover:border-brand-500/50 transition flex flex-col justify-between group">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="w-12 h-12 rounded-xl bg-brand-500/20 text-brand-400 flex items-center justify-center text-xl"><i class="fa-solid fa-percent"></i></div>
+                                <button onclick="toggleFavorite('yuzde')" class="text-slate-600 hover:text-amber-400 text-lg transition"><i class="fa-regular fa-star" id="star-yuzde"></i></button>
+                            </div>
+                            <h3 class="text-lg font-bold text-white mb-2">Yüzde & İndirim & KDV</h3>
+                            <p class="text-sm text-slate-400 mb-4">Tüm oran ve matematiksel indirim hesaplamalarını anında yapın.</p>
                         </div>
-                        <div class="card-desc">Yüzde, KDV, İndirim, Yaş, EBOB-EKOK, Not ortalaması hesaplayıcıları.</div>
-                    </div>
-                    <div class="card-footer"><span>Hesaplama Yap</span> <i class="fa-solid fa-arrow-right"></i></div>
-                </div>
-
-                <div class="card glass-card" onclick="navTo('docs')">
-                    <div>
-                        <div class="card-header">
-                            <div class="card-icon"><i class="fa-solid fa-file-contract"></i></div>
-                            <div class="card-title">Belge Hazırlama</div>
-                        </div>
-                        <div class="card-desc">Profesyonel CV, resmi dilekçe, e-posta taslağı ve toplantı notu oluşturucu.</div>
-                    </div>
-                    <div class="card-footer"><span>Belge Oluştur</span> <i class="fa-solid fa-arrow-right"></i></div>
-                </div>
-
-                <div class="card glass-card" onclick="navTo('daily')">
-                    <div>
-                        <div class="card-header">
-                            <div class="card-icon"><i class="fa-solid fa-calendar-check"></i></div>
-                            <div class="card-title">Günlük Yaşam Takibi</div>
-                        </div>
-                        <div class="card-desc">Yapılacaklar listesi, alışkanlık takibi ve günlük hızlı not defteri.</div>
-                    </div>
-                    <div class="card-footer"><span>Planlama Yap</span> <i class="fa-solid fa-arrow-right"></i></div>
-                </div>
-
-                <div class="card glass-card" onclick="navTo('ai')">
-                    <div>
-                        <div class="card-header">
-                            <div class="card-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
-                            <div class="card-title">Yapay Zekâ Metin Motoru</div>
-                        </div>
-                        <div class="card-desc">Türkçe imla ve yazım kuralı düzeltici, metin özetleme ve fikir üretici.</div>
-                    </div>
-                    <div class="card-footer"><span>Metin Düzenle</span> <i class="fa-solid fa-arrow-right"></i></div>
-                </div>
-
-                <div class="card glass-card" onclick="navTo('files')">
-                    <div>
-                        <div class="card-header">
-                            <div class="card-icon"><i class="fa-solid fa-folder-open"></i></div>
-                            <div class="card-title">Dosya ve Görsel İşleyici</div>
-                        </div>
-                        <div class="card-desc">Format dönüştürücü, görsel boyutlandırıcı ve metin dışa aktarıcı.</div>
-                    </div>
-                    <div class="card-footer"><span>Dosya İşle</span> <i class="fa-solid fa-arrow-right"></i></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 2. PRATİKİM ACTIVE SECTION -->
-        <section id="sec-active" class="page-section">
-            <div class="active-hero">
-                <span class="badge-active"><i class="fa-solid fa-bolt"></i> PRATİKİM ACTIVE</span>
-                <h1>Bugün Biraz Hareket Etmeye Ne Dersin?</h1>
-                <p>Kendine zaman ayır, sana uygun bir aktivite seç ve gününe canlılık kat. Rekabet yok, sadece iyi hissetmek var!</p>
-
-                <!-- Daily Featured Activity Card -->
-                <div class="daily-featured-card glass-card" id="featuredActCard"></div>
-            </div>
-
-            <!-- Active Navigation Tabs -->
-            <div class="active-tabs">
-                <button class="active-tab-btn active" onclick="switchActiveTab('all')"><i class="fa-solid fa-border-all"></i> Tüm Aktiviteler</button>
-                <button class="active-tab-btn" onclick="switchActiveTab('home')"><i class="fa-solid fa-house-chimney"></i> Evde Hareket</button>
-                <button class="active-tab-btn" onclick="switchActiveTab('outdoor')"><i class="fa-solid fa-tree"></i> Dışarıda Spor</button>
-                <button class="active-tab-btn" onclick="switchActiveTab('stretch')"><i class="fa-solid fa-child-reaching"></i> Esneme & Rahatlama</button>
-                <button class="active-tab-btn" onclick="switchActiveTab('fun')"><i class="fa-solid fa-icons"></i> Eğlenceli Hareketler</button>
-                <button class="active-tab-btn" onclick="switchActiveTab('planner')"><i class="fa-solid fa-calendar-days"></i> Günlük Planım</button>
-                <button class="active-tab-btn" onclick="switchActiveTab('tracker')"><i class="fa-solid fa-chart-line"></i> Geçmişim & İlerleme</button>
-            </div>
-
-            <!-- TAB CONTENT: Activity Library -->
-            <div id="actTabLibrary">
-                <div class="cards-grid" id="actGrid"></div>
-            </div>
-
-            <!-- TAB CONTENT: Daily Plan Planner -->
-            <div id="actTabPlanner" style="display: none;">
-                <div class="glass-card tool-container">
-                    <h2 style="margin-bottom: 1rem;"><i class="fa-solid fa-calendar-plus" style="color:var(--accent-active)"></i> Günlük Aktivite Planlayıcım</h2>
-                    <p style="color:var(--subtext-color); margin-bottom: 1.5rem;">Kendi saatlerine uygun esnek hareket planını oluştur. Zorunluluk yok, dinlenme günleri dahil!</p>
-
-                    <div style="display: flex; gap: 10px; margin-bottom: 1.5rem; flex-wrap: wrap;">
-                        <input type="time" class="form-control" id="planTime" style="max-width: 130px;" value="09:00">
-                        <input type="text" class="form-control" id="planTitle" placeholder="Aktivite adı (Örn: 15 dk Esneme)" style="flex:1; min-width: 200px;">
-                        <button class="btn btn-active" onclick="addPlanItem()"><i class="fa-solid fa-plus"></i> Plana Ekle</button>
+                        <button onclick="navTo('tools')" class="w-full py-2.5 rounded-xl glass-btn text-brand-300 font-semibold text-sm flex items-center justify-center gap-2">Hemen Kullan <i class="fa-solid fa-arrow-right text-xs"></i></button>
                     </div>
 
-                    <div id="planListContainer"></div>
-                </div>
-            </div>
-
-            <!-- TAB CONTENT: Tracker & History -->
-            <div id="actTabTracker" style="display: none;">
-                <div class="glass-card tool-container">
-                    <h2 style="margin-bottom: 1rem;"><i class="fa-solid fa-chart-pie" style="color:var(--accent-active)"></i> Aktivite Geçmişim ve İlerleme</h2>
-                    <p style="color:var(--subtext-color); margin-bottom: 1.5rem;">Tamamladığın tüm aktivitelerin özetini ve istatistiklerini buradan inceleyebilirsin.</p>
-
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
-                        <div style="padding:1.2rem; background:rgba(16,185,129,0.1); border-radius:var(--radius-sm); border:1px solid rgba(16,185,129,0.2); text-align:center;">
-                            <span style="font-size:0.85rem; color:var(--subtext-color);">Bugün Tamamlanan</span>
-                            <div style="font-size:2rem; font-weight:800; color:var(--accent-active);" id="statToday">0</div>
+                    <div class="glass-panel p-6 rounded-2xl border border-slate-800 hover:border-indigo-500/50 transition flex flex-col justify-between group">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl"><i class="fa-solid fa-dumbbell"></i></div>
+                                <button onclick="toggleFavorite('spor')" class="text-slate-600 hover:text-amber-400 text-lg transition"><i class="fa-regular fa-star" id="star-spor"></i></button>
+                            </div>
+                            <h3 class="text-lg font-bold text-white mb-2">Spor Kartları & Kalori</h3>
+                            <p class="text-sm text-slate-400 mb-4">Egzersiz hareketleri, doğru form ve yakılan kalori bilgileri.</p>
                         </div>
-                        <div style="padding:1.2rem; background:rgba(99,102,241,0.1); border-radius:var(--radius-sm); border:1px solid rgba(99,102,241,0.2); text-align:center;">
-                            <span style="font-size:0.85rem; color:var(--subtext-color);">Toplam Aktivite</span>
-                            <div style="font-size:2rem; font-weight:800; color:var(--primary);" id="statTotal">0</div>
-                        </div>
+                        <button onclick="navTo('sport')" class="w-full py-2.5 rounded-xl glass-btn text-emerald-300 font-semibold text-sm flex items-center justify-center gap-2">Spor Modülünü Aç <i class="fa-solid fa-arrow-right text-xs"></i></button>
                     </div>
 
-                    <h3 style="font-size:1.1rem; margin-bottom: 1rem;">Son Tamamlanan Hareketler</h3>
-                    <div id="historyListContainer"></div>
+                    <div class="glass-panel p-6 rounded-2xl border border-slate-800 hover:border-pink-500/50 transition flex flex-col justify-between group">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="w-12 h-12 rounded-xl bg-pink-500/20 text-pink-400 flex items-center justify-center text-xl"><i class="fa-solid fa-spell-check"></i></div>
+                                <button onclick="toggleFavorite('yazim')" class="text-slate-600 hover:text-amber-400 text-lg transition"><i class="fa-regular fa-star" id="star-yazim"></i></button>
+                            </div>
+                            <h3 class="text-lg font-bold text-white mb-2">Yazım & İmla Düzeltici</h3>
+                            <p class="text-sm text-slate-400 mb-4">Metinlerinizdeki yazım hatalarını anında yerel kural motoruyla düzeltin.</p>
+                        </div>
+                        <button onclick="navTo('ai')" class="w-full py-2.5 rounded-xl glass-btn text-pink-300 font-semibold text-sm flex items-center justify-center gap-2">Düzelticiyi Dene <i class="fa-solid fa-arrow-right text-xs"></i></button>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- 3. SMART TOOLS SECTION -->
-        <section id="sec-smart-tools" class="page-section">
-            <div class="section-header">
-                <h1>Akıllı Hesaplama Araçları</h1>
-                <p>Matematiksel işlemler, birim dönüştürmeler ve zaman hesaplamalarını anında yapın.</p>
+        <!-- ==================== PAGE 2: AKILLI ARAÇLAR ==================== -->
+        <section id="page-tools" class="page-content hidden space-y-8">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-6">
+                <div>
+                    <h1 class="text-3xl font-bold text-white light:text-slate-900">Akıllı Araçlar Merkezi</h1>
+                    <p class="text-sm text-slate-400 mt-1">Matematik, tarih, zaman ve birim dönüştürme araçları.</p>
+                </div>
+                
+                <div class="flex flex-wrap gap-2">
+                    <button onclick="filterToolsTab('all')" id="tool-tab-all" class="tool-tab-btn active px-4 py-2 rounded-xl text-xs font-semibold bg-brand-600 text-white shadow">Tümü</button>
+                    <button onclick="filterToolsTab('math')" id="tool-tab-math" class="tool-tab-btn px-4 py-2 rounded-xl text-xs font-semibold glass-panel text-slate-300">Matematik</button>
+                    <button onclick="filterToolsTab('date')" id="tool-tab-date" class="tool-tab-btn px-4 py-2 rounded-xl text-xs font-semibold glass-panel text-slate-300">Tarih/Zaman</button>
+                    <button onclick="filterToolsTab('unit')" id="tool-tab-unit" class="tool-tab-btn px-4 py-2 rounded-xl text-xs font-semibold glass-panel text-slate-300">Birimler</button>
+                </div>
             </div>
 
-            <div class="cards-grid">
-                <!-- Percentage Calculator -->
-                <div class="card glass-card">
-                    <div>
-                        <div class="card-header">
-                            <div class="card-icon"><i class="fa-solid fa-percent"></i></div>
-                            <div class="card-title">Yüzde Hesaplama</div>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- TOOL 1: Yüzde & İndirim & KDV -->
+                <div class="tool-card math glass-panel p-6 rounded-2xl border border-slate-800 space-y-5">
+                    <div class="flex items-center space-x-3 border-b border-slate-800 pb-3">
+                        <div class="p-2.5 rounded-lg bg-brand-500/20 text-brand-400"><i class="fa-solid fa-percent text-lg"></i></div>
+                        <div>
+                            <h3 class="font-bold text-white">Yüzde & KDV Hesaplama</h3>
+                            <p class="text-xs text-slate-400">Yüzde alma, ekleme ve indirim düşme</p>
                         </div>
-                        <div class="form-group">
-                            <label class="form-label">Sayı</label>
-                            <input type="number" class="form-control" id="pctNum" placeholder="Örn: 200">
+                    </div>
+                    <div class="space-y-3">
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1">Sayı / Tutar</label>
+                            <input type="number" id="calc-pct-num" placeholder="Örn: 1250" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
                         </div>
-                        <div class="form-group">
-                            <label class="form-label">Yüzde Oranı (%)</label>
-                            <input type="number" class="form-control" id="pctRate" placeholder="Örn: 18">
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-xs text-slate-400 mb-1">Oran (%)</label>
+                                <input type="number" id="calc-pct-rate" placeholder="Örn: 20" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+                            </div>
+                            <div>
+                                <label class="block text-xs text-slate-400 mb-1">İşlem</label>
+                                <select id="calc-pct-type" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+                                    <option value="of">Yüzdesini Bul</option>
+                                    <option value="add">Ekle (+KDV)</option>
+                                    <option value="sub">Çıkar (İndirim)</option>
+                                </select>
+                            </div>
                         </div>
-                        <button class="btn btn-primary" style="width: 100%;" onclick="calcPct()">Hesapla</button>
-                        <div class="result-box" id="pctRes"></div>
+                        <div class="flex gap-2">
+                            <button onclick="runPercentageCalc()" class="flex-grow py-2.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-xs font-semibold">Hesapla</button>
+                            <button onclick="resetPctCalc()" class="px-3 py-2.5 rounded-xl bg-slate-800 text-slate-400 text-xs">Temizle</button>
+                        </div>
+                    </div>
+                    <div id="res-pct" class="hidden p-3 rounded-xl bg-brand-500/10 border border-brand-500/30 flex items-center justify-between">
+                        <div>
+                            <div class="text-[10px] text-brand-300 font-semibold uppercase">Sonuç</div>
+                            <div id="res-pct-val" class="text-lg font-bold text-white">0</div>
+                        </div>
+                        <button onclick="copyToClipboard('res-pct-val')" class="p-2 text-slate-400 hover:text-white"><i class="fa-regular fa-copy"></i></button>
                     </div>
                 </div>
 
-                <!-- VAT / KDV Calculator -->
-                <div class="card glass-card">
+                <!-- TOOL 2: Yaş Hesaplama -->
+                <div class="tool-card date glass-panel p-6 rounded-2xl border border-slate-800 space-y-5">
+                    <div class="flex items-center space-x-3 border-b border-slate-800 pb-3">
+                        <div class="p-2.5 rounded-lg bg-indigo-500/20 text-indigo-400"><i class="fa-solid fa-cake-candles text-lg"></i></div>
+                        <div>
+                            <h3 class="font-bold text-white">Yaş & Yaşanan Gün Hesabı</h3>
+                            <p class="text-xs text-slate-400">Doğum tarihine göre detaylı zaman</p>
+                        </div>
+                    </div>
+                    <div class="space-y-3">
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1">Doğum Tarihiniz</label>
+                            <input type="date" id="calc-age-date" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+                        </div>
+                        <button onclick="runAgeCalc()" class="w-full py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold">Hesapla</button>
+                    </div>
+                    <div id="res-age" class="hidden p-3 rounded-xl bg-indigo-500/10 border border-indigo-500/30 space-y-1">
+                        <div class="text-xs text-indigo-300 font-medium" id="res-age-text">...</div>
+                        <div class="text-xs text-slate-400" id="res-age-days">...</div>
+                    </div>
+                </div>
+
+                <!-- TOOL 3: Not Ortalaması (GPA) -->
+                <div class="tool-card math glass-panel p-6 rounded-2xl border border-slate-800 space-y-5">
+                    <div class="flex items-center space-x-3 border-b border-slate-800 pb-3">
+                        <div class="p-2.5 rounded-lg bg-emerald-500/20 text-emerald-400"><i class="fa-solid fa-graduation-cap text-lg"></i></div>
+                        <div>
+                            <h3 class="font-bold text-white">Not Ortalaması Hesaplama</h3>
+                            <p class="text-xs text-slate-400">Ders notları ve kredilerine göre</p>
+                        </div>
+                    </div>
+                    <div id="gpa-rows" class="space-y-2 max-h-40 overflow-y-auto pr-1">
+                        <div class="grid grid-cols-5 gap-2 gpa-row">
+                            <input type="text" placeholder="Ders" class="col-span-2 px-2 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white">
+                            <input type="number" placeholder="Not" class="col-span-2 px-2 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white gpa-score">
+                            <input type="number" placeholder="Kredi" value="3" class="col-span-1 px-2 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white gpa-credit">
+                        </div>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="addGpaRow()" class="px-3 py-2 rounded-xl bg-slate-800 text-xs text-slate-300">+ Ekle</button>
+                        <button onclick="runGpaCalc()" class="flex-grow py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold">Ortalama Al</button>
+                    </div>
+                    <div id="res-gpa" class="hidden p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex justify-between items-center">
+                        <div>
+                            <div class="text-[10px] text-emerald-300 uppercase font-semibold">Ortalama</div>
+                            <div id="res-gpa-val" class="text-lg font-bold text-white">0.00</div>
+                        </div>
+                        <span id="res-gpa-badge" class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-500 text-slate-950">Geçti</span>
+                    </div>
+                </div>
+
+                <!-- TOOL 4: EBOB & EKOK & Asal Kontrol -->
+                <div class="tool-card math glass-panel p-6 rounded-2xl border border-slate-800 space-y-5">
+                    <div class="flex items-center space-x-3 border-b border-slate-800 pb-3">
+                        <div class="p-2.5 rounded-lg bg-amber-500/20 text-amber-400"><i class="fa-solid fa-square-root-variable text-lg"></i></div>
+                        <div>
+                            <h3 class="font-bold text-white">EBOB / EKOK & Asal Sayı</h3>
+                            <p class="text-xs text-slate-400">İki sayı üzerinden hızlı analiz</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <input type="number" id="calc-num-1" placeholder="1. Sayı" class="px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+                        <input type="number" id="calc-num-2" placeholder="2. Sayı" class="px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+                    </div>
+                    <button onclick="runMathEbob()" class="w-full py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold">Analiz Et</button>
+                    <div id="res-ebob" class="hidden p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-xs space-y-1 text-slate-200">
+                        <div id="res-ebob-val">EBOB: - | EKOK: -</div>
+                        <div id="res-prime-val" class="text-amber-300">...</div>
+                    </div>
+                </div>
+
+                <!-- TOOL 5: Birim Dönüştürücü -->
+                <div class="tool-card unit glass-panel p-6 rounded-2xl border border-slate-800 space-y-5 lg:col-span-2">
+                    <div class="flex items-center space-x-3 border-b border-slate-800 pb-3">
+                        <div class="p-2.5 rounded-lg bg-cyan-500/20 text-cyan-400"><i class="fa-solid fa-arrows-rotate text-lg"></i></div>
+                        <div>
+                            <h3 class="font-bold text-white">Çoklu Birim Dönüştürücü</h3>
+                            <p class="text-xs text-slate-400">Uzunluk, Ağırlık, Sıcaklık ve Veri Boyutu</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+                        <select id="unit-category" onchange="updateUnitOptions()" class="px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white">
+                            <option value="length">Uzunluk (m, km, mile, inch)</option>
+                            <option value="weight">Ağırlık (kg, g, lb, oz)</option>
+                            <option value="temp">Sıcaklık (°C, °F)</option>
+                            <option value="data">Veri (MB, GB, TB, KB)</option>
+                        </select>
+                        <input type="number" id="unit-input-val" placeholder="Değer" class="px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white">
+                        <select id="unit-from" class="px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white"></select>
+                        <select id="unit-to" class="px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white"></select>
+                    </div>
+                    <button onclick="runUnitConvert()" class="w-full py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-semibold">Dönüştür</button>
+                    <div id="res-unit" class="hidden p-3 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-center font-bold text-white text-sm">0</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== PAGE 3: BELGE MERKEZİ ==================== -->
+        <section id="page-docs" class="page-content hidden space-y-8">
+            <div class="border-b border-slate-800 pb-6">
+                <h1 class="text-3xl font-bold text-white">Belge Hazırlama Merkezi</h1>
+                <p class="text-sm text-slate-400 mt-1">CV, dilekçe ve resmi metin taslaklarını anında oluşturun.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <div class="lg:col-span-5 glass-panel p-6 rounded-2xl border border-slate-800 space-y-5">
                     <div>
-                        <div class="card-header">
-                            <div class="card-icon"><i class="fa-solid fa-receipt"></i></div>
-                            <div class="card-title">KDV Hesaplama</div>
+                        <label class="block text-xs font-semibold text-slate-400 mb-2 uppercase">Şablon Seçin</label>
+                        <select id="doc-type-select" onchange="renderDocForm()" class="w-full px-3 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-sm font-semibold text-white focus:outline-none focus:border-brand-500">
+                            <option value="cv">1. Profesyonel CV / Özgeçmiş</option>
+                            <option value="dilekce">2. Resmi Kurum Dilekçesi</option>
+                            <option value="email">3. Kurumsal E-Posta Taslağı</option>
+                        </select>
+                    </div>
+
+                    <div id="doc-form-fields" class="space-y-3"></div>
+
+                    <div class="p-3 bg-amber-500/10 border border-amber-500/20 rounded-xl text-[11px] text-amber-300">
+                        <i class="fa-solid fa-triangle-exclamation mr-1"></i> Şablonlar bilgilendirme amaçlıdır.
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7 glass-panel p-6 rounded-2xl border border-slate-800 flex flex-col justify-between space-y-4">
+                    <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                        <span class="text-xs font-bold uppercase tracking-wider text-slate-400"><i class="fa-solid fa-eye mr-2"></i>Canlı Önizleme</span>
+                        <div class="flex space-x-2">
+                            <button onclick="copyDocText()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-200"><i class="fa-regular fa-copy mr-1"></i>Kopyala</button>
+                            <button onclick="printDoc()" class="px-3 py-1.5 rounded-lg bg-brand-600 hover:bg-brand-500 text-xs text-white font-semibold"><i class="fa-solid fa-print mr-1"></i>Yazdır / PDF</button>
                         </div>
-                        <div class="form-group">
-                            <label class="form-label">Tutar (TL)</label>
-                            <input type="number" class="form-control" id="kdvAmount" placeholder="Örn: 1000">
+                    </div>
+
+                    <div id="doc-preview-area" class="bg-white text-slate-900 p-8 rounded-xl shadow-inner min-h-[400px] font-sans text-sm leading-relaxed overflow-y-auto border border-slate-300"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== PAGE 4: ÖĞRENME MERKEZİ (FIXED FLASHCARDS) ==================== -->
+        <section id="page-learn" class="page-content hidden space-y-8">
+            <div class="border-b border-slate-800 pb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div>
+        <!-- ==================== PAGE 4: SPOR & EGZERSİZ MERKEZİ ==================== -->
+        <section id="page-sport" class="page-content hidden space-y-8">
+            <div class="border-b border-slate-800 pb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div>
+                    <h1 class="text-3xl font-bold text-white">Spor & Egzersiz Merkezi</h1>
+                    <p class="text-sm text-slate-400 mt-1">Egzersiz Rehberi, Çalışma Zamanlayıcısı ve Kalori Takibi.</p>
+                </div>
+                <div class="flex items-center space-x-3 bg-slate-900 px-4 py-2 rounded-xl border border-slate-800">
+                    <i class="fa-solid fa-stopwatch text-emerald-400 animate-pulse"></i>
+                    <span id="sport-timer-display" class="font-mono font-bold text-white text-lg">00:45</span>
+                    <button onclick="toggleSportTimer()" id="sport-btn" class="px-3 py-1 rounded-lg bg-emerald-600 text-xs text-white font-semibold">Başlat</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- SPORT FLASHCARDS MODULE -->
+                <div class="lg:col-span-2 glass-panel p-6 rounded-2xl border border-slate-800 space-y-6">
+                    <div class="flex items-center justify-between">
+                        <h3 class="font-bold text-white text-lg flex items-center gap-2">
+                            <i class="fa-solid fa-person-running text-emerald-400"></i> Egzersiz & Antrenman Kartları
+                        </h3>
+                        <div class="flex items-center gap-3">
+                            <span id="completed-counter-badge" class="px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                                Tamamlanan: 0 / 10
+                            </span>
+                            <span id="sport-card-counter" class="text-xs text-slate-400">1 / 10</span>
                         </div>
-                        <div class="form-group">
-                            <label class="form-label">KDV Oranı (%)</label>
-                            <select class="form-control" id="kdvRate">
-                                <option value="20">%20 (Genel Oran)</option>
-                                <option value="10">%10 (Gıda/Tıp)</option>
-                                <option value="1">%1 (Temel İhtiyaç)</option>
+                    </div>
+
+                    <!-- Progress Bar -->
+                    <div class="w-full bg-slate-900 h-2 rounded-full overflow-hidden border border-slate-800">
+                        <div id="sport-card-progress-bar" class="bg-gradient-to-r from-emerald-500 to-cyan-400 h-full transition-all duration-300" style="width: 0%"></div>
+                    </div>
+
+                    <!-- 3D Perspective Card Container -->
+                    <div class="perspective-1000 w-full h-80 cursor-pointer" onclick="flipSportCard()">
+                        <div id="sportcard-inner" class="relative w-full h-full transform-style-3d glass-panel rounded-2xl border border-slate-700 shadow-2xl">
+                            
+                            <!-- CARD FRONT (Hareket Adı) -->
+                            <div class="absolute inset-0 backface-hidden flex flex-col items-center justify-center p-6 text-center space-y-3">
+                                <div class="flex items-center gap-2">
+                                    <span class="px-3 py-1 rounded-full text-[11px] font-bold bg-emerald-500/20 text-emerald-400" id="sport-card-level">Tüm Vücut</span>
+                                    <span id="sport-card-status-tag" class="hidden px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500 text-slate-950">Yapıldı</span>
+                                </div>
+                                <h2 class="text-3xl font-extrabold text-white" id="sport-card-title">Şınav (Push-up)</h2>
+                                <p class="text-xs text-slate-400 italic" id="sport-card-meta">3 Set x 15 Tekrar • ~10 Kalori</p>
+                                <div class="pt-4 flex items-center text-xs text-emerald-400 font-semibold gap-2">
+                                    <i class="fa-solid fa-rotate mr-1"></i> Detay & Doğru Form İçin Tıkla
+                                </div>
+                            </div>
+
+                            <!-- CARD BACK (DETAY & FORM) -->
+                            <div class="absolute inset-0 backface-hidden rotate-y-180 flex flex-col justify-center p-6 bg-slate-900/95 rounded-2xl border border-emerald-500/40 text-left space-y-3">
+                                <div>
+                                    <span class="text-[10px] font-extrabold uppercase text-emerald-400 tracking-wider">Odak Kas Grubu</span>
+                                    <h3 class="text-xl font-bold text-white mt-0.5" id="sport-card-muscle">Göğüs, Ön Omuz, Triceps</h3>
+                                </div>
+
+                                <div class="border-t border-slate-800 pt-2 space-y-1">
+                                    <span class="text-[10px] font-extrabold uppercase text-cyan-400 tracking-wider">Püf Noktaları & Uygulama</span>
+                                    <p class="text-xs text-slate-200 font-medium" id="sport-card-desc">Vücudunuzu başınızdan topuklarınıza kadar düz bir çizgide tutun. Göğsünüzü yere yaklaştırıp patlayıcı kuvvetle yükselin.</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap justify-between items-center gap-3 pt-2">
+                        <div class="flex gap-2">
+                            <button onclick="prevSportCard()" class="px-4 py-2.5 rounded-xl bg-slate-800 text-xs text-slate-300 hover:bg-slate-700 transition"><i class="fa-solid fa-arrow-left mr-1"></i> Önceki</button>
+                            <button onclick="getRandomSportCard()" class="px-3 py-2.5 rounded-xl bg-slate-800 text-xs text-slate-300 hover:bg-slate-700 transition" title="Rastgele Getir"><i class="fa-solid fa-shuffle"></i></button>
+                            <button onclick="nextSportCard()" class="px-4 py-2.5 rounded-xl bg-slate-800 text-xs text-slate-300 hover:bg-slate-700 transition">Sonraki <i class="fa-solid fa-arrow-right ml-1"></i></button>
+                        </div>
+                        
+                        <div class="flex gap-2">
+                            <button onclick="markAsCompletedSport()" id="btn-sport-completed" class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-xs font-bold text-slate-950 transition"><i class="fa-solid fa-check mr-1"></i> Tamamladım</button>
+                            <button onclick="resetSportState()" class="px-3 py-2.5 rounded-xl bg-slate-800 text-xs text-slate-400 hover:text-white transition" title="Sıfırla"><i class="fa-solid fa-arrow-rotate-left"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- QUICK HEALTH & FITNESS RULES -->
+                <div class="glass-panel p-6 rounded-2xl border border-slate-800 space-y-4">
+                    <h3 class="font-bold text-white text-base flex items-center gap-2">
+                        <i class="fa-solid fa-heart-pulse text-rose-400"></i> Altın Spor Kuralları
+                    </h3>
+                    <div class="space-y-2 text-xs">
+                        <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 flex justify-between items-center">
+                            <span class="text-slate-400">Isınma & Esnetme</span>
+                            <span class="text-emerald-400 font-bold">5-10 dk Ön Isınma</span>
+                        </div>
+                        <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 flex justify-between items-center">
+                            <span class="text-slate-400">Günlük Su Tüketimi</span>
+                            <span class="text-cyan-400 font-bold">En az 2.5 Litre</span>
+                        </div>
+                        <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 flex justify-between items-center">
+                            <span class="text-slate-400">Set Arası Dinlenme</span>
+                            <span class="text-amber-400 font-bold">45 - 90 Saniye</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== PAGE 5: GÜNLÜK YAŞAM ==================== -->
+        <section id="page-life" class="page-content hidden space-y-8">
+            <div class="border-b border-slate-800 pb-6">
+                <h1 class="text-3xl font-bold text-white">Günlük Yaşam & Verimlilik</h1>
+                <p class="text-sm text-slate-400 mt-1">Görevler, planlar ve kişisel not defteriniz.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-2 glass-panel p-6 rounded-2xl border border-slate-800 space-y-5">
+                    <h3 class="font-bold text-white text-lg flex items-center gap-2">
+                        <i class="fa-solid fa-square-check text-amber-400"></i> Yapılacaklar Listesi (To-Do)
+                    </h3>
+
+                    <div class="flex gap-2">
+                        <input type="text" id="todo-input" placeholder="Yeni bir görev ekleyin..." class="flex-grow px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white focus:outline-none focus:border-brand-500">
+                        <button onclick="addTodo()" class="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-sm">Ekle</button>
+                    </div>
+
+                    <div id="todo-list" class="space-y-2 max-h-80 overflow-y-auto"></div>
+                </div>
+
+                <div class="glass-panel p-6 rounded-2xl border border-slate-800 space-y-3">
+                    <h3 class="font-bold text-white text-base flex items-center justify-between">
+                        <span><i class="fa-solid fa-note-sticky text-pink-400 mr-2"></i>Hızlı Notlar</span>
+                        <span class="text-[10px] text-emerald-400 font-semibold" id="note-saved-status">Otomatik Kaydedildi</span>
+                    </h3>
+                    <textarea id="quick-notepad" oninput="saveQuickNote()" rows="8" placeholder="Aklınıza gelenleri yazın..." class="w-full p-3 rounded-xl bg-slate-900 border border-slate-800 text-xs text-slate-200 focus:outline-none focus:border-brand-500 resize-none"></textarea>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== PAGE 6: YAPAY ZEKA (FIXED SPELLING ENGINE) ==================== -->
+        <section id="page-ai" class="page-content hidden space-y-8">
+            <div class="border-b border-slate-800 pb-6">
+                <h1 class="text-3xl font-bold text-white">Yapay Zekâ Metin İşleme Asistanı</h1>
+                <p class="text-sm text-slate-400 mt-1">Metin özetleme, imla düzeltme ve fikir üretme araçları (Yerel Motor).</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <div class="lg:col-span-6 glass-panel p-6 rounded-2xl border border-slate-800 space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-400 mb-2">İşlem Modu</label>
+                        <select id="ai-mode" class="w-full px-3 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white focus:outline-none focus:border-brand-500">
+                            <option value="fix">1. Yazım, İmla & Noktalama Düzeltici (Yerel Türkçe Motoru)</option>
+                            <option value="summarize">2. Metin Özetleyici</option>
+                            <option value="ideas">3. Konu Alt Başlıkları & Fikir Üretici</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <label class="block text-xs font-semibold text-slate-400">Girdi Metni</label>
+                            <button onclick="clearAiInput()" class="text-[11px] text-slate-400 hover:text-white"><i class="fa-solid fa-trash-can mr-1"></i>Temizle</button>
+                        </div>
+                        <textarea id="ai-input-text" rows="8" placeholder="İşlemek istediğiniz metni yazın (Örn: bugun okula gitmedim cunku kendimi iyi hissetmiyodum yarin ogretmenime anlatcam)..." class="w-full p-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white focus:outline-none focus:border-brand-500 resize-none"></textarea>
+                    </div>
+
+                    <button onclick="runAiProcessor()" class="w-full py-3 rounded-xl bg-gradient-to-r from-brand-600 to-pink-600 hover:from-brand-500 hover:to-pink-500 text-white font-bold text-sm shadow-lg shadow-brand-500/20 transition">
+                        <i class="fa-solid fa-wand-magic-sparkles mr-2"></i>Metni İşle & Düzelt
+                    </button>
+                </div>
+
+                <div class="lg:col-span-6 glass-panel p-6 rounded-2xl border border-slate-800 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                            <span class="text-xs font-bold uppercase tracking-wider text-slate-400"><i class="fa-solid fa-robot mr-2 text-pink-400"></i>İşlem Çıktısı & Karşılaştırma</span>
+                            <button onclick="copyToClipboard('ai-output-text-only')" class="px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-300"><i class="fa-regular fa-copy mr-1"></i>Sonucu Kopyala</button>
+                        </div>
+                        <div id="ai-output" class="p-4 rounded-xl bg-slate-900/90 border border-slate-800 text-sm text-slate-200 min-h-[300px] leading-relaxed whitespace-pre-line font-sans">
+                            Sonuçlar ve karşılaştırmalı düzeltmeler burada görüntülenecektir...
+                        </div>
+                        <div id="ai-output-text-only" class="hidden"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== PAGE 7: DOSYA MERKEZİ ==================== -->
+        <section id="page-files" class="page-content hidden space-y-8">
+            <div class="border-b border-slate-800 pb-6">
+                <h1 class="text-3xl font-bold text-white">Dosya & Görsel İşleme</h1>
+                <p class="text-sm text-slate-400 mt-1">Görsel boyutlandırma ve metin dosyası oluşturma araçları.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="glass-panel p-6 rounded-2xl border border-slate-800 space-y-5">
+                    <h3 class="font-bold text-white text-lg flex items-center gap-2">
+                        <i class="fa-solid fa-image text-cyan-400"></i> Görsel Boyutlandır & Format Değiştir
+                    </h3>
+                    <input type="file" id="img-file-input" accept="image/*" onchange="handleImageSelect(event)" class="w-full text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-brand-600 file:text-white">
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1">Genişlik (px)</label>
+                            <input type="number" id="img-width" placeholder="Örn: 800" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1">Format</label>
+                            <select id="img-format" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white">
+                                <option value="image/jpeg">JPG / JPEG</option>
+                                <option value="image/png">PNG</option>
+                                <option value="image/webp">WEBP</option>
                             </select>
                         </div>
-                        <button class="btn btn-primary" style="width: 100%;" onclick="calcKDV()">Hesapla</button>
-                        <div class="result-box" id="kdvRes"></div>
                     </div>
+                    <button onclick="processImage()" class="w-full py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-semibold text-xs">İşle & İndir</button>
+                    <canvas id="hidden-canvas" class="hidden"></canvas>
                 </div>
 
-                <!-- Age Calculator -->
-                <div class="card glass-card">
-                    <div>
-                        <div class="card-header">
-                            <div class="card-icon"><i class="fa-solid fa-cake-candles"></i></div>
-                            <div class="card-title">Yaş Hesaplama</div>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Doğum Tarihi</label>
-                            <input type="date" class="form-control" id="birthDate">
-                        </div>
-                        <button class="btn btn-primary" style="width: 100%;" onclick="calcAge()">Hesapla</button>
-                        <div class="result-box" id="ageRes"></div>
-                    </div>
-                </div>
-
-                <!-- EBOB & EKOK Calculator -->
-                <div class="card glass-card">
-                    <div>
-                        <div class="card-header">
-                            <div class="card-icon"><i class="fa-solid fa-calculator"></i></div>
-                            <div class="card-title">EBOB - EKOK Bulucu</div>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">1. Sayı</label>
-                            <input type="number" class="form-control" id="ebobNum1" placeholder="Örn: 12">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">2. Sayı</label>
-                            <input type="number" class="form-control" id="ebobNum2" placeholder="Örn: 18">
-                        </div>
-                        <button class="btn btn-primary" style="width: 100%;" onclick="calcEbobEkok()">Hesapla</button>
-                        <div class="result-box" id="ebobRes"></div>
-                    </div>
+                <div class="glass-panel p-6 rounded-2xl border border-slate-800 space-y-5">
+                    <h3 class="font-bold text-white text-lg flex items-center gap-2">
+                        <i class="fa-solid fa-file-lines text-indigo-400"></i> Metin Dosyası (.txt) Oluştur
+                    </h3>
+                    <input type="text" id="txt-file-name" placeholder="Dosya Adı" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white">
+                    <textarea id="txt-file-content" rows="5" placeholder="Dosya içeriği..." class="w-full p-3 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white resize-none"></textarea>
+                    <button onclick="downloadTxtFile()" class="w-full py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs">TXT İndir</button>
                 </div>
             </div>
         </section>
 
-        <!-- 4. DOCUMENT CENTER SECTION -->
-        <section id="sec-docs" class="page-section">
-            <div class="section-header">
-                <h1>Belge Hazırlama Merkezi</h1>
-                <p>Resmi dilekçe, özgeçmiş (CV) ve iş yazışmalarınız için şablonlar oluşturun.</p>
+        <!-- ==================== PAGE 8: REHBER ==================== -->
+        <section id="page-guides" class="page-content hidden space-y-8">
+            <div class="border-b border-slate-800 pb-6">
+                <h1 class="text-3xl font-bold text-white">Bilgi & Rehber Merkezi</h1>
+                <p class="text-sm text-slate-400 mt-1">Teknoloji, verimlilik ve pratik yaşam ipuçları.</p>
             </div>
 
-            <div class="glass-card tool-container">
-                <div class="form-group">
-                    <label class="form-label">Şablon Türü Seçin</label>
-                    <select class="form-control" id="docTypeSelect" onchange="renderDocFields()">
-                        <option value="dilekce">Resmi Dilekçe Taslağı</option>
-                        <option value="cv">Hızlı CV Metni</option>
-                        <option value="email">Kurumsal E-Posta Taslağı</option>
-                    </select>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="glass-panel p-6 rounded-2xl border border-slate-800 space-y-3">
+                    <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-brand-500/20 text-brand-400">Güvenlik</span>
+                    <h3 class="font-bold text-white text-base">Güçlü Şifre Oluşturma</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">En az 12 karakter, harf, rakam ve sembol içeren karmaşık şifreler kullanın.</p>
                 </div>
-
-                <div id="docFieldsContainer"></div>
-
-                <button class="btn btn-primary" style="margin-top: 1rem;" onclick="generateDoc()"><i class="fa-solid fa-gears"></i> Belgeyi Oluştur</button>
-
-                <div id="docOutputWrap" style="display:none; margin-top: 1.5rem;">
-                    <label class="form-label">Oluşturulan Belge Metni</label>
-                    <textarea class="form-control" id="docOutputText" rows="10" readonly></textarea>
-                    <div style="display:flex; gap:10px; margin-top:10px;">
-                        <button class="btn btn-outline btn-sm" onclick="copyToClipboard('docOutputText')"><i class="fa-solid fa-copy"></i> Kopyala</button>
-                    </div>
+                <div class="glass-panel p-6 rounded-2xl border border-slate-800 space-y-3">
+                    <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-400">Egzersiz</span>
+                    <h3 class="font-bold text-white text-base">Düzenli Spor Disiplini</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">Haftada en az 3-4 gün düzenli egzersiz yaparak formunuzu koruyun.</p>
                 </div>
-            </div>
-        </section>
-
-        <!-- 5. DAILY LIFE SECTION -->
-        <section id="sec-daily" class="page-section">
-            <div class="section-header">
-                <h1>Günlük Yaşam Takipçisi</h1>
-                <p>Görevlerinizi planlayın, alışkanlıklarınızı takip edin ve notlarınızı saklayın.</p>
-            </div>
-
-            <div class="glass-card tool-container">
-                <h2><i class="fa-solid fa-check-double" style="color:var(--primary);"></i> Yapılacaklar Listesi (To-Do)</h2>
-                <div style="display: flex; gap: 10px; margin: 1rem 0;">
-                    <input type="text" class="form-control" id="todoInput" placeholder="Yeni görev ekle...">
-                    <button class="btn btn-primary" onclick="addTodo()"><i class="fa-solid fa-plus"></i> Ekle</button>
+                <div class="glass-panel p-6 rounded-2xl border border-slate-800 space-y-3">
+                    <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-pink-500/20 text-pink-400">Kariyer</span>
+                    <h3 class="font-bold text-white text-base">Etkili CV Hazırlama</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">Özgeçmişinizi sade tutun ve imla hatalarından tamamen arındırın.</p>
                 </div>
-                <div id="todoList"></div>
-            </div>
-        </section>
-
-        <!-- 6. AI SECTION -->
-        <section id="sec-ai" class="page-section">
-            <div class="section-header">
-                <h1>Yapay Zekâ Metin Motoru</h1>
-                <p>Türkçe imla kurallarını düzeltin, yazım hatalarını giderin ve metinleri optimize edin.</p>
-            </div>
-
-            <div class="glass-card tool-container">
-                <div class="form-group">
-                    <label class="form-label">Metninizi Girin</label>
-                    <textarea class="form-control" id="aiInputText" placeholder="Örn: bugun okula gitmedim cunku kendimi iyi hissetmiyodum..."></textarea>
-                </div>
-                <button class="btn btn-primary" onclick="fixGrammar()"><i class="fa-solid fa-wand-magic-sparkles"></i> İmla ve Yazımı Düzelt</button>
-
-                <div id="aiResultBox" style="display:none; margin-top: 1.5rem;">
-                    <label class="form-label">Düzeltilmiş Metin</label>
-                    <textarea class="form-control" id="aiOutputText" rows="5" readonly></textarea>
-                    <button class="btn btn-outline btn-sm" style="margin-top:10px;" onclick="copyToClipboard('aiOutputText')"><i class="fa-solid fa-copy"></i> Kopyala</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- 7. FILE CENTER SECTION -->
-        <section id="sec-files" class="page-section">
-            <div class="section-header">
-                <h1>Dosya ve Görsel İşleme</h1>
-                <p>Metin dosyalarınızı indirin ve görsel boyutlarını kolayca yönetin.</p>
-            </div>
-
-            <div class="glass-card tool-container">
-                <h3>Metin Dosyası (.txt) Oluşturucu</h3>
-                <div class="form-group" style="margin-top:1rem;">
-                    <label class="form-label">Dosya İçeriği</label>
-                    <textarea class="form-control" id="txtFileContent" placeholder="İndirmek istediğiniz notlar veya metin..."></textarea>
-                </div>
-                <button class="btn btn-primary" onclick="downloadTxtFile()"><i class="fa-solid fa-download"></i> .TXT Olarak İndir</button>
             </div>
         </section>
 
     </main>
 
-    <!-- ACTIVITY TIMER MODAL -->
-    <div class="modal-overlay" id="timerModal">
-        <div class="timer-modal glass-card">
-            <span class="badge-active" id="modalCategoryBadge">ESNEME</span>
-            <h2 id="modalActTitle" style="margin-top: 5px;">Aktivite Başlatılıyor</h2>
-            <p id="modalActDesc" style="color:var(--subtext-color); font-size: 0.9rem; margin-bottom: 10px;"></p>
-
-            <div class="timer-display" id="modalTimerDisplay">05:00</div>
-
-            <div style="text-align: left; background: rgba(255,255,255,0.05); padding:1rem; border-radius:var(--radius-sm); margin-bottom: 1.5rem;">
-                <strong style="font-size:0.85rem; color:var(--text-color);">Nasıl Uygulanır?</strong>
-                <ol class="activity-steps-list" id="modalActSteps"></ol>
-            </div>
-
-            <div style="display: flex; gap: 10px; justify-content: center;">
-                <button class="btn btn-active" id="btnTimerStart" onclick="startTimer()"><i class="fa-solid fa-play"></i> Başlat</button>
-                <button class="btn btn-outline" id="btnTimerPause" onclick="pauseTimer()" style="display:none;"><i class="fa-solid fa-pause"></i> Duraklat</button>
-                <button class="btn btn-outline" onclick="closeTimerModal()"><i class="fa-solid fa-xmark"></i> Kapat</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- FAVORITES MODAL -->
-    <div class="modal-overlay" id="favModal">
-        <div class="timer-modal glass-card">
-            <h2><i class="fa-solid fa-heart" style="color:#ef4444;"></i> Favori Aktivitelerim</h2>
-            <div id="favListContainer" style="margin: 1.5rem 0; text-align: left; max-height: 300px; overflow-y: auto;"></div>
-            <button class="btn btn-outline" onclick="closeFavModal()">Kapat</button>
-        </div>
-    </div>
-
     <!-- FOOTER -->
-    <footer>
-        <p>&copy; 2026 PRATİKİM - Her işin kolay bir yolu var. Tüm Hakları Saklıdır.</p>
+    <footer class="glass-panel border-t border-slate-800 mt-16 py-8 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+            <div>© 2026 <span class="font-bold text-white">PRATİKİM</span>. Tüm hakları saklıdır.</div>
+            <div class="flex space-x-4">
+                <span>"Her işin kolay bir yolu var."</span>
+            </div>
+        </div>
     </footer>
 
-    <!-- JAVASCRIPT LOGIC -->
+    <!-- FAVORITES MODAL -->
+    <div id="fav-modal" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="glass-panel p-6 rounded-2xl border border-slate-700 max-w-md w-full space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                <h3 class="font-bold text-white text-base flex items-center gap-2"><i class="fa-solid fa-star text-amber-400"></i> Favori Araçlar</h3>
+                <button onclick="closeFavoritesModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="fav-modal-list" class="space-y-2 max-h-60 overflow-y-auto"></div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC ENGINE -->
     <script>
-        let state = {
-            activeTab: 'all',
-            favorites: JSON.parse(localStorage.getItem('pratikim_favs') || '[]'),
-            plans: JSON.parse(localStorage.getItem('pratikim_plans') || '[]'),
-            history: JSON.parse(localStorage.getItem('pratikim_history') || '[]'),
-            todos: JSON.parse(localStorage.getItem('pratikim_todos') || '[]')
+        /* ==================== GLOBAL STATE ==================== */
+        const state = {
+            favorites: JSON.parse(localStorage.getItem('pratikim_favs')) || [],
+            completedSports: JSON.parse(localStorage.getItem('pratikim_completed_sports')) || [],
+            todos: JSON.parse(localStorage.getItem('pratikim_todos')) || [
+                { id: 1, text: 'Pratikim platformunu keşfet', completed: true },
+                { id: 2, text: 'Yazım düzeltici ve spor rehberini dene', completed: false }
+            ],
+            sportcardIdx: 0,
+            sportCardFlipped: false,
+            sportTime: 45,
+            sportRunning: false,
+            sportInterval: null,
+            loadedImg: null
         };
 
-        const ACTIVITIES = [
-            {
-                id: 'act-1',
-                title: 'Tempolu Ev Yürüyüşü',
-                category: 'home',
-                categoryName: 'Evde Hareket',
-                duration: 10,
-                difficulty: 'Kolay',
-                icon: 'fa-shoe-prints',
-                desc: 'Ev içerisinde oda aralarında veya olduğun yerde ritmik adımlarla hafif tempolu hareket.',
-                steps: [
-                    'Rahat bir kıyafet tercih et ve dik dur.',
-                    'Kollarını ritmik bir şekilde sallayarak adımlarını at.',
-                    'Dilersen sevdiğin tempolu bir müzik açabilirsin.'
-                ]
-            },
-            {
-                id: 'act-2',
-                title: 'Nefes ve Bacak Esnetme',
-                category: 'stretch',
-                categoryName: 'Esneme & Rahatlama',
-                duration: 5,
-                difficulty: 'Başlangıç',
-                icon: 'fa-child-reaching',
-                desc: 'Oturarak veya ayakta kas gerginliğini azaltan nazik esneme hareketleri.',
-                steps: [
-                    'Bacaklarını omuz genişliğinde aç.',
-                    'Derin nefes alarak kolları yukarı uzat.',
-                    'Nefes verirken nazikçe öne doğru eğil.'
-                ]
-            },
-            {
-                id: 'act-3',
-                title: 'Açık Hava Doğa Yürüyüşü',
-                category: 'outdoor',
-                categoryName: 'Dışarıda Spor',
-                duration: 20,
-                difficulty: 'Orta',
-                icon: 'fa-person-walking',
-                desc: 'Temiz havada zihnini boşaltırken atacağın sağlıklı adımlar.',
-                steps: [
-                    'Uygun yürüyüş ayakkabılarını giy.',
-                    'Adım temposunu sabit tut.',
-                    'Etrafındaki doğayı gözlemleyerek ritmini koru.'
-                ]
-            },
-            {
-                id: 'act-4',
-                title: 'Müzik Eşliğinde Ritim Dansı',
-                category: 'fun',
-                categoryName: 'Eğlenceli Hareket',
-                duration: 8,
-                difficulty: 'Eğlenceli',
-                icon: 'fa-music',
-                desc: 'Kuralsız, tamamen modunu yükseltecek serbest ritim hareketleri.',
-                steps: [
-                    'Sevdiğin hareketli bir şarkıyı başlat.',
-                    'Hiçbir kural olmadan ritme ayak uydur.',
-                    'Gülümse ve enerjinin yükselmesine izin ver.'
-                ]
-            },
-            {
-                id: 'act-5',
-                title: 'Sandalye Destekli Kol Esnetme',
-                category: 'home',
-                categoryName: 'Evde Hareket',
-                duration: 6,
-                difficulty: 'Kolay',
-                icon: 'fa-chair',
-                desc: 'Masa başında verilen kısa molalarda omuz ve kollarınızı rahatlatacak egzersiz.',
-                steps: [
-                    'Sandalyede dik oturun.',
-                    'Omuzlarınızı dairesel hareketlerle arkaya doğru yuvarlayın.',
-                    'Kolları yana açıp kapatarak göğüs kaslarını esnetin.'
-                ]
-            }
+        /* ==================== SPORT DATA ==================== */
+        const sportcards = [
+            { title: 'Şınav (Push-up)', meta: '3 Set x 15 Tekrar • ~10 Kalori', level: 'Göğüs & Kol', muscle: 'Göğüs, Ön Omuz, Triceps', desc: 'Vücudunuzu düz tutun. Göğsünüzü yere yaklaştırıp kontrollü bir şekilde kalkın.' },
+            { title: 'Lunge (Adımlama)', meta: '3 Set x 12 Tekrar • ~12 Kalori', level: 'Alt Vücut', muscle: 'Ön Bacak, Kalça', desc: 'Bir adım öne atın ve dizlerinizi 90 derece bükün. Arka diziniz yere neredeyse değsin.' },
+            { title: 'Plank', meta: '3 Set x 45 Saniye • ~8 Kalori', level: 'Karın & Merkez', muscle: 'Karın, Bel, Omuz', desc: 'Dirsekleriniz üzerinde durun. Kalçanızı düşürmeden vücudunuzu dümdüz tutun.' },
+            { title: 'Squat (Çökme)', meta: '3 Set x 20 Tekrar • ~15 Kalori', level: 'Bacak & Kalça', muscle: 'Quadriceps, Gluteus', desc: 'Ağırlığınızı topuklarınıza verin, sırtınızı dik tutarak sandalyeye oturur gibi çökün.' },
+            { title: 'Jumping Jacks', meta: '3 Set x 30 Tekrar • ~20 Kalori', level: 'Kardiyo', muscle: 'Tüm Vücut', desc: 'Zıplayarak bacaklarınızı açın ve ellerinizi başınızın üzerinde birleştirin.' },
+            { title: 'Burpee', meta: '3 Set x 10 Tekrar • ~25 Kalori', level: 'Yoğun Kardiyo', muscle: 'Tüm Vücut', desc: 'Şınav pozisyonuna geçin, zıplayarak ayakları çekin ve yukarı doğru patlayıcı şekilde zıplayın.' },
+            { title: 'Mountain Climbers', meta: '3 Set x 40 Saniye • ~18 Kalori', level: 'Karın & Kardiyo', muscle: 'Karın, Bacaklar', desc: 'Plank pozisyonunda sırayla dizlerinizi hızlıca göğsünüze doğru çekin.' },
+            { title: 'Mekik (Crunches)', meta: '3 Set x 20 Tekrar • ~10 Kalori', level: 'Karın', muscle: 'Üst Karın Kasları', desc: 'Sırtüstü yatın, dizleri bükün ve sadece üst gövdenizi karın kaslarınızı sıkarak kaldırın.' },
+            { title: 'Ters Lunge', meta: '3 Set x 12 Tekrar • ~12 Kalori', level: 'Bacak', muscle: 'Kalça, Arka Bacak', desc: 'Geriye doğru adım atarak dizlerinizi bükün, dengenizi koruyarak başlangıç pozisyonuna dönün.' },
+            { title: 'Dips (Sandalye Dips)', meta: '3 Set x 12 Tekrar • ~10 Kalori', level: 'Kol', muscle: 'Arka Kol (Triceps)', desc: 'Ellerinizi sağlam bir sandalyeye koyun, kalçanızı aşağı indirip kollarınızla tekrar yükselin.' }
         ];
 
-        document.addEventListener('DOMContentLoaded', () => {
-            renderFeaturedActivity();
-            renderActivitiesGrid();
-            renderPlanList();
-            renderHistoryStats();
-            renderDocFields();
+        /* ==================== SPORT CONTROLLER ==================== */
+        function flipSportCard() {
+            const card = document.getElementById('sportcard-inner');
+            state.sportCardFlipped = !state.sportCardFlipped;
+            if (state.sportCardFlipped) {
+                card.classList.add('rotate-y-180');
+            } else {
+                card.classList.remove('rotate-y-180');
+            }
+        }
+
+        function renderSportcard() {
+            const card = sportcards[state.sportcardIdx];
+            
+            state.sportCardFlipped = false;
+            document.getElementById('sportcard-inner').classList.remove('rotate-y-180');
+
+            document.getElementById('sport-card-title').innerText = card.title;
+            document.getElementById('sport-card-meta').innerText = card.meta;
+            document.getElementById('sport-card-level').innerText = card.level;
+
+            document.getElementById('sport-card-muscle').innerText = card.muscle;
+            document.getElementById('sport-card-desc').innerText = card.desc;
+
+            document.getElementById('sport-card-counter').innerText = `${state.sportcardIdx + 1} / ${sportcards.length}`;
+            
+            const isCompleted = state.completedSports.includes(card.title);
+            const statusTag = document.getElementById('sport-card-status-tag');
+            const completedBtn = document.getElementById('btn-sport-completed');
+
+            if (isCompleted) {
+                statusTag.classList.remove('hidden');
+                completedBtn.classList.add('opacity-50');
+                completedBtn.innerText = 'Tamamlandı ✓';
+            } else {
+                statusTag.classList.add('hidden');
+                completedBtn.classList.remove('opacity-50');
+                completedBtn.innerText = 'Tamamladım';
+            }
+
+            updateSportProgress();
+        }
+
+        function markAsCompletedSport() {
+            const currentCard = sportcards[state.sportcardIdx].title;
+            if (!state.completedSports.includes(currentCard)) {
+                state.completedSports.push(currentCard);
+                localStorage.setItem('pratikim_completed_sports', JSON.stringify(state.completedSports));
+            } else {
+                state.completedSports = state.completedSports.filter(c => c !== currentCard);
+                localStorage.setItem('pratikim_completed_sports', JSON.stringify(state.completedSports));
+            }
+            renderSportcard();
+        }
+
+        function resetSportState() {
+            state.completedSports = [];
+            localStorage.removeItem('pratikim_completed_sports');
+            renderSportcard();
+        }
+
+        function updateSportProgress() {
+            const count = state.completedSports.length;
+            const total = sportcards.length;
+            const pct = Math.round((count / total) * 100);
+
+            document.getElementById('completed-counter-badge').innerText = `Tamamlanan: ${count} / ${total}`;
+            document.getElementById('sport-card-progress-bar').style.width = `${pct}%`;
+        }
+
+        function nextSportCard() {
+            state.sportcardIdx = (state.sportcardIdx + 1) % sportcards.length;
+            renderSportcard();
+        }
+
+        function prevSportCard() {
+            state.sportcardIdx = (state.sportcardIdx - 1 + sportcards.length) % sportcards.length;
+            renderSportcard();
+        }
+
+        function getRandomSportCard() {
+            state.sportcardIdx = Math.floor(Math.random() * sportcards.length);
+            renderSportcard();
+        }
+
+        function toggleSportTimer() {
+            const btn = document.getElementById('sport-btn');
+            if (state.sportRunning) {
+                clearInterval(state.sportInterval);
+                state.sportRunning = false;
+                btn.innerText = 'Başlat';
+                btn.className = 'px-3 py-1 rounded-lg bg-emerald-600 text-xs text-white font-semibold';
+            } else {
+                state.sportRunning = true;
+                btn.innerText = 'Durdur';
+                btn.className = 'px-3 py-1 rounded-lg bg-rose-600 text-xs text-white font-semibold';
+                state.sportInterval = setInterval(() => {
+                    if (state.sportTime > 0) {
+                        state.sportTime--;
+                        const mins = Math.floor(state.sportTime / 60);
+                        const secs = state.sportTime % 60;
+                        document.getElementById('sport-timer-display').innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+                    } else {
+                        clearInterval(state.sportInterval);
+                        alert('Egzersiz Seti Süresi Doldu! Dinlenin.');
+                        state.sportTime = 45;
+                        state.sportRunning = false;
+                        btn.innerText = 'Başlat';
+                        btn.className = 'px-3 py-1 rounded-lg bg-emerald-600 text-xs text-white font-semibold';
+                        document.getElementById('sport-timer-display').innerText = '00:45';
+                    }
+                }, 1000);
+            }
+        }
+
+        /* ==================== AI SPELLING ENGINE ==================== */
+        function runAiProcessor() {
+            const mode = document.getElementById('ai-mode').value;
+            const text = document.getElementById('ai-input-text').value;
+            const output = document.getElementById('ai-output');
+            const textOnlyOutput = document.getElementById('ai-output-text-only');
+
+            if (!text || text.trim() === '') {
+                output.innerText = "Lütfen işlenecek bir metin girin.";
+                return;
+            }
+
+            output.innerText = "Yapay Zekâ kural motoru metni analiz ediyor...";
+
+            setTimeout(() => {
+                if (mode === 'fix') {
+                    let changes = [];
+                    let corrected = text;
+
+                    // Comprehensive Turkish Spelling & Phonetic Replacement Rules
+                    const rules = [
+                        { regex: /\bbugun\b/gi, replacement: 'Bugün', label: "'bugun' -> 'Bugün'" },
+                        { regex: /\bcunku\b/gi, replacement: 'çünkü', label: "'cunku' -> 'çünkü'" },
+                        { regex: /\bhissetmiyodum\b/gi, replacement: 'hissetmiyordum', label: "'hissetmiyodum' -> 'hissetmiyordum'" },
+                        { regex: /\byarin\b/gi, replacement: 'yarın', label: "'yarin' -> 'yarın'" },
+                        { regex: /\bogretmenime\b/gi, replacement: 'öğretmenime', label: "'ogretmenime' -> 'öğretmenime'" },
+                        { regex: /\banlatcam\b/gi, replacement: 'anlatacağım', label: "'anlatcam' -> 'anlatacağım'" },
+                        { regex: /\bherşey\b/gi, replacement: 'her şey', label: "'herşey' -> 'her şey'" },
+                        { regex: /\bherkez\b/gi, replacement: 'herkes', label: "'herkez' -> 'herkes'" },
+                        { regex: /\byalnış\b/gi, replacement: 'yanlış', label: "'yalnış' -> 'yanlış'" },
+                        { regex: /\bşuan\b/gi, replacement: 'şu an', label: "'şuan' -> 'şu an'" },
+                        { regex: /\bbide\b/gi, replacement: 'bir de', label: "'bide' -> 'bir de'" },
+                        { regex: /\byapıyo\b/gi, replacement: 'yapıyor', label: "'yapıyo' -> 'yapıyor'" },
+                        { regex: /\bgeliyo\b/gi, replacement: 'geliyor', label: "'geliyo' -> 'geliyor'" },
+                        { regex: /\bgidiyo\b/gi, replacement: 'gidiyor', label: "'gidiyo' -> 'gidiyor'" }
+                    ];
+
+                    rules.forEach(rule => {
+                        if (rule.regex.test(corrected)) {
+                            changes.push(rule.label);
+                            corrected = corrected.replace(rule.regex, rule.replacement);
+                        }
+                    });
+
+                    // Capitalize sentences and fix end punctuation
+                    corrected = corrected.trim();
+                    corrected = corrected.charAt(0).toUpperCase() + corrected.slice(1);
+                    corrected = corrected.replace(/([.!?]\s+)([a-zğüşıöç])/g, (m, p1, p2) => p1 + p2.toUpperCase());
+                    if (!/[.!?]$/.test(corrected)) corrected += '.';
+
+                    textOnlyOutput.innerText = corrected;
+
+                    if (changes.length === 0) {
+                        output.innerHTML = `<span class="text-emerald-400 font-bold">✓ Metinde belirgin bir imla hatası bulunamadı.</span>\n\n${corrected}`;
+                    } else {
+                        output.innerHTML = `
+                            <div class="space-y-3">
+                                <div>
+                                    <span class="text-xs font-bold uppercase text-amber-400">✨ Tespit Edilen & Düzeltilen Değişiklikler:</span>
+                                    <ul class="list-disc list-inside text-xs text-slate-300 mt-1 space-y-0.5">
+                                        ${changes.map(c => `<li>${c}</li>`).join('')}
+                                    </ul>
+                                </div>
+                                <div class="border-t border-slate-800 pt-3">
+                                    <span class="text-xs font-bold uppercase text-emerald-400">Düzeltilmiş Metin:</span>
+                                    <p class="text-white font-medium text-base mt-1 bg-slate-950/60 p-3 rounded-xl border border-slate-800">${corrected}</p>
+                                </div>
+                            </div>
+                        `;
+                    }
+                } else if (mode === 'summarize') {
+                    const sentences = text.split('.').filter(s => s.trim().length > 0);
+                    const summary = sentences.slice(0, Math.max(1, Math.floor(sentences.length / 2))).join('. ') + '.';
+                    textOnlyOutput.innerText = summary;
+                    output.innerText = `📌 METİN ÖZETİ:\n\n${summary}`;
+                } else if (mode === 'ideas') {
+                    const ideaText = `💡 ÖNERİLEN ALT BAŞLIKLAR & FİKİRLER:\n\n1. Metnin Temel Konusu ve Tanımı\n2. Öne Çıkan Başlıca İpuçları ve Detaylar\n3. Pratikte Uygulama Adımları ve Sonuç`;
+                    textOnlyOutput.innerText = ideaText;
+                    output.innerText = ideaText;
+                }
+            }, 300);
+        }
+
+        function clearAiInput() {
+            document.getElementById('ai-input-text').value = '';
+            document.getElementById('ai-output').innerText = 'Sonuçlar burada görüntülenecektir...';
+            document.getElementById('ai-output-text-only').innerText = '';
+        }
+
+        /* ==================== INITIALIZATION ==================== */
+        window.onload = function() {
+            updateUnitOptions();
+            renderDocForm();
+            renderSportcard();
             renderTodos();
-        });
+            updateFavBadges();
+            const savedNote = localStorage.getItem('pratikim_note');
+            if (savedNote) document.getElementById('quick-notepad').value = savedNote;
+        };
 
-        function navTo(sectionId) {
-            document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
-            const target = document.getElementById('sec-' + sectionId);
-            if(target) target.classList.add('active');
+        /* ==================== NAVIGATION & THEME ==================== */
+        function navTo(pageId) {
+            document.querySelectorAll('.page-content').forEach(el => el.classList.add('hidden'));
+            const target = document.getElementById('page-' + pageId);
+            if (target) target.classList.remove('hidden');
 
-            document.querySelectorAll('.nav-link').forEach(lnk => lnk.classList.remove('active'));
+            document.querySelectorAll('.nav-link').forEach(el => {
+                el.classList.remove('bg-slate-800/80', 'text-white');
+            });
+            const activeNav = document.getElementById('nav-' + pageId);
+            if (activeNav) activeNav.classList.add('bg-slate-800/80', 'text-white');
+
             window.scrollTo({ top: 0, behavior: 'smooth' });
-
-            document.getElementById('navLinks').classList.remove('mobile-open');
         }
 
         function toggleTheme() {
-            document.body.classList.toggle('light-mode');
-            document.body.classList.toggle('dark-mode');
-            const icon = document.getElementById('themeIcon');
-            icon.className = document.body.classList.contains('light-mode') ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+            document.documentElement.classList.toggle('dark');
+            document.documentElement.classList.toggle('light');
+            const icon = document.getElementById('theme-icon');
+            if (document.documentElement.classList.contains('light')) {
+                icon.className = 'fa-solid fa-sun text-amber-500';
+            } else {
+                icon.className = 'fa-solid fa-moon text-indigo-400';
+            }
         }
 
-        function toggleMobileNav() {
-            document.getElementById('navLinks').classList.toggle('mobile-open');
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
         }
 
-        function renderFeaturedActivity() {
-            const feat = ACTIVITIES[0];
-            const container = document.getElementById('featuredActCard');
-            const isFav = state.favorites.includes(feat.id);
+        /* ==================== SEARCH & FAVORITES ==================== */
+        const searchableTools = [
+            { name: 'Yüzde & KDV Hesaplama', page: 'tools', icon: 'fa-percent' },
+            { name: 'Yaş & Yaşanan Gün Hesabı', page: 'tools', icon: 'fa-cake-candles' },
+            { name: 'Not Ortalaması (GPA)', page: 'tools', icon: 'fa-graduation-cap' },
+            { name: 'EBOB / EKOK & Asal Sayı', page: 'tools', icon: 'fa-square-root-variable' },
+            { name: 'Çoklu Birim Dönüştürücü', page: 'tools', icon: 'fa-arrows-rotate' },
+            { name: 'CV & Özgeçmiş Hazırlama', page: 'docs', icon: 'fa-file-contract' },
+            { name: 'Dilekçe & Resmi Yazı', page: 'docs', icon: 'fa-envelope-open-text' },
+            { name: 'Spor & Egzersiz Kartları', page: 'sport', icon: 'fa-dumbbell' },
+            { name: 'Yapılacaklar Listesi (To-Do)', page: 'life', icon: 'fa-square-check' },
+            { name: 'Yazım & İmla Düzeltici', page: 'ai', icon: 'fa-spell-check' },
+            { name: 'Görsel Boyutlandırma', page: 'files', icon: 'fa-image' }
+        ];
 
-            container.innerHTML = `
-                <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-                    <span class="badge-active"><i class="fa-solid fa-star"></i> GÜNÜN ÖNERİSİ</span>
-                    <button class="icon-btn" onclick="toggleFav('${feat.id}')" style="color:${isFav ? '#ef4444' : 'inherit'}">
-                        <i class="fa-${isFav ? 'solid' : 'regular'} fa-heart"></i>
+        function handleGlobalSearch() {
+            const query = document.getElementById('global-search').value.toLowerCase().trim();
+            const resultsBox = document.getElementById('search-results');
+            const clearBtn = document.getElementById('search-clear-btn');
+
+            if (!query) {
+                resultsBox.classList.add('hidden');
+                clearBtn.classList.add('hidden');
+                return;
+            }
+
+            clearBtn.classList.remove('hidden');
+            const matches = searchableTools.filter(t => t.name.toLowerCase().includes(query));
+
+            if (matches.length === 0) {
+                resultsBox.innerHTML = '<div class="p-3 text-xs text-slate-400">Aranan araç bulunamadı.</div>';
+            } else {
+                resultsBox.innerHTML = matches.map(m => `
+                    <button onclick="navTo('${m.page}'); clearSearch()" class="w-full text-left p-2.5 rounded-xl hover:bg-slate-800/80 flex items-center justify-between text-xs text-slate-200 transition">
+                        <span class="flex items-center gap-2"><i class="fa-solid ${m.icon} text-brand-400"></i> ${m.name}</span>
+                        <i class="fa-solid fa-chevron-right text-[10px] text-slate-500"></i>
                     </button>
-                </div>
-                <h3 style="font-size:1.4rem; margin:8px 0; font-weight:800;">${feat.title}</h3>
-                <p style="color:var(--subtext-color); font-size:0.95rem; margin-bottom:1rem;">${feat.desc}</p>
-                <div style="display:flex; gap:15px; font-size:0.85rem; color:var(--subtext-color); margin-bottom:1.2rem;">
-                    <span><i class="fa-regular fa-clock"></i> ${feat.duration} Dakika</span>
-                    <span><i class="fa-solid fa-layer-group"></i> ${feat.difficulty}</span>
-                </div>
-                <button class="btn btn-active" onclick="openTimerModal('${feat.id}')"><i class="fa-solid fa-play"></i> Aktiviteye Başla</button>
-            `;
-        }
-
-        function switchActiveTab(tab) {
-            state.activeTab = tab;
-            document.querySelectorAll('.active-tab-btn').forEach(btn => btn.classList.remove('active'));
-            event.currentTarget.classList.add('active');
-
-            document.getElementById('actTabLibrary').style.display = (tab === 'planner' || tab === 'tracker') ? 'none' : 'block';
-            document.getElementById('actTabPlanner').style.display = (tab === 'planner') ? 'block' : 'none';
-            document.getElementById('actTabTracker').style.display = (tab === 'tracker') ? 'block' : 'none';
-
-            if(tab !== 'planner' && tab !== 'tracker') {
-                renderActivitiesGrid();
+                `).join('');
             }
+            resultsBox.classList.remove('hidden');
         }
 
-        function renderActivitiesGrid() {
-            const grid = document.getElementById('actGrid');
-            const filtered = state.activeTab === 'all'
-                ? ACTIVITIES
-                : ACTIVITIES.filter(a => a.category === state.activeTab);
-
-            grid.innerHTML = filtered.map(act => {
-                const isFav = state.favorites.includes(act.id);
-                return `
-                    <div class="card glass-card">
-                        <div>
-                            <div class="card-header">
-                                <div class="card-icon active-icon"><i class="fa-solid ${act.icon}"></i></div>
-                                <div>
-                                    <div class="card-title">${act.title}</div>
-                                    <span class="badge-diff">${act.categoryName}</span>
-                                </div>
-                            </div>
-                            <div class="card-desc">${act.desc}</div>
-                        </div>
-                        <div class="card-footer">
-                            <span><i class="fa-regular fa-clock"></i> ${act.duration} dk</span>
-                            <div style="display:flex; gap:8px;">
-                                <button class="btn btn-sm btn-outline" onclick="toggleFav('${act.id}')">
-                                    <i class="fa-${isFav ? 'solid' : 'regular'} fa-heart" style="color:${isFav ? '#ef4444' : 'inherit'}"></i>
-                                </button>
-                                <button class="btn btn-sm btn-active" onclick="openTimerModal('${act.id}')">Başlat</button>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
+        function clearSearch() {
+            document.getElementById('global-search').value = '';
+            document.getElementById('search-results').classList.add('hidden');
+            document.getElementById('search-clear-btn').classList.add('hidden');
         }
 
-        let timerInterval = null;
-        let timerSeconds = 0;
-        let currentAct = null;
-
-        function openTimerModal(actId) {
-            currentAct = ACTIVITIES.find(a => a.id === actId) || ACTIVITIES[0];
-            document.getElementById('modalActTitle').innerText = currentAct.title;
-            document.getElementById('modalActDesc').innerText = currentAct.desc;
-            document.getElementById('modalCategoryBadge').innerText = currentAct.categoryName;
-
-            const stepsContainer = document.getElementById('modalActSteps');
-            stepsContainer.innerHTML = currentAct.steps.map(s => `<li>${s}</li>`).join('');
-
-            timerSeconds = currentAct.duration * 60;
-            updateTimerDisplay();
-
-            document.getElementById('btnTimerStart').style.display = 'inline-flex';
-            document.getElementById('btnTimerPause').style.display = 'none';
-            document.getElementById('timerModal').classList.add('active');
-        }
-
-        function closeTimerModal() {
-            pauseTimer();
-            document.getElementById('timerModal').classList.remove('active');
-        }
-
-        function updateTimerDisplay() {
-            const mins = Math.floor(timerSeconds / 60).toString().padStart(2, '0');
-            const secs = (timerSeconds % 60).toString().padStart(2, '0');
-            document.getElementById('modalTimerDisplay').innerText = `${mins}:${secs}`;
-        }
-
-        function startTimer() {
-            document.getElementById('btnTimerStart').style.display = 'none';
-            document.getElementById('btnTimerPause').style.display = 'inline-flex';
-
-            timerInterval = setInterval(() => {
-                if(timerSeconds > 0) {
-                    timerSeconds--;
-                    updateTimerDisplay();
-                } else {
-                    pauseTimer();
-                    alert('Harika! Aktiviteyi başarıyla tamamladın.');
-                    saveCompletedActivity(currentAct);
-                    closeTimerModal();
-                }
-            }, 1000);
-        }
-
-        function pauseTimer() {
-            clearInterval(timerInterval);
-            document.getElementById('btnTimerStart').style.display = 'inline-flex';
-            document.getElementById('btnTimerPause').style.display = 'none';
-        }
-
-        function saveCompletedActivity(act) {
-            const entry = {
-                title: act.title,
-                date: new Date().toLocaleDateString('tr-TR'),
-                time: new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })
-            };
-            state.history.unshift(entry);
-            localStorage.setItem('pratikim_history', JSON.stringify(state.history));
-            renderHistoryStats();
-        }
-
-        function addPlanItem() {
-            const time = document.getElementById('planTime').value;
-            const title = document.getElementById('planTitle').value.trim();
-            if(!title) return;
-
-            state.plans.push({ id: Date.now(), time, title, done: false });
-            localStorage.setItem('pratikim_plans', JSON.stringify(state.plans));
-            document.getElementById('planTitle').value = '';
-            renderPlanList();
-        }
-
-        function togglePlan(id) {
-            state.plans = state.plans.map(p => p.id === id ? { ...p, done: !p.done } : p);
-            localStorage.setItem('pratikim_plans', JSON.stringify(state.plans));
-            renderPlanList();
-        }
-
-        function deletePlan(id) {
-            state.plans = state.plans.filter(p => p.id !== id);
-            localStorage.setItem('pratikim_plans', JSON.stringify(state.plans));
-            renderPlanList();
-        }
-
-        function renderPlanList() {
-            const container = document.getElementById('planListContainer');
-            if(state.plans.length === 0) {
-                container.innerHTML = `<p style="color:var(--subtext-color); text-align:center;">Henüz bir plan eklemedin.</p>`;
-                return;
-            }
-
-            container.innerHTML = state.plans.map(p => `
-                <div class="plan-item ${p.done ? 'done' : ''}">
-                    <div>
-                        <strong style="color:var(--accent-active); margin-right:10px;">${p.time}</strong>
-                        <span>${p.title}</span>
-                    </div>
-                    <div>
-                        <button class="btn btn-sm btn-outline" onclick="togglePlan(${p.id})"><i class="fa-solid fa-check"></i></button>
-                        <button class="btn btn-sm btn-outline" onclick="deletePlan(${p.id})"><i class="fa-solid fa-trash"></i></button>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function renderHistoryStats() {
-            document.getElementById('statTotal').innerText = state.history.length;
-            const todayStr = new Date().toLocaleDateString('tr-TR');
-            const todayCount = state.history.filter(h => h.date === todayStr).length;
-            document.getElementById('statToday').innerText = todayCount;
-
-            const container = document.getElementById('historyListContainer');
-            if(state.history.length === 0) {
-                container.innerHTML = `<p style="color:var(--subtext-color); text-align:center;">Henüz tamamlanan aktivite yok.</p>`;
-                return;
-            }
-
-            container.innerHTML = state.history.slice(0, 5).map(h => `
-                <div class="plan-item">
-                    <span><i class="fa-solid fa-circle-check" style="color:var(--accent-active); margin-right:8px;"></i> ${h.title}</span>
-                    <span style="font-size:0.8rem; color:var(--subtext-color);">${h.date} - ${h.time}</span>
-                </div>
-            `).join('');
-        }
-
-        function toggleFav(id) {
-            if(state.favorites.includes(id)) {
+        function toggleFavorite(id) {
+            if (state.favorites.includes(id)) {
                 state.favorites = state.favorites.filter(f => f !== id);
             } else {
                 state.favorites.push(id);
             }
             localStorage.setItem('pratikim_favs', JSON.stringify(state.favorites));
-            renderActivitiesGrid();
-            renderFeaturedActivity();
+            updateFavBadges();
         }
 
-        function openFavModal() {
-            const container = document.getElementById('favListContainer');
-            const favActs = ACTIVITIES.filter(a => state.favorites.includes(a.id));
-
-            if(favActs.length === 0) {
-                container.innerHTML = `<p style="color:var(--subtext-color); text-align:center;">Favorilere eklenmiş aktivite bulunamadı.</p>`;
+        function updateFavBadges() {
+            const badge = document.getElementById('fav-badge');
+            if (state.favorites.length > 0) {
+                badge.innerText = state.favorites.length;
+                badge.classList.remove('hidden');
             } else {
-                container.innerHTML = favActs.map(a => `
-                    <div class="plan-item">
-                        <span>${a.title}</span>
-                        <button class="btn btn-sm btn-active" onclick="closeFavModal(); openTimerModal('${a.id}');">Başlat</button>
+                badge.classList.add('hidden');
+            }
+
+            ['yuzde', 'spor', 'yazim'].forEach(id => {
+                const icon = document.getElementById('star-' + id);
+                if (icon) {
+                    if (state.favorites.includes(id)) {
+                        icon.className = 'fa-solid fa-star text-amber-400';
+                    } else {
+                        icon.className = 'fa-regular fa-star';
+                    }
+                }
+            });
+        }
+
+        function openFavoritesModal() {
+            const modal = document.getElementById('fav-modal');
+            const list = document.getElementById('fav-modal-list');
+            modal.classList.remove('hidden');
+
+            if (state.favorites.length === 0) {
+                list.innerHTML = '<div class="text-xs text-slate-400 p-3 text-center">Henüz favori araç eklemediniz.</div>';
+                return;
+            }
+
+            const favItems = searchableTools.filter(t => state.favorites.includes(t.name.toLowerCase().substring(0, 5)));
+            list.innerHTML = favItems.map(f => `
+                <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between">
+                    <span class="text-xs font-semibold text-white"><i class="fa-solid ${f.icon} text-brand-400 mr-2"></i>${f.name}</span>
+                    <button onclick="navTo('${f.page}'); closeFavoritesModal()" class="px-3 py-1 rounded-lg bg-brand-600 text-[11px] text-white font-semibold">Aç</button>
+                </div>
+            `).join('');
+        }
+
+        function closeFavoritesModal() {
+            document.getElementById('fav-modal').classList.add('hidden');
+        }
+
+        /* ==================== SMART CALCULATORS ==================== */
+        function runPercentageCalc() {
+            const num = parseFloat(document.getElementById('calc-pct-num').value);
+            const rate = parseFloat(document.getElementById('calc-pct-rate').value);
+            const type = document.getElementById('calc-pct-type').value;
+            const resBox = document.getElementById('res-pct');
+            const resVal = document.getElementById('res-pct-val');
+
+            if (isNaN(num) || isNaN(rate)) {
+                alert('Lütfen geçerli sayılar girin.');
+                return;
+            }
+
+            let result = 0;
+            if (type === 'of') result = (num * rate) / 100;
+            else if (type === 'add') result = num + ((num * rate) / 100);
+            else if (type === 'sub') result = num - ((num * rate) / 100);
+
+            resVal.innerText = result.toLocaleString('tr-TR', { maximumFractionDigits: 2 });
+            resBox.classList.remove('hidden');
+        }
+
+        function resetPctCalc() {
+            document.getElementById('calc-pct-num').value = '';
+            document.getElementById('calc-pct-rate').value = '';
+            document.getElementById('res-pct').classList.add('hidden');
+        }
+
+        function runAgeCalc() {
+            const dateVal = document.getElementById('calc-age-date').value;
+            if (!dateVal) return;
+
+            const birth = new Date(dateVal);
+            const now = new Date();
+            const diffMs = now - birth;
+
+            if (diffMs < 0) {
+                alert('Doğum tarihi bugünden sonra olamaz.');
+                return;
+            }
+
+            const years = Math.floor(diffMs / (1000 * 60 * 60 * 24 * 365.25));
+            const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+            document.getElementById('res-age-text').innerText = `Yaşınız: ${years} Yıl`;
+            document.getElementById('res-age-days').innerText = `Dünyada Geçen Süre: Yaklaşık ${days.toLocaleString('tr-TR')} gün`;
+            document.getElementById('res-age').classList.remove('hidden');
+        }
+
+        function addGpaRow() {
+            const container = document.getElementById('gpa-rows');
+            const row = document.createElement('div');
+            row.className = 'grid grid-cols-5 gap-2 gpa-row';
+            row.innerHTML = `
+                <input type="text" placeholder="Ders" class="col-span-2 px-2 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white">
+                <input type="number" placeholder="Not" class="col-span-2 px-2 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white gpa-score">
+                <input type="number" placeholder="Kredi" value="3" class="col-span-1 px-2 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white gpa-credit">
+            `;
+            container.appendChild(row);
+        }
+
+        function runGpaCalc() {
+            const scores = document.querySelectorAll('.gpa-score');
+            const credits = document.querySelectorAll('.gpa-credit');
+
+            let totalScorePoints = 0;
+            let totalCredits = 0;
+
+            scores.forEach((sInput, idx) => {
+                const score = parseFloat(sInput.value);
+                const credit = parseFloat(credits[idx].value) || 1;
+
+                if (!isNaN(score)) {
+                    totalScorePoints += score * credit;
+                    totalCredits += credit;
+                }
+            });
+
+            if (totalCredits === 0) return;
+
+            const gpa = totalScorePoints / totalCredits;
+            document.getElementById('res-gpa-val').innerText = gpa.toFixed(2);
+            document.getElementById('res-gpa-badge').innerText = gpa >= 50 ? 'Geçti' : 'Kaldı';
+            document.getElementById('res-gpa-badge').className = `px-2.5 py-1 rounded-full text-[10px] font-bold ${gpa >= 50 ? 'bg-emerald-500 text-slate-950' : 'bg-rose-500 text-white'}`;
+            document.getElementById('res-gpa').classList.remove('hidden');
+        }
+
+        function runMathEbob() {
+            const n1 = parseInt(document.getElementById('calc-num-1').value);
+            const n2 = parseInt(document.getElementById('calc-num-2').value);
+
+            if (isNaN(n1) || isNaN(n2)) return;
+
+            const gcd = (a, b) => b === 0 ? a : gcd(b, a % b);
+            const ebob = gcd(n1, n2);
+            const ekok = (n1 * n2) / ebob;
+
+            const isPrime = (n) => {
+                if (n <= 1) return false;
+                for (let i = 2; i <= Math.sqrt(n); i++) if (n % i === 0) return false;
+                return true;
+            };
+
+            document.getElementById('res-ebob-val').innerText = `EBOB: ${ebob} | EKOK: ${ekok}`;
+            document.getElementById('res-prime-val').innerText = `${n1} ${isPrime(n1) ? 'Asal' : 'Asal Değil'} | ${n2} ${isPrime(n2) ? 'Asal' : 'Asal Değil'}`;
+            document.getElementById('res-ebob').classList.remove('hidden');
+        }
+
+        const unitUnits = {
+            length: { m: 1, km: 1000, mile: 1609.34, inch: 0.0254 },
+            weight: { kg: 1, g: 0.001, lb: 0.453592, oz: 0.0283495 },
+            data: { MB: 1, GB: 1024, TB: 1048576, KB: 0.0009765625 }
+        };
+
+        function updateUnitOptions() {
+            const cat = document.getElementById('unit-category').value;
+            const fromSelect = document.getElementById('unit-from');
+            const toSelect = document.getElementById('unit-to');
+
+            fromSelect.innerHTML = '';
+            toSelect.innerHTML = '';
+
+            if (cat === 'temp') {
+                ['Celsius (°C)', 'Fahrenheit (°F)'].forEach((u, i) => {
+                    fromSelect.innerHTML += `<option value="${i === 0 ? 'C' : 'F'}">${u}</option>`;
+                    toSelect.innerHTML += `<option value="${i === 1 ? 'F' : 'C'}">${u}</option>`;
+                });
+                return;
+            }
+
+            Object.keys(unitUnits[cat]).forEach(u => {
+                fromSelect.innerHTML += `<option value="${u}">${u}</option>`;
+                toSelect.innerHTML += `<option value="${u}">${u}</option>`;
+            });
+        }
+
+        function runUnitConvert() {
+            const cat = document.getElementById('unit-category').value;
+            const val = parseFloat(document.getElementById('unit-input-val').value);
+            const from = document.getElementById('unit-from').value;
+            const to = document.getElementById('unit-to').value;
+            const resBox = document.getElementById('res-unit');
+
+            if (isNaN(val)) return;
+
+            let result = 0;
+            if (cat === 'temp') {
+                if (from === 'C' && to === 'F') result = (val * 9/5) + 32;
+                else if (from === 'F' && to === 'C') result = (val - 32) * 5/9;
+                else result = val;
+            } else {
+                const baseVal = val * unitUnits[cat][from];
+                result = baseVal / unitUnits[cat][to];
+            }
+
+            resBox.innerText = `${val} ${from} = ${result.toFixed(4)} ${to}`;
+            resBox.classList.remove('hidden');
+        }
+
+        function filterToolsTab(category) {
+            document.querySelectorAll('.tool-tab-btn').forEach(btn => {
+                btn.className = 'tool-tab-btn px-4 py-2 rounded-xl text-xs font-semibold glass-panel text-slate-300';
+            });
+            document.getElementById('tool-tab-' + category).className = 'tool-tab-btn active px-4 py-2 rounded-xl text-xs font-semibold bg-brand-600 text-white shadow';
+
+            document.querySelectorAll('.tool-card').forEach(card => {
+                if (category === 'all' || card.classList.contains(category)) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        }
+
+        /* ==================== DOCUMENT BUILDER ==================== */
+        function renderDocForm() {
+            const docType = document.getElementById('doc-type-select').value;
+            const fieldsContainer = document.getElementById('doc-form-fields');
+
+            if (docType === 'cv') {
+                fieldsContainer.innerHTML = `
+                    <input type="text" id="doc-f1" oninput="updateDocPreview()" placeholder="Ad Soyad" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white">
+                    <input type="text" id="doc-f2" oninput="updateDocPreview()" placeholder="Unvan (Örn: Kıdemli Yazılım Uzmanı)" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white">
+                    <input type="text" id="doc-f3" oninput="updateDocPreview()" placeholder="E-Posta & Telefon" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white">
+                    <textarea id="doc-f4" oninput="updateDocPreview()" placeholder="Özet & Deneyimler" rows="4" class="w-full p-3 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white resize-none"></textarea>
+                `;
+            } else if (docType === 'dilekce') {
+                fieldsContainer.innerHTML = `
+                    <input type="text" id="doc-f1" oninput="updateDocPreview()" placeholder="Hitap Edilen Kurum Adı" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white">
+                    <input type="text" id="doc-f2" oninput="updateDocPreview()" placeholder="Konu / Başlık" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white">
+                    <textarea id="doc-f3" oninput="updateDocPreview()" placeholder="Dilekçe Metni" rows="4" class="w-full p-3 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white resize-none"></textarea>
+                    <input type="text" id="doc-f4" oninput="updateDocPreview()" placeholder="Ad Soyad & İletişim" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white">
+                `;
+            } else {
+                fieldsContainer.innerHTML = `
+                    <input type="text" id="doc-f1" oninput="updateDocPreview()" placeholder="Alıcı Adı / Şirket" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white">
+                    <input type="text" id="doc-f2" oninput="updateDocPreview()" placeholder="Konu" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white">
+                    <textarea id="doc-f3" oninput="updateDocPreview()" placeholder="E-Posta Mesajı" rows="4" class="w-full p-3 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white resize-none"></textarea>
+                `;
+            }
+            updateDocPreview();
+        }
+
+        function updateDocPreview() {
+            const docType = document.getElementById('doc-type-select').value;
+            const preview = document.getElementById('doc-preview-area');
+
+            const f1 = document.getElementById('doc-f1')?.value || '...';
+            const f2 = document.getElementById('doc-f2')?.value || '...';
+            const f3 = document.getElementById('doc-f3')?.value || '...';
+            const f4 = document.getElementById('doc-f4')?.value || '...';
+
+            if (docType === 'cv') {
+                preview.innerHTML = `
+                    <div style="font-family: Arial, sans-serif;">
+                        <h1 style="font-size: 24px; font-weight: bold; color: #1e293b; margin-bottom: 4px;">${f1}</h1>
+                        <h3 style="font-size: 14px; color: #6366f1; font-weight: 600; margin-bottom: 12px;">${f2}</h3>
+                        <p style="font-size: 12px; color: #64748b; margin-bottom: 16px;">${f3}</p>
+                        <hr style="border: 0; border-top: 1px solid #e2e8f0; margin-bottom: 16px;" />
+                        <h4 style="font-size: 12px; font-weight: bold; text-transform: uppercase; color: #475569; margin-bottom: 8px;">ÖZET VE DENEYİM</h4>
+                        <p style="font-size: 13px; color: #334155; white-space: pre-line; line-height: 1.6;">${f4}</p>
                     </div>
-                `).join('');
-            }
-            document.getElementById('favModal').classList.add('active');
-        }
-
-        function closeFavModal() {
-            document.getElementById('favModal').classList.remove('active');
-        }
-
-        function calcPct() {
-            const num = parseFloat(document.getElementById('pctNum').value);
-            const rate = parseFloat(document.getElementById('pctRate').value);
-            const res = document.getElementById('pctRes');
-
-            if(isNaN(num) || isNaN(rate)) {
-                res.style.display = 'block';
-                res.innerText = 'Lütfen geçerli sayılar girin.';
-                return;
-            }
-            const val = (num * rate) / 100;
-            res.style.display = 'block';
-            res.innerText = `Sonuç: ${val}`;
-        }
-
-        function calcKDV() {
-            const amount = parseFloat(document.getElementById('kdvAmount').value);
-            const rate = parseFloat(document.getElementById('kdvRate').value);
-            const res = document.getElementById('kdvRes');
-
-            if(isNaN(amount)) {
-                res.style.display = 'block';
-                res.innerText = 'Lütfen geçerli bir tutar girin.';
-                return;
-            }
-            const kdvVal = (amount * rate) / 100;
-            const total = amount + kdvVal;
-            res.style.display = 'block';
-            res.innerText = `KDV Tutarı: ${kdvVal.toFixed(2)} TL | Toplam: ${total.toFixed(2)} TL`;
-        }
-
-        function calcAge() {
-            const birth = new Date(document.getElementById('birthDate').value);
-            const res = document.getElementById('ageRes');
-
-            if(isNaN(birth.getTime())) {
-                res.style.display = 'block';
-                res.innerText = 'Lütfen geçerli bir tarih seçin.';
-                return;
-            }
-            const diff = new Date(Date.now() - birth.getTime());
-            const age = Math.abs(diff.getUTCFullYear() - 1970);
-            res.style.display = 'block';
-            res.innerText = `Yaşınız: ${age}`;
-        }
-
-        function calcEbobEkok() {
-            let a = parseInt(document.getElementById('ebobNum1').value);
-            let b = parseInt(document.getElementById('ebobNum2').value);
-            const res = document.getElementById('ebobRes');
-
-            if(isNaN(a) || isNaN(b)) {
-                res.style.display = 'block';
-                res.innerText = 'Lütfen her iki sayıyı da girin.';
-                return;
-            }
-
-            const gcd = (x, y) => y === 0 ? x : gcd(y, x % y);
-            const ebob = gcd(a, b);
-            const ekok = (a * b) / ebob;
-
-            res.style.display = 'block';
-            res.innerText = `EBOB: ${ebob} | EKOK: ${ekok}`;
-        }
-
-        function renderDocFields() {
-            const type = document.getElementById('docTypeSelect').value;
-            const container = document.getElementById('docFieldsContainer');
-
-            if(type === 'dilekce') {
-                container.innerHTML = `
-                    <div class="form-group"><label class="form-label">Kurum Adı</label><input type="text" class="form-control" id="dKurum" placeholder="Örn: X MÜDÜRLÜĞÜNE"></div>
-                    <div class="form-group"><label class="form-label">Konu / Talep</label><textarea class="form-control" id="dKonu" placeholder="Talebinizi detaylandırın..."></textarea></div>
-                    <div class="form-group"><label class="form-label">Ad Soyad</label><input type="text" class="form-control" id="dAd"></div>
                 `;
-            } else if(type === 'cv') {
-                container.innerHTML = `
-                    <div class="form-group"><label class="form-label">Ad Soyad</label><input type="text" class="form-control" id="cvAd"></div>
-                    <div class="form-group"><label class="form-label">Deneyim / Özet</label><textarea class="form-control" id="cvOzet"></textarea></div>
+            } else if (docType === 'dilekce') {
+                const dateStr = new Date().toLocaleDateString('tr-TR');
+                preview.innerHTML = `
+                    <div style="font-family: 'Times New Roman', serif; text-align: justify; line-height: 1.8;">
+                        <div style="text-align: center; font-weight: bold; font-size: 16px; margin-bottom: 24px;">T.C.<br>${f1.toUpperCase()} MÜDÜRLÜĞÜ'NE</div>
+                        <div style="text-align: right; font-size: 12px; margin-bottom: 16px;">Tarih: ${dateStr}</div>
+                        <p style="margin-bottom: 16px;"><strong>KONU:</strong> ${f2}</p>
+                        <p style="margin-bottom: 32px; text-indent: 24px;">${f3}</p>
+                        <p style="margin-bottom: 24px;">Gereğini bilgilerinize arz ederim.</p>
+                        <div style="text-align: right; margin-top: 32px;">
+                            <p style="font-weight: bold;">${f4}</p>
+                            <p style="font-size: 12px; color: #64748b;">İmza</p>
+                        </div>
+                    </div>
                 `;
             } else {
-                container.innerHTML = `
-                    <div class="form-group"><label class="form-label">Konu</label><input type="text" class="form-control" id="emKonu"></div>
-                    <div class="form-group"><label class="form-label">Mesaj İçeriği</label><textarea class="form-control" id="emMesaj"></textarea></div>
+                preview.innerHTML = `
+                    <div style="font-family: Arial, sans-serif; line-height: 1.6;">
+                        <p style="margin-bottom: 12px;">Sayın <strong>${f1}</strong>,</p>
+                        <p style="margin-bottom: 12px;"><strong>Konu:</strong> ${f2}</p>
+                        <p style="margin-bottom: 20px; white-space: pre-line;">${f3}</p>
+                        <p>Saygılarımla,<br><strong>PRATİKİM Kullanıcısı</strong></p>
+                    </div>
                 `;
             }
         }
 
-        function generateDoc() {
-            const type = document.getElementById('docTypeSelect').value;
-            let text = '';
+        function copyDocText() {
+            const text = document.getElementById('doc-preview-area').innerText;
+            copyToClipboardText(text);
+        }
 
-            if(type === 'dilekce') {
-                const kurum = document.getElementById('dKurum')?.value || '';
-                const konu = document.getElementById('dKonu')?.value || '';
-                const ad = document.getElementById('dAd')?.value || '';
-                text = `${kurum.toUpperCase()}\n\n${konu}\n\nGereğini bilgilerinize arz ederim.\n\nAd Soyad: ${ad}\nTarih: ${new Date().toLocaleDateString('tr-TR')}`;
-            } else if(type === 'cv') {
-                const ad = document.getElementById('cvAd')?.value || '';
-                const ozet = document.getElementById('cvOzet')?.value || '';
-                text = `ÖZGEÇMİŞ\n\nAd Soyad: ${ad}\n\nÖZET VE DENEYİMLER:\n${ozet}`;
+        function printDoc() {
+            const content = document.getElementById('doc-preview-area').innerHTML;
+            const printWin = window.open('', '', 'height=600,width=800');
+            printWin.document.write('<html><head><title>Belge Yazdır</title></head><body>' + content + '</body></html>');
+            printWin.document.close();
+            printWin.focus();
+            printWin.print();
+        }
+
+        /* ==================== POMODORO & TO-DO ==================== */
+        function togglePomodoro() {
+            const btn = document.getElementById('pomo-btn');
+            if (state.pomoRunning) {
+                clearInterval(state.pomoInterval);
+                state.pomoRunning = false;
+                btn.innerText = 'Başlat';
+                btn.className = 'px-3 py-1 rounded-lg bg-brand-600 text-xs text-white font-semibold';
             } else {
-                const konu = document.getElementById('emKonu')?.value || '';
-                const mesaj = document.getElementById('emMesaj')?.value || '';
-                text = `Konu: ${konu}\n\nMerhaba,\n\n${mesaj}\n\nİyi çalışmalar.`;
+                state.pomoRunning = true;
+                btn.innerText = 'Durdur';
+                btn.className = 'px-3 py-1 rounded-lg bg-rose-600 text-xs text-white font-semibold';
+                state.pomoInterval = setInterval(() => {
+                    if (state.pomoTime > 0) {
+                        state.pomoTime--;
+                        const mins = Math.floor(state.pomoTime / 60);
+                        const secs = state.pomoTime % 60;
+                        document.getElementById('pomo-timer-display').innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+                    } else {
+                        clearInterval(state.pomoInterval);
+                        alert('Pomodoro Süresi Doldu! Mola Verin.');
+                    }
+                }, 1000);
             }
-
-            document.getElementById('docOutputText').value = text;
-            document.getElementById('docOutputWrap').style.display = 'block';
         }
 
         function addTodo() {
-            const val = document.getElementById('todoInput').value.trim();
-            if(!val) return;
-            state.todos.push({ id: Date.now(), text: val, done: false });
+            const input = document.getElementById('todo-input');
+            const text = input.value.trim();
+            if (!text) return;
+
+            state.todos.push({ id: Date.now(), text, completed: false });
             localStorage.setItem('pratikim_todos', JSON.stringify(state.todos));
-            document.getElementById('todoInput').value = '';
+            input.value = '';
             renderTodos();
         }
 
-        function renderTodos() {
-            const container = document.getElementById('todoList');
-            if(state.todos.length === 0) {
-                container.innerHTML = `<p style="color:var(--subtext-color);">Henüz yapılacak görev yok.</p>`;
-                return;
-            }
-
-            container.innerHTML = state.todos.map(t => `
-                <div class="plan-item ${t.done ? 'done' : ''}">
-                    <span>${t.text}</span>
-                    <button class="btn btn-sm btn-outline" onclick="deleteTodo(${t.id})"><i class="fa-solid fa-trash"></i></button>
-                </div>
-            `).join('');
+        function toggleTodo(id) {
+            state.todos = state.todos.map(t => t.id === id ? { ...t, completed: !t.completed } : t);
+            localStorage.setItem('pratikim_todos', JSON.stringify(state.todos));
+            renderTodos();
         }
 
         function deleteTodo(id) {
@@ -1608,74 +1444,93 @@
             renderTodos();
         }
 
-        function fixGrammar() {
-            let input = document.getElementById('aiInputText').value;
-            if(!input.trim()) return;
-
-            const rules = [
-                { reg: /bugun/gi, val: 'bugün' },
-                { reg: /cunku/gi, val: 'çünkü' },
-                { reg: /hissetmiyodum/gi, val: 'hissetmiyordum' },
-                { reg: /geliyom/gi, val: 'geliyorum' },
-                { reg: /gidiyom/gi, val: 'gidiyorum' },
-                { reg: /herkez/gi, val: 'herkes' },
-                { reg: /yalnış/gi, val: 'yanlış' }
-            ];
-
-            rules.forEach(r => { input = input.replace(r.reg, r.val); });
-            input = input.charAt(0).toUpperCase() + input.slice(1);
-
-            document.getElementById('aiOutputText').value = input;
-            document.getElementById('aiResultBox').style.display = 'block';
-        }
-
-        function downloadTxtFile() {
-            const content = document.getElementById('txtFileContent').value;
-            if(!content.trim()) return;
-
-            const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(blob);
-            a.download = 'pratikim-not.txt';
-            a.click();
-        }
-
-        function handleSearch(val) {
-            const dropdown = document.getElementById('searchResults');
-            if(!val.trim()) {
-                dropdown.style.display = 'none';
+        function renderTodos() {
+            const list = document.getElementById('todo-list');
+            if (state.todos.length === 0) {
+                list.innerHTML = '<div class="text-xs text-slate-400 p-3 text-center">Henüz eklenmiş bir görev yok.</div>';
                 return;
             }
 
-            const query = val.toLowerCase();
-            const results = [
-                { title: 'PRATİKİM Active - Günlük Hareket', sec: 'active', icon: 'fa-person-running' },
-                { title: 'Yüzde Hesaplama', sec: 'smart-tools', icon: 'fa-percent' },
-                { title: 'KDV Hesaplama', sec: 'smart-tools', icon: 'fa-receipt' },
-                { title: 'Belge Hazırlama (CV/Dilekçe)', sec: 'docs', icon: 'fa-file-contract' },
-                { title: 'Yapılacaklar Listesi', sec: 'daily', icon: 'fa-check-double' },
-                { title: 'İmla ve Yazım Düzeltici', sec: 'ai', icon: 'fa-wand-magic-sparkles' }
-            ].filter(r => r.title.toLowerCase().includes(query));
-
-            if(results.length > 0) {
-                dropdown.innerHTML = results.map(r => `
-                    <div class="search-item" onclick="navTo('${r.sec}'); document.getElementById('searchResults').style.display='none';">
-                        <i class="fa-solid ${r.icon}"></i>
-                        <span>${r.title}</span>
-                    </div>
-                `).join('');
-                dropdown.style.display = 'block';
-            } else {
-                dropdown.style.display = 'none';
-            }
+            list.innerHTML = state.todos.map(t => `
+                <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between">
+                    <button onclick="toggleTodo(${t.id})" class="flex items-center space-x-3 text-left">
+                        <i class="fa-regular ${t.completed ? 'fa-square-check text-emerald-400' : 'fa-square text-slate-500'} text-base"></i>
+                        <span class="text-xs ${t.completed ? 'line-through text-slate-500' : 'text-slate-200'}">${t.text}</span>
+                    </button>
+                    <button onclick="deleteTodo(${t.id})" class="text-slate-500 hover:text-rose-400 text-xs p-1"><i class="fa-solid fa-trash"></i></button>
+                </div>
+            `).join('');
         }
 
-        function copyToClipboard(elemId) {
-            const copyText = document.getElementById(elemId);
-            copyText.select();
+        function saveQuickNote() {
+            const val = document.getElementById('quick-notepad').value;
+            localStorage.setItem('pratikim_note', val);
+        }
+
+        /* ==================== FILE PROCESSING ==================== */
+        function handleImageSelect(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (evt) => {
+                const img = new Image();
+                img.onload = () => {
+                    state.loadedImg = img;
+                    document.getElementById('img-width').value = img.width;
+                };
+                img.src = evt.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function processImage() {
+            if (!state.loadedImg) {
+                alert('Lütfen önce bir görsel seçin.');
+                return;
+            }
+
+            const width = parseInt(document.getElementById('img-width').value) || state.loadedImg.width;
+            const format = document.getElementById('img-format').value;
+            const aspect = state.loadedImg.height / state.loadedImg.width;
+            const height = Math.round(width * aspect);
+
+            const canvas = document.getElementById('hidden-canvas');
+            canvas.width = width;
+            canvas.height = height;
+
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(state.loadedImg, 0, 0, width, height);
+
+            const link = document.createElement('a');
+            link.download = `pratikim_image.${format.split('/')[1]}`;
+            link.href = canvas.toDataURL(format, 0.9);
+            link.click();
+        }
+
+        function downloadTxtFile() {
+            const name = document.getElementById('txt-file-name').value || 'belge';
+            const content = document.getElementById('txt-file-content').value;
+
+            const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `${name}.txt`;
+            link.click();
+        }
+
+        /* ==================== UTILITY FUNCTIONS ==================== */
+        function copyToClipboard(elementId) {
+            const text = document.getElementById(elementId)?.innerText;
+            if (text) copyToClipboardText(text);
+        }
+
+        function copyToClipboardText(text) {
+            const temp = document.createElement('textarea');
+            temp.value = text;
+            document.body.appendChild(temp);
+            temp.select();
             document.execCommand('copy');
+            document.body.removeChild(temp);
             alert('Metin panoya kopyalandı!');
         }
-    </script>
-</body>
-</html>
