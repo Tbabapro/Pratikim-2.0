@@ -3,922 +3,1699 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neon Strike - Cyber Shooter</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome -->
+    <title>PRATİKİM - Her işin kolay bir yolu var.</title>
+    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Tone.js for Sound Effects -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
-    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --primary-light: #e0e7ff;
+            --secondary: #0ea5e9;
+            --secondary-hover: #0284c7;
+            --accent-active: #10b981;
+            --accent-active-hover: #059669;
+            --accent-active-light: #d1fae5;
+            --dark-bg: #0f172a;
+            --dark-surface: #1e293b;
+            --dark-card: rgba(30, 41, 59, 0.7);
+            --dark-border: rgba(255, 255, 255, 0.1);
+            --dark-text: #f8fafc;
+            --dark-subtext: #94a3b8;
+            --light-bg: #f8fafc;
+            --light-surface: #ffffff;
+            --light-card: rgba(255, 255, 255, 0.8);
+            --light-border: rgba(0, 0, 0, 0.08);
+            --light-text: #0f172a;
+            --light-subtext: #64748b;
+            --radius-sm: 8px;
+            --radius-md: 14px;
+            --radius-lg: 20px;
+            --radius-full: 9999px;
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 16px 32px rgba(0, 0, 0, 0.12);
+        }
+
+        /* Base Reset */
         * {
             box-sizing: border-box;
-            user-select: none;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
+
         body {
-            font-family: 'Rajdhani', sans-serif;
-            background-color: #05050a;
-            color: #fff;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* Dark / Light Variables Binding */
+        body.dark-mode {
+            --bg-color: var(--dark-bg);
+            --surface-color: var(--dark-surface);
+            --card-bg: var(--dark-card);
+            --border-color: var(--dark-border);
+            --text-color: var(--dark-text);
+            --subtext-color: var(--dark-subtext);
+            --glass-bg: rgba(30, 41, 59, 0.65);
+            --glass-border: rgba(255, 255, 255, 0.12);
+        }
+
+        body.light-mode {
+            --bg-color: var(--light-bg);
+            --surface-color: var(--light-surface);
+            --card-bg: var(--light-card);
+            --border-color: var(--light-border);
+            --text-color: var(--light-text);
+            --subtext-color: var(--light-subtext);
+            --glass-bg: rgba(255, 255, 255, 0.75);
+            --glass-border: rgba(0, 0, 0, 0.08);
+        }
+
+        /* Glassmorphism Styles */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Header / Navbar */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 0.85rem 1.5rem;
+        }
+
+        .nav-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 800;
+            font-size: 1.4rem;
+            letter-spacing: -0.5px;
+            cursor: pointer;
+        }
+
+        .logo-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
+        }
+
+        .logo span {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            list-style: none;
+        }
+
+        .nav-link {
+            padding: 8px 14px;
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            color: var(--subtext-color);
+            font-size: 0.92rem;
+            font-weight: 500;
+            transition: var(--transition);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary);
+            background: rgba(99, 102, 241, 0.08);
+        }
+
+        .nav-link.active-badge {
+            color: var(--accent-active);
+            background: rgba(16, 185, 129, 0.1);
+            font-weight: 600;
+        }
+
+        .nav-link.active-badge:hover, .nav-link.active-badge.active {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--accent-active);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .icon-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: 1px solid var(--border-color);
+            background: var(--surface-color);
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .icon-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 1.3rem;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            cursor: pointer;
+        }
+
+        /* Layout Main */
+        main {
+            flex: 1;
+            max-width: 1300px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .page-section {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Common Page Header */
+        .section-header {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .section-header h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.5px;
+        }
+
+        .section-header p {
+            color: var(--subtext-color);
+            font-size: 1.05rem;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        /* Search Banner */
+        .hero-banner {
+            text-align: center;
+            padding: 3.5rem 1.5rem;
+            border-radius: var(--radius-lg);
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(14, 165, 233, 0.15));
+            border: 1px solid var(--border-color);
+            margin-bottom: 2.5rem;
+            position: relative;
             overflow: hidden;
         }
-        .font-orbitron {
-            font-family: 'Orbitron', sans-serif;
+
+        .hero-banner h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 0.8rem;
+            background: linear-gradient(135deg, var(--text-color), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-        /* Canvas Styling */
-        #gameCanvas {
-            cursor: none; /* Hide default cursor for custom crosshair */
-            background: radial-gradient(circle at center, #0d0f1d 0%, #05050a 100%);
-            box-shadow: inset 0 0 50px rgba(0, 240, 255, 0.1);
+
+        .search-box-wrap {
+            max-width: 600px;
+            margin: 1.8rem auto 0 auto;
+            position: relative;
         }
-        /* Custom Neon Scrollbar for Shop */
-        ::-webkit-scrollbar {
-            width: 6px;
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1.2rem 1rem 3.2rem;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--border-color);
+            background: var(--surface-color);
+            color: var(--text-color);
+            font-size: 1rem;
+            outline: none;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
         }
-        ::-webkit-scrollbar-track {
-            background: #0a0d1a;
+
+        .search-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
         }
-        ::-webkit-scrollbar-thumb {
-            background: #00f0ff;
-            border-radius: 3px;
+
+        .search-icon {
+            position: absolute;
+            left: 1.2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--subtext-color);
+            font-size: 1.1rem;
         }
-        /* Glowing Text Effects */
-        .glow-text-cyan {
-            text-shadow: 0 0 10px rgba(0, 240, 255, 0.7), 0 0 20px rgba(0, 240, 255, 0.4);
+
+        .search-results-dropdown {
+            position: absolute;
+            top: 110%;
+            left: 0;
+            right: 0;
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-lg);
+            z-index: 500;
+            max-height: 350px;
+            overflow-y: auto;
+            display: none;
+            text-align: left;
         }
-        .glow-text-pink {
-            text-shadow: 0 0 10px rgba(255, 0, 127, 0.7), 0 0 20px rgba(255, 0, 127, 0.4);
+
+        .search-item {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: var(--transition);
         }
-        .glow-box-cyan {
-            box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
-            border: 1px solid rgba(0, 240, 255, 0.5);
+
+        .search-item:hover {
+            background: rgba(99, 102, 241, 0.08);
         }
-        .glow-box-pink {
-            box-shadow: 0 0 15px rgba(255, 0, 127, 0.3);
-            border: 1px solid rgba(255, 0, 127, 0.5);
+
+        .search-item i {
+            color: var(--primary);
+            font-size: 1.1rem;
         }
-        /* Modal Backdrop */
-        .glass-panel {
-            background: rgba(10, 13, 26, 0.85);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(0, 240, 255, 0.2);
+
+        /* Section Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .card {
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(99, 102, 241, 0.4);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 1rem;
+        }
+
+        .card-icon {
+            width: 46px;
+            height: 46px;
+            border-radius: 12px;
+            background: rgba(99, 102, 241, 0.12);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .card-icon.active-icon {
+            background: rgba(16, 185, 129, 0.12);
+            color: var(--accent-active);
+        }
+
+        .card-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .card-desc {
+            color: var(--subtext-color);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 1.2rem;
+        }
+
+        .card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: auto;
+            padding-top: 0.8rem;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 0.65rem 1.2rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.92rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-active {
+            background: var(--accent-active);
+            color: white;
+        }
+
+        .btn-active:hover {
+            background: var(--accent-active-hover);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-sm {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.82rem;
+        }
+
+        /* Forms */
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.88rem;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+            color: var(--text-color);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+            background: var(--surface-color);
+            color: var(--text-color);
+            font-size: 0.95rem;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        /* Tool Detail Panel */
+        .tool-container {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+        }
+
+        .result-box {
+            margin-top: 1.5rem;
+            padding: 1.2rem;
+            border-radius: var(--radius-sm);
+            background: rgba(99, 102, 241, 0.08);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary);
+            display: none;
+        }
+
+        /* PRATİKİM ACTIVE STYLES */
+        .active-hero {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(14, 165, 233, 0.15));
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem 2rem;
+            text-align: center;
+            margin-bottom: 2.5rem;
+            position: relative;
+        }
+
+        .active-hero h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .active-hero p {
+            color: var(--subtext-color);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 1.5rem auto;
+        }
+
+        .daily-featured-card {
+            background: var(--surface-color);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: var(--radius-md);
+            padding: 1.8rem;
+            max-width: 750px;
+            margin: 0 auto;
+            text-align: left;
+            box-shadow: var(--shadow-md);
+        }
+
+        .badge-active {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--accent-active);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+        }
+
+        .badge-diff {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+            background: rgba(99, 102, 241, 0.12);
+            color: var(--primary);
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .active-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 2rem;
+            overflow-x: auto;
+            padding-bottom: 5px;
+        }
+
+        .active-tab-btn {
+            padding: 0.75rem 1.4rem;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--border-color);
+            background: var(--surface-color);
+            color: var(--subtext-color);
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: var(--transition);
+        }
+
+        .active-tab-btn.active {
+            background: var(--accent-active);
+            color: white;
+            border-color: var(--accent-active);
+        }
+
+        /* Modal Overlay */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(6px);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .timer-modal {
+            background: var(--surface-color);
+            border-radius: var(--radius-lg);
+            max-width: 500px;
+            width: 100%;
+            padding: 2.2rem;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-lg);
+            position: relative;
+        }
+
+        .timer-display {
+            font-size: 4rem;
+            font-weight: 800;
+            font-family: monospace;
+            color: var(--accent-active);
+            margin: 1.5rem 0;
+            letter-spacing: 2px;
+        }
+
+        .activity-steps-list {
+            text-align: left;
+            margin: 1rem 0;
+            padding-left: 1.2rem;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--subtext-color);
+        }
+
+        .activity-steps-list li {
+            margin-bottom: 6px;
+        }
+
+        /* Plan Items */
+        .plan-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            margin-bottom: 0.8rem;
+        }
+
+        .plan-item.done {
+            opacity: 0.6;
+            text-decoration: line-through;
+        }
+
+        footer {
+            margin-top: auto;
+            border-top: 1px solid var(--border-color);
+            padding: 2rem 1.5rem;
+            text-align: center;
+            background: var(--surface-color);
+            color: var(--subtext-color);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 868px) {
+            .nav-links {
+                position: fixed;
+                top: 65px; left: 0; right: 0;
+                background: var(--surface-color);
+                border-bottom: 1px solid var(--border-color);
+                flex-direction: column;
+                padding: 1rem;
+                display: none;
+            }
+
+            .nav-links.mobile-open {
+                display: flex;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .hero-banner h1 {
+                font-size: 2rem;
+            }
+
+            .active-hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .timer-display {
+                font-size: 3rem;
+            }
         }
     </style>
 </head>
-<body class="w-screen h-screen flex flex-col justify-between items-center relative overflow-hidden select-none">
+<body class="dark-mode">
 
-    <!-- GAME CANVAS -->
-    <canvas id="gameCanvas" class="absolute inset-0 w-full h-full z-0"></canvas>
+    <!-- HEADER / NAVIGATION -->
+    <header>
+        <div class="nav-container">
+            <div class="logo" onclick="navTo('home')">
+                <div class="logo-icon"><i class="fa-solid fa-shapes"></i></div>
+                <span>PRATİKİM</span>
+            </div>
 
-    <!-- TOP HUD OVERLAY -->
-    <div id="hud" class="relative z-10 w-full max-w-7xl p-4 flex justify-between items-center pointer-events-none opacity-0 transition-opacity duration-300">
-        <!-- Health & Shield Bar -->
-        <div class="flex flex-col gap-1 w-64">
-            <div class="flex justify-between text-sm font-orbitron font-semibold text-cyan-400">
-                <span><i class="fa-solid fa-heart text-red-500 mr-1"></i> SAĞLIK</span>
-                <span id="hpText">100/100</span>
-            </div>
-            <div class="w-full bg-gray-950 h-3 rounded-full border border-gray-800 overflow-hidden p-0.5">
-                <div id="hpBar" class="bg-gradient-to-r from-red-600 via-pink-500 to-cyan-400 h-full rounded-full w-full transition-all duration-200"></div>
-            </div>
-            <!-- Ammo Info -->
-            <div class="flex justify-between items-center mt-1 text-xs text-gray-400 font-orbitron">
-                <span>SİLAH: <span id="currentWeaponName" class="text-cyan-300 font-bold">PISTOL</span></span>
-                <span id="ammoText" class="text-yellow-400 font-bold text-sm">∞</span>
+            <ul class="nav-links" id="navLinks">
+                <li><a class="nav-link active" onclick="navTo('home')"><i class="fa-solid fa-house"></i> Ana Sayfa</a></li>
+                <li><a class="nav-link active-badge" onclick="navTo('active')"><i class="fa-solid fa-bolt"></i> PRATİKİM Active</a></li>
+                <li><a class="nav-link" onclick="navTo('smart-tools')"><i class="fa-solid fa-calculator"></i> Akıllı Araçlar</a></li>
+                <li><a class="nav-link" onclick="navTo('docs')"><i class="fa-solid fa-file-contract"></i> Belge Merkezi</a></li>
+                <li><a class="nav-link" onclick="navTo('daily')"><i class="fa-solid fa-calendar-check"></i> Günlük Yaşam</a></li>
+                <li><a class="nav-link" onclick="navTo('ai')"><i class="fa-solid fa-wand-magic-sparkles"></i> Yapay Zekâ</a></li>
+                <li><a class="nav-link" onclick="navTo('files')"><i class="fa-solid fa-folder-open"></i> Dosya Merkezi</a></li>
+            </ul>
+
+            <div class="header-actions">
+                <button class="icon-btn" onclick="toggleTheme()" title="Temayı Değiştir"><i class="fa-solid fa-moon" id="themeIcon"></i></button>
+                <button class="icon-btn" onclick="openFavModal()" title="Favorilerim"><i class="fa-solid fa-heart"></i></button>
+                <button class="hamburger" onclick="toggleMobileNav()"><i class="fa-solid fa-bars"></i></button>
             </div>
         </div>
+    </header>
 
-        <!-- Combo & Score -->
-        <div class="text-center">
-            <div id="scoreText" class="text-4xl sm:text-5xl font-extrabold font-orbitron text-white tracking-wider glow-text-cyan">0</div>
-            <div class="text-xs uppercase tracking-widest text-gray-400">Puan</div>
-            <!-- Multiplier Badge -->
-            <div id="comboContainer" class="mt-1 opacity-0 transition-all transform scale-75">
-                <span id="comboText" class="bg-pink-600 text-white font-orbitron text-xs font-bold px-2 py-0.5 rounded-full glow-box-pink">2x KOMBO!</span>
-            </div>
-        </div>
+    <!-- MAIN CONTENT AREA -->
+    <main>
 
-        <!-- Stats & Wave -->
-        <div class="flex flex-col items-end gap-1 font-orbitron">
-            <div class="text-right">
-                <div class="text-xs text-gray-400">DALGA</div>
-                <div id="waveText" class="text-2xl font-bold text-pink-500 glow-text-pink">1</div>
+        <!-- 1. HOME SECTION -->
+        <section id="sec-home" class="page-section active">
+            <div class="hero-banner glass-card">
+                <span class="badge-active"><i class="fa-solid fa-sparkles"></i> Her İşin Kolay Bir Yolu Var</span>
+                <h1>İşlerini Kolaylaştır.</h1>
+                <p>İhtiyacın olan pratik araçlar, belge şablonları ve günlük hareket rehberi tek bir platformda.</p>
+                <div class="search-box-wrap">
+                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                    <input type="text" class="search-input" id="globalSearch" placeholder="Ne yapmak istiyorsun? (Örn: Yüzde hesapla, CV hazırla, Esneme...)" oninput="handleSearch(this.value)">
+                    <div class="search-results-dropdown" id="searchResults"></div>
+                </div>
             </div>
-            <div class="text-right flex gap-3 text-xs text-gray-300 mt-1">
-                <div>PARA: <span id="moneyText" class="text-yellow-400 font-bold">$0</span></div>
-                <div>EN YÜKSEK: <span id="hudHighScore" class="text-cyan-400 font-bold">0</span></div>
+
+            <!-- PRATİKİM ACTIVE PROMOTIONAL CARD -->
+            <div class="glass-card" style="padding: 1.8rem; margin-bottom: 2.5rem; border: 1px solid rgba(16,185,129,0.3); background: linear-gradient(135deg, rgba(16,185,129,0.08), rgba(14,165,233,0.08));">
+                <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+                    <div>
+                        <span class="badge-active"><i class="fa-solid fa-heart-pulse"></i> YENİ ÖZELLİK</span>
+                        <h2 style="font-size: 1.5rem; font-weight: 800; margin: 6px 0;">PRATİKİM ACTIVE ile Harekete Geç!</h2>
+                        <p style="color: var(--subtext-color); max-width: 600px;">Günlük hayatına dinamizm kat. Evde esneme, açık havada yürüyüş ve eğlenceli aktivite rehberi seni bekliyor.</p>
+                    </div>
+                    <button class="btn btn-active" onclick="navTo('active')"><i class="fa-solid fa-person-running"></i> Active'i Keşfet</button>
+                </div>
+            </div>
+
+            <h2 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 1.2rem;">Hızlı Erişim Merkezleri</h2>
+            <div class="cards-grid">
+                <div class="card glass-card" onclick="navTo('active')">
+                    <div>
+                        <div class="card-header">
+                            <div class="card-icon active-icon"><i class="fa-solid fa-person-running"></i></div>
+                            <div class="card-title">PRATİKİM ACTIVE</div>
+                        </div>
+                        <div class="card-desc">Günlük egzersiz, esneme molaları, yürüyüş ve eğlenceli hareket rehberi.</div>
+                    </div>
+                    <div class="card-footer"><span>Harekete Geç</span> <i class="fa-solid fa-arrow-right"></i></div>
+                </div>
+
+                <div class="card glass-card" onclick="navTo('smart-tools')">
+                    <div>
+                        <div class="card-header">
+                            <div class="card-icon"><i class="fa-solid fa-calculator"></i></div>
+                            <div class="card-title">Akıllı Hesaplama Araçları</div>
+                        </div>
+                        <div class="card-desc">Yüzde, KDV, İndirim, Yaş, EBOB-EKOK, Not ortalaması hesaplayıcıları.</div>
+                    </div>
+                    <div class="card-footer"><span>Hesaplama Yap</span> <i class="fa-solid fa-arrow-right"></i></div>
+                </div>
+
+                <div class="card glass-card" onclick="navTo('docs')">
+                    <div>
+                        <div class="card-header">
+                            <div class="card-icon"><i class="fa-solid fa-file-contract"></i></div>
+                            <div class="card-title">Belge Hazırlama</div>
+                        </div>
+                        <div class="card-desc">Profesyonel CV, resmi dilekçe, e-posta taslağı ve toplantı notu oluşturucu.</div>
+                    </div>
+                    <div class="card-footer"><span>Belge Oluştur</span> <i class="fa-solid fa-arrow-right"></i></div>
+                </div>
+
+                <div class="card glass-card" onclick="navTo('daily')">
+                    <div>
+                        <div class="card-header">
+                            <div class="card-icon"><i class="fa-solid fa-calendar-check"></i></div>
+                            <div class="card-title">Günlük Yaşam Takibi</div>
+                        </div>
+                        <div class="card-desc">Yapılacaklar listesi, alışkanlık takibi ve günlük hızlı not defteri.</div>
+                    </div>
+                    <div class="card-footer"><span>Planlama Yap</span> <i class="fa-solid fa-arrow-right"></i></div>
+                </div>
+
+                <div class="card glass-card" onclick="navTo('ai')">
+                    <div>
+                        <div class="card-header">
+                            <div class="card-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                            <div class="card-title">Yapay Zekâ Metin Motoru</div>
+                        </div>
+                        <div class="card-desc">Türkçe imla ve yazım kuralı düzeltici, metin özetleme ve fikir üretici.</div>
+                    </div>
+                    <div class="card-footer"><span>Metin Düzenle</span> <i class="fa-solid fa-arrow-right"></i></div>
+                </div>
+
+                <div class="card glass-card" onclick="navTo('files')">
+                    <div>
+                        <div class="card-header">
+                            <div class="card-icon"><i class="fa-solid fa-folder-open"></i></div>
+                            <div class="card-title">Dosya ve Görsel İşleyici</div>
+                        </div>
+                        <div class="card-desc">Format dönüştürücü, görsel boyutlandırıcı ve metin dışa aktarıcı.</div>
+                    </div>
+                    <div class="card-footer"><span>Dosya İşle</span> <i class="fa-solid fa-arrow-right"></i></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. PRATİKİM ACTIVE SECTION -->
+        <section id="sec-active" class="page-section">
+            <div class="active-hero">
+                <span class="badge-active"><i class="fa-solid fa-bolt"></i> PRATİKİM ACTIVE</span>
+                <h1>Bugün Biraz Hareket Etmeye Ne Dersin?</h1>
+                <p>Kendine zaman ayır, sana uygun bir aktivite seç ve gününe canlılık kat. Rekabet yok, sadece iyi hissetmek var!</p>
+
+                <!-- Daily Featured Activity Card -->
+                <div class="daily-featured-card glass-card" id="featuredActCard"></div>
+            </div>
+
+            <!-- Active Navigation Tabs -->
+            <div class="active-tabs">
+                <button class="active-tab-btn active" onclick="switchActiveTab('all')"><i class="fa-solid fa-border-all"></i> Tüm Aktiviteler</button>
+                <button class="active-tab-btn" onclick="switchActiveTab('home')"><i class="fa-solid fa-house-chimney"></i> Evde Hareket</button>
+                <button class="active-tab-btn" onclick="switchActiveTab('outdoor')"><i class="fa-solid fa-tree"></i> Dışarıda Spor</button>
+                <button class="active-tab-btn" onclick="switchActiveTab('stretch')"><i class="fa-solid fa-child-reaching"></i> Esneme & Rahatlama</button>
+                <button class="active-tab-btn" onclick="switchActiveTab('fun')"><i class="fa-solid fa-icons"></i> Eğlenceli Hareketler</button>
+                <button class="active-tab-btn" onclick="switchActiveTab('planner')"><i class="fa-solid fa-calendar-days"></i> Günlük Planım</button>
+                <button class="active-tab-btn" onclick="switchActiveTab('tracker')"><i class="fa-solid fa-chart-line"></i> Geçmişim & İlerleme</button>
+            </div>
+
+            <!-- TAB CONTENT: Activity Library -->
+            <div id="actTabLibrary">
+                <div class="cards-grid" id="actGrid"></div>
+            </div>
+
+            <!-- TAB CONTENT: Daily Plan Planner -->
+            <div id="actTabPlanner" style="display: none;">
+                <div class="glass-card tool-container">
+                    <h2 style="margin-bottom: 1rem;"><i class="fa-solid fa-calendar-plus" style="color:var(--accent-active)"></i> Günlük Aktivite Planlayıcım</h2>
+                    <p style="color:var(--subtext-color); margin-bottom: 1.5rem;">Kendi saatlerine uygun esnek hareket planını oluştur. Zorunluluk yok, dinlenme günleri dahil!</p>
+
+                    <div style="display: flex; gap: 10px; margin-bottom: 1.5rem; flex-wrap: wrap;">
+                        <input type="time" class="form-control" id="planTime" style="max-width: 130px;" value="09:00">
+                        <input type="text" class="form-control" id="planTitle" placeholder="Aktivite adı (Örn: 15 dk Esneme)" style="flex:1; min-width: 200px;">
+                        <button class="btn btn-active" onclick="addPlanItem()"><i class="fa-solid fa-plus"></i> Plana Ekle</button>
+                    </div>
+
+                    <div id="planListContainer"></div>
+                </div>
+            </div>
+
+            <!-- TAB CONTENT: Tracker & History -->
+            <div id="actTabTracker" style="display: none;">
+                <div class="glass-card tool-container">
+                    <h2 style="margin-bottom: 1rem;"><i class="fa-solid fa-chart-pie" style="color:var(--accent-active)"></i> Aktivite Geçmişim ve İlerleme</h2>
+                    <p style="color:var(--subtext-color); margin-bottom: 1.5rem;">Tamamladığın tüm aktivitelerin özetini ve istatistiklerini buradan inceleyebilirsin.</p>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+                        <div style="padding:1.2rem; background:rgba(16,185,129,0.1); border-radius:var(--radius-sm); border:1px solid rgba(16,185,129,0.2); text-align:center;">
+                            <span style="font-size:0.85rem; color:var(--subtext-color);">Bugün Tamamlanan</span>
+                            <div style="font-size:2rem; font-weight:800; color:var(--accent-active);" id="statToday">0</div>
+                        </div>
+                        <div style="padding:1.2rem; background:rgba(99,102,241,0.1); border-radius:var(--radius-sm); border:1px solid rgba(99,102,241,0.2); text-align:center;">
+                            <span style="font-size:0.85rem; color:var(--subtext-color);">Toplam Aktivite</span>
+                            <div style="font-size:2rem; font-weight:800; color:var(--primary);" id="statTotal">0</div>
+                        </div>
+                    </div>
+
+                    <h3 style="font-size:1.1rem; margin-bottom: 1rem;">Son Tamamlanan Hareketler</h3>
+                    <div id="historyListContainer"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. SMART TOOLS SECTION -->
+        <section id="sec-smart-tools" class="page-section">
+            <div class="section-header">
+                <h1>Akıllı Hesaplama Araçları</h1>
+                <p>Matematiksel işlemler, birim dönüştürmeler ve zaman hesaplamalarını anında yapın.</p>
+            </div>
+
+            <div class="cards-grid">
+                <!-- Percentage Calculator -->
+                <div class="card glass-card">
+                    <div>
+                        <div class="card-header">
+                            <div class="card-icon"><i class="fa-solid fa-percent"></i></div>
+                            <div class="card-title">Yüzde Hesaplama</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Sayı</label>
+                            <input type="number" class="form-control" id="pctNum" placeholder="Örn: 200">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Yüzde Oranı (%)</label>
+                            <input type="number" class="form-control" id="pctRate" placeholder="Örn: 18">
+                        </div>
+                        <button class="btn btn-primary" style="width: 100%;" onclick="calcPct()">Hesapla</button>
+                        <div class="result-box" id="pctRes"></div>
+                    </div>
+                </div>
+
+                <!-- VAT / KDV Calculator -->
+                <div class="card glass-card">
+                    <div>
+                        <div class="card-header">
+                            <div class="card-icon"><i class="fa-solid fa-receipt"></i></div>
+                            <div class="card-title">KDV Hesaplama</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Tutar (TL)</label>
+                            <input type="number" class="form-control" id="kdvAmount" placeholder="Örn: 1000">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">KDV Oranı (%)</label>
+                            <select class="form-control" id="kdvRate">
+                                <option value="20">%20 (Genel Oran)</option>
+                                <option value="10">%10 (Gıda/Tıp)</option>
+                                <option value="1">%1 (Temel İhtiyaç)</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-primary" style="width: 100%;" onclick="calcKDV()">Hesapla</button>
+                        <div class="result-box" id="kdvRes"></div>
+                    </div>
+                </div>
+
+                <!-- Age Calculator -->
+                <div class="card glass-card">
+                    <div>
+                        <div class="card-header">
+                            <div class="card-icon"><i class="fa-solid fa-cake-candles"></i></div>
+                            <div class="card-title">Yaş Hesaplama</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Doğum Tarihi</label>
+                            <input type="date" class="form-control" id="birthDate">
+                        </div>
+                        <button class="btn btn-primary" style="width: 100%;" onclick="calcAge()">Hesapla</button>
+                        <div class="result-box" id="ageRes"></div>
+                    </div>
+                </div>
+
+                <!-- EBOB & EKOK Calculator -->
+                <div class="card glass-card">
+                    <div>
+                        <div class="card-header">
+                            <div class="card-icon"><i class="fa-solid fa-calculator"></i></div>
+                            <div class="card-title">EBOB - EKOK Bulucu</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">1. Sayı</label>
+                            <input type="number" class="form-control" id="ebobNum1" placeholder="Örn: 12">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">2. Sayı</label>
+                            <input type="number" class="form-control" id="ebobNum2" placeholder="Örn: 18">
+                        </div>
+                        <button class="btn btn-primary" style="width: 100%;" onclick="calcEbobEkok()">Hesapla</button>
+                        <div class="result-box" id="ebobRes"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. DOCUMENT CENTER SECTION -->
+        <section id="sec-docs" class="page-section">
+            <div class="section-header">
+                <h1>Belge Hazırlama Merkezi</h1>
+                <p>Resmi dilekçe, özgeçmiş (CV) ve iş yazışmalarınız için şablonlar oluşturun.</p>
+            </div>
+
+            <div class="glass-card tool-container">
+                <div class="form-group">
+                    <label class="form-label">Şablon Türü Seçin</label>
+                    <select class="form-control" id="docTypeSelect" onchange="renderDocFields()">
+                        <option value="dilekce">Resmi Dilekçe Taslağı</option>
+                        <option value="cv">Hızlı CV Metni</option>
+                        <option value="email">Kurumsal E-Posta Taslağı</option>
+                    </select>
+                </div>
+
+                <div id="docFieldsContainer"></div>
+
+                <button class="btn btn-primary" style="margin-top: 1rem;" onclick="generateDoc()"><i class="fa-solid fa-gears"></i> Belgeyi Oluştur</button>
+
+                <div id="docOutputWrap" style="display:none; margin-top: 1.5rem;">
+                    <label class="form-label">Oluşturulan Belge Metni</label>
+                    <textarea class="form-control" id="docOutputText" rows="10" readonly></textarea>
+                    <div style="display:flex; gap:10px; margin-top:10px;">
+                        <button class="btn btn-outline btn-sm" onclick="copyToClipboard('docOutputText')"><i class="fa-solid fa-copy"></i> Kopyala</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. DAILY LIFE SECTION -->
+        <section id="sec-daily" class="page-section">
+            <div class="section-header">
+                <h1>Günlük Yaşam Takipçisi</h1>
+                <p>Görevlerinizi planlayın, alışkanlıklarınızı takip edin ve notlarınızı saklayın.</p>
+            </div>
+
+            <div class="glass-card tool-container">
+                <h2><i class="fa-solid fa-check-double" style="color:var(--primary);"></i> Yapılacaklar Listesi (To-Do)</h2>
+                <div style="display: flex; gap: 10px; margin: 1rem 0;">
+                    <input type="text" class="form-control" id="todoInput" placeholder="Yeni görev ekle...">
+                    <button class="btn btn-primary" onclick="addTodo()"><i class="fa-solid fa-plus"></i> Ekle</button>
+                </div>
+                <div id="todoList"></div>
+            </div>
+        </section>
+
+        <!-- 6. AI SECTION -->
+        <section id="sec-ai" class="page-section">
+            <div class="section-header">
+                <h1>Yapay Zekâ Metin Motoru</h1>
+                <p>Türkçe imla kurallarını düzeltin, yazım hatalarını giderin ve metinleri optimize edin.</p>
+            </div>
+
+            <div class="glass-card tool-container">
+                <div class="form-group">
+                    <label class="form-label">Metninizi Girin</label>
+                    <textarea class="form-control" id="aiInputText" placeholder="Örn: bugun okula gitmedim cunku kendimi iyi hissetmiyodum..."></textarea>
+                </div>
+                <button class="btn btn-primary" onclick="fixGrammar()"><i class="fa-solid fa-wand-magic-sparkles"></i> İmla ve Yazımı Düzelt</button>
+
+                <div id="aiResultBox" style="display:none; margin-top: 1.5rem;">
+                    <label class="form-label">Düzeltilmiş Metin</label>
+                    <textarea class="form-control" id="aiOutputText" rows="5" readonly></textarea>
+                    <button class="btn btn-outline btn-sm" style="margin-top:10px;" onclick="copyToClipboard('aiOutputText')"><i class="fa-solid fa-copy"></i> Kopyala</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. FILE CENTER SECTION -->
+        <section id="sec-files" class="page-section">
+            <div class="section-header">
+                <h1>Dosya ve Görsel İşleme</h1>
+                <p>Metin dosyalarınızı indirin ve görsel boyutlarını kolayca yönetin.</p>
+            </div>
+
+            <div class="glass-card tool-container">
+                <h3>Metin Dosyası (.txt) Oluşturucu</h3>
+                <div class="form-group" style="margin-top:1rem;">
+                    <label class="form-label">Dosya İçeriği</label>
+                    <textarea class="form-control" id="txtFileContent" placeholder="İndirmek istediğiniz notlar veya metin..."></textarea>
+                </div>
+                <button class="btn btn-primary" onclick="downloadTxtFile()"><i class="fa-solid fa-download"></i> .TXT Olarak İndir</button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ACTIVITY TIMER MODAL -->
+    <div class="modal-overlay" id="timerModal">
+        <div class="timer-modal glass-card">
+            <span class="badge-active" id="modalCategoryBadge">ESNEME</span>
+            <h2 id="modalActTitle" style="margin-top: 5px;">Aktivite Başlatılıyor</h2>
+            <p id="modalActDesc" style="color:var(--subtext-color); font-size: 0.9rem; margin-bottom: 10px;"></p>
+
+            <div class="timer-display" id="modalTimerDisplay">05:00</div>
+
+            <div style="text-align: left; background: rgba(255,255,255,0.05); padding:1rem; border-radius:var(--radius-sm); margin-bottom: 1.5rem;">
+                <strong style="font-size:0.85rem; color:var(--text-color);">Nasıl Uygulanır?</strong>
+                <ol class="activity-steps-list" id="modalActSteps"></ol>
+            </div>
+
+            <div style="display: flex; gap: 10px; justify-content: center;">
+                <button class="btn btn-active" id="btnTimerStart" onclick="startTimer()"><i class="fa-solid fa-play"></i> Başlat</button>
+                <button class="btn btn-outline" id="btnTimerPause" onclick="pauseTimer()" style="display:none;"><i class="fa-solid fa-pause"></i> Duraklat</button>
+                <button class="btn btn-outline" onclick="closeTimerModal()"><i class="fa-solid fa-xmark"></i> Kapat</button>
             </div>
         </div>
     </div>
 
-    <!-- MAIN START SCREEN OVERLAY -->
-    <div id="startScreen" class="absolute inset-0 z-20 flex items-center justify-center bg-black/80 backdrop-blur-md">
-        <div class="glass-panel p-8 sm:p-10 rounded-2xl max-w-lg w-full text-center glow-box-cyan mx-4 transform transition-all">
-            <div class="inline-block p-4 rounded-full bg-cyan-950/60 border border-cyan-500/30 mb-4">
-                <i class="fa-solid fa-crosshair text-5xl text-cyan-400 animate-pulse"></i>
-            </div>
-            <h1 class="text-4xl sm:text-5xl font-black font-orbitron tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-pink-500 to-purple-500 mb-2">NEON STRIKE</h1>
-            <p class="text-gray-400 text-sm mb-6">Cyberpunk arenada hayatta kal! Hedefleri yok et, silahlarını yükselt ve en yüksek skora ulaş.</p>
-            
-            <div class="space-y-3 mb-8">
-                <button id="startBtn" class="w-full py-4 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-black font-orbitron font-extrabold text-lg rounded-xl transition duration-200 shadow-lg shadow-cyan-500/30 hover:scale-[1.02]">
-                    OYUNA BAŞLA <i class="fa-solid fa-play ml-2"></i>
-                </button>
-                <button id="openShopBtn" class="w-full py-3 bg-gray-900/80 hover:bg-gray-800 border border-pink-500/40 text-pink-400 font-orbitron font-bold text-sm rounded-xl transition duration-200">
-                    SİLAH MARKETİ <i class="fa-solid fa-store ml-2"></i>
-                </button>
-            </div>
-
-            <!-- Controls Info -->
-            <div class="grid grid-cols-2 gap-2 text-xs text-gray-400 border-t border-gray-800 pt-4 font-orbitron">
-                <div class="flex items-center gap-2 justify-center"><i class="fa-solid fa-mouse text-cyan-400"></i> Nişan Al & Ateş Et</div>
-                <div class="flex items-center gap-2 justify-center"><i class="fa-solid fa-keyboard text-cyan-400"></i> [R] Şarjör Değiştir</div>
-                <div class="flex items-center gap-2 justify-center"><i class="fa-solid fa-list-ol text-cyan-400"></i> [1-4] Silah Değiş</div>
-                <div class="flex items-center gap-2 justify-center"><i class="fa-solid fa-shield-halved text-cyan-400"></i> Kırmızı Hedefler Saldırır</div>
-            </div>
+    <!-- FAVORITES MODAL -->
+    <div class="modal-overlay" id="favModal">
+        <div class="timer-modal glass-card">
+            <h2><i class="fa-solid fa-heart" style="color:#ef4444;"></i> Favori Aktivitelerim</h2>
+            <div id="favListContainer" style="margin: 1.5rem 0; text-align: left; max-height: 300px; overflow-y: auto;"></div>
+            <button class="btn btn-outline" onclick="closeFavModal()">Kapat</button>
         </div>
     </div>
 
-    <!-- MARKET / SHOP OVERLAY -->
-    <div id="shopScreen" class="absolute inset-0 z-30 flex items-center justify-center bg-black/85 backdrop-blur-lg hidden">
-        <div class="glass-panel p-6 sm:p-8 rounded-2xl max-w-2xl w-full max-h-[90vh] flex flex-col glow-box-pink mx-4">
-            <div class="flex justify-between items-center mb-6 pb-4 border-b border-gray-800">
-                <div>
-                    <h2 class="text-2xl font-bold font-orbitron text-pink-500 flex items-center gap-2">
-                        <i class="fa-solid fa-gun"></i> SİLAH CEPHANELİĞİ
-                    </h2>
-                    <p class="text-xs text-gray-400">Yeni silahlar satın al ve güçlerini artır.</p>
-                </div>
-                <div class="text-right">
-                    <span class="text-xs text-gray-400 block">MEVCUT BAKİYE</span>
-                    <span id="shopMoneyText" class="text-xl font-bold font-orbitron text-yellow-400">$0</span>
-                </div>
-            </div>
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 PRATİKİM - Her işin kolay bir yolu var. Tüm Hakları Saklıdır.</p>
+    </footer>
 
-            <!-- Weapons List Container -->
-            <div id="weaponsContainer" class="flex-1 overflow-y-auto space-y-4 pr-1 mb-6">
-                <!-- Dynamically Populated by JS -->
-            </div>
-
-            <button id="closeShopBtn" class="w-full py-3 bg-gray-800 hover:bg-gray-700 text-white font-orbitron font-bold rounded-xl border border-gray-600 transition">
-                MENÜYE DÖN
-            </button>
-        </div>
-    </div>
-
-    <!-- GAME OVER SCREEN OVERLAY -->
-    <div id="gameOverScreen" class="absolute inset-0 z-20 flex items-center justify-center bg-black/90 backdrop-blur-md hidden">
-        <div class="glass-panel p-8 sm:p-10 rounded-2xl max-w-md w-full text-center border-red-500/50 shadow-2xl shadow-red-500/20 mx-4">
-            <div class="inline-block p-4 rounded-full bg-red-950/60 border border-red-500/40 mb-3 text-red-500">
-                <i class="fa-solid fa-skull text-5xl animate-bounce"></i>
-            </div>
-            <h2 class="text-3xl font-black font-orbitron text-red-500 mb-1">GÖREV BAŞARISIZ</h2>
-            <p class="text-xs text-gray-400 mb-6">Savunma hattı çöktü!</p>
-
-            <div class="bg-gray-950/60 rounded-xl p-4 border border-gray-800 space-y-3 mb-6 font-orbitron">
-                <div class="flex justify-between text-sm">
-                    <span class="text-gray-400">TOPLAM SKOR:</span>
-                    <span id="finalScore" class="font-bold text-cyan-400">0</span>
-                </div>
-                <div class="flex justify-between text-sm">
-                    <span class="text-gray-400">MAX KOMBO:</span>
-                    <span id="finalCombo" class="font-bold text-pink-500">0x</span>
-                </div>
-                <div class="flex justify-between text-sm">
-                    <span class="text-gray-400">KAZANILAN PARA:</span>
-                    <span id="finalMoney" class="font-bold text-yellow-400">+$0</span>
-                </div>
-                <div class="flex justify-between text-sm pt-2 border-t border-gray-800">
-                    <span class="text-gray-400">EN YÜKSEK REKOR:</span>
-                    <span id="finalHighScore" class="font-bold text-green-400">0</span>
-                </div>
-            </div>
-
-            <div class="flex gap-3">
-                <button id="restartBtn" class="flex-1 py-3 bg-gradient-to-r from-red-600 to-pink-600 hover:from-red-500 hover:to-pink-500 text-white font-orbitron font-bold text-sm rounded-xl transition shadow-lg shadow-red-600/30">
-                    TEKRAR DENE <i class="fa-solid fa-rotate-right ml-1"></i>
-                </button>
-                <button id="gameOverShopBtn" class="py-3 px-4 bg-gray-900 hover:bg-gray-800 border border-gray-700 text-yellow-400 font-orbitron font-bold text-sm rounded-xl transition">
-                    <i class="fa-solid fa-store"></i>
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- GAMEPLAY SCRIPT -->
+    <!-- JAVASCRIPT LOGIC -->
     <script>
-        // --- AUDIO ENGINE (Tone.js wrapper) ---
-        class SoundController {
-            constructor() {
-                this.initialized = false;
+        let state = {
+            activeTab: 'all',
+            favorites: JSON.parse(localStorage.getItem('pratikim_favs') || '[]'),
+            plans: JSON.parse(localStorage.getItem('pratikim_plans') || '[]'),
+            history: JSON.parse(localStorage.getItem('pratikim_history') || '[]'),
+            todos: JSON.parse(localStorage.getItem('pratikim_todos') || '[]')
+        };
+
+        const ACTIVITIES = [
+            {
+                id: 'act-1',
+                title: 'Tempolu Ev Yürüyüşü',
+                category: 'home',
+                categoryName: 'Evde Hareket',
+                duration: 10,
+                difficulty: 'Kolay',
+                icon: 'fa-shoe-prints',
+                desc: 'Ev içerisinde oda aralarında veya olduğun yerde ritmik adımlarla hafif tempolu hareket.',
+                steps: [
+                    'Rahat bir kıyafet tercih et ve dik dur.',
+                    'Kollarını ritmik bir şekilde sallayarak adımlarını at.',
+                    'Dilersen sevdiğin tempolu bir müzik açabilirsin.'
+                ]
+            },
+            {
+                id: 'act-2',
+                title: 'Nefes ve Bacak Esnetme',
+                category: 'stretch',
+                categoryName: 'Esneme & Rahatlama',
+                duration: 5,
+                difficulty: 'Başlangıç',
+                icon: 'fa-child-reaching',
+                desc: 'Oturarak veya ayakta kas gerginliğini azaltan nazik esneme hareketleri.',
+                steps: [
+                    'Bacaklarını omuz genişliğinde aç.',
+                    'Derin nefes alarak kolları yukarı uzat.',
+                    'Nefes verirken nazikçe öne doğru eğil.'
+                ]
+            },
+            {
+                id: 'act-3',
+                title: 'Açık Hava Doğa Yürüyüşü',
+                category: 'outdoor',
+                categoryName: 'Dışarıda Spor',
+                duration: 20,
+                difficulty: 'Orta',
+                icon: 'fa-person-walking',
+                desc: 'Temiz havada zihnini boşaltırken atacağın sağlıklı adımlar.',
+                steps: [
+                    'Uygun yürüyüş ayakkabılarını giy.',
+                    'Adım temposunu sabit tut.',
+                    'Etrafındaki doğayı gözlemleyerek ritmini koru.'
+                ]
+            },
+            {
+                id: 'act-4',
+                title: 'Müzik Eşliğinde Ritim Dansı',
+                category: 'fun',
+                categoryName: 'Eğlenceli Hareket',
+                duration: 8,
+                difficulty: 'Eğlenceli',
+                icon: 'fa-music',
+                desc: 'Kuralsız, tamamen modunu yükseltecek serbest ritim hareketleri.',
+                steps: [
+                    'Sevdiğin hareketli bir şarkıyı başlat.',
+                    'Hiçbir kural olmadan ritme ayak uydur.',
+                    'Gülümse ve enerjinin yükselmesine izin ver.'
+                ]
+            },
+            {
+                id: 'act-5',
+                title: 'Sandalye Destekli Kol Esnetme',
+                category: 'home',
+                categoryName: 'Evde Hareket',
+                duration: 6,
+                difficulty: 'Kolay',
+                icon: 'fa-chair',
+                desc: 'Masa başında verilen kısa molalarda omuz ve kollarınızı rahatlatacak egzersiz.',
+                steps: [
+                    'Sandalyede dik oturun.',
+                    'Omuzlarınızı dairesel hareketlerle arkaya doğru yuvarlayın.',
+                    'Kolları yana açıp kapatarak göğüs kaslarını esnetin.'
+                ]
             }
-
-            init() {
-                if (this.initialized) return;
-                Tone.start();
-                
-                // Synth for normal laser shots
-                this.laserSynth = new Tone.PolySynth(Tone.Synth, {
-                    oscillator: { type: "sawtooth" },
-                    envelope: { attack: 0.005, decay: 0.1, sustain: 0, release: 0.1 }
-                }).toDestination();
-                this.laserSynth.volume.value = -12;
-
-                // Noise synth for explosions / impacts
-                this.expSynth = new Tone.NoiseSynth({
-                    noise: { type: 'white' },
-                    envelope: { attack: 0.005, decay: 0.2, sustain: 0 }
-                }).toDestination();
-                this.expSynth.volume.value = -10;
-
-                // Synth for UI clicks & weapon switch
-                this.uiSynth = new Tone.MembraneSynth().toDestination();
-                this.uiSynth.volume.value = -16;
-
-                this.initialized = true;
-            }
-
-            playShoot(pitch = "C5") {
-                if (!this.initialized) return;
-                try {
-                    this.laserSynth.triggerAttackRelease(pitch, "8n");
-                } catch(e){}
-            }
-
-            playHit() {
-                if (!this.initialized) return;
-                try {
-                    this.expSynth.triggerAttackRelease("16n");
-                } catch(e){}
-            }
-
-            playBonus() {
-                if (!this.initialized) return;
-                try {
-                    this.uiSynth.triggerAttackRelease("E5", "16n");
-                } catch(e){}
-            }
-
-            playDamage() {
-                if (!this.initialized) return;
-                try {
-                    this.uiSynth.triggerAttackRelease("C2", "8n");
-                } catch(e){}
-            }
-        }
-
-        const audio = new SoundController();
-
-        // --- GAME STATE VARIABLES ---
-        const canvas = document.getElementById('gameCanvas');
-        const ctx = canvas.getContext('2d');
-
-        let isRunning = false;
-        let animationFrameId = null;
-        
-        let score = 0;
-        let highScore = parseInt(localStorage.getItem('neon_strike_highscore') || '0');
-        let money = parseInt(localStorage.getItem('neon_strike_money') || '100');
-        let combo = 0;
-        let maxCombo = 0;
-        let comboTimer = null;
-        let wave = 1;
-        let health = 100;
-        let maxHealth = 100;
-
-        // Mouse & Crosshair Position
-        const mouse = { x: 0, y: 0, radius: 15 };
-
-        // Entities arrays
-        let targets = [];
-        let particles = [];
-        let floatingTexts = [];
-        let bullets = [];
-
-        // Weapon Configs
-        const WEAPONS = [
-            { id: 'pistol', name: 'PLASMA PISTOL', damage: 35, rate: 250, count: 1, spread: 0, cost: 0, owned: true, color: '#00f0ff', pitch: 'C5' },
-            { id: 'shotgun', name: 'NEON SHOTGUN', damage: 22, rate: 650, count: 6, spread: 0.25, cost: 300, owned: false, color: '#ff007f', pitch: 'G4' },
-            { id: 'smg', name: 'CYBER RIFLE', damage: 18, rate: 100, count: 1, spread: 0.08, cost: 600, owned: false, color: '#39ff14', pitch: 'E5' },
-            { id: 'railgun', name: 'RAIL CANNON', damage: 150, rate: 900, count: 1, spread: 0, cost: 1200, owned: false, color: '#ffff00', pitch: 'C6' }
         ];
 
-        let currentWeaponIndex = 0;
-        let lastShotTime = 0;
-
-        // Load saved weapons ownership
-        const savedWeapons = JSON.parse(localStorage.getItem('neon_strike_weapons') || '[]');
-        if (savedWeapons.length > 0) {
-            WEAPONS.forEach(w => {
-                if (savedWeapons.includes(w.id)) w.owned = true;
-            });
-        }
-
-        // Window Resize Handling
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-
-        // Mouse Movement Track
-        window.addEventListener('mousemove', (e) => {
-            mouse.x = e.clientX;
-            mouse.y = e.clientY;
+        document.addEventListener('DOMContentLoaded', () => {
+            renderFeaturedActivity();
+            renderActivitiesGrid();
+            renderPlanList();
+            renderHistoryStats();
+            renderDocFields();
+            renderTodos();
         });
 
-        // Keyboard Weapon Switching
-        window.addEventListener('keydown', (e) => {
-            if (!isRunning) return;
-            const key = parseInt(e.key);
-            if (key >= 1 && key <= WEAPONS.length) {
-                switchWeapon(key - 1);
-            }
-        });
+        function navTo(sectionId) {
+            document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
+            const target = document.getElementById('sec-' + sectionId);
+            if(target) target.classList.add('active');
 
-        // Click to Shoot
-        window.addEventListener('mousedown', (e) => {
-            if (!isRunning || e.button !== 0) return;
-            audio.init();
-            shootWeapon();
-        });
+            document.querySelectorAll('.nav-link').forEach(lnk => lnk.classList.remove('active'));
+            window.scrollTo({ top: 0, behavior: 'smooth' });
 
-        function switchWeapon(index) {
-            if (WEAPONS[index] && WEAPONS[index].owned) {
-                currentWeaponIndex = index;
-                updateHUD();
-                createFloatingText(mouse.x, mouse.y - 20, WEAPONS[index].name, WEAPONS[index].color);
-                audio.playBonus();
+            document.getElementById('navLinks').classList.remove('mobile-open');
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle('light-mode');
+            document.body.classList.toggle('dark-mode');
+            const icon = document.getElementById('themeIcon');
+            icon.className = document.body.classList.contains('light-mode') ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+        }
+
+        function toggleMobileNav() {
+            document.getElementById('navLinks').classList.toggle('mobile-open');
+        }
+
+        function renderFeaturedActivity() {
+            const feat = ACTIVITIES[0];
+            const container = document.getElementById('featuredActCard');
+            const isFav = state.favorites.includes(feat.id);
+
+            container.innerHTML = `
+                <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                    <span class="badge-active"><i class="fa-solid fa-star"></i> GÜNÜN ÖNERİSİ</span>
+                    <button class="icon-btn" onclick="toggleFav('${feat.id}')" style="color:${isFav ? '#ef4444' : 'inherit'}">
+                        <i class="fa-${isFav ? 'solid' : 'regular'} fa-heart"></i>
+                    </button>
+                </div>
+                <h3 style="font-size:1.4rem; margin:8px 0; font-weight:800;">${feat.title}</h3>
+                <p style="color:var(--subtext-color); font-size:0.95rem; margin-bottom:1rem;">${feat.desc}</p>
+                <div style="display:flex; gap:15px; font-size:0.85rem; color:var(--subtext-color); margin-bottom:1.2rem;">
+                    <span><i class="fa-regular fa-clock"></i> ${feat.duration} Dakika</span>
+                    <span><i class="fa-solid fa-layer-group"></i> ${feat.difficulty}</span>
+                </div>
+                <button class="btn btn-active" onclick="openTimerModal('${feat.id}')"><i class="fa-solid fa-play"></i> Aktiviteye Başla</button>
+            `;
+        }
+
+        function switchActiveTab(tab) {
+            state.activeTab = tab;
+            document.querySelectorAll('.active-tab-btn').forEach(btn => btn.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            document.getElementById('actTabLibrary').style.display = (tab === 'planner' || tab === 'tracker') ? 'none' : 'block';
+            document.getElementById('actTabPlanner').style.display = (tab === 'planner') ? 'block' : 'none';
+            document.getElementById('actTabTracker').style.display = (tab === 'tracker') ? 'block' : 'none';
+
+            if(tab !== 'planner' && tab !== 'tracker') {
+                renderActivitiesGrid();
             }
         }
 
-        // --- GAME CLASSES ---
-
-        class Target {
-            constructor() {
-                this.radius = Math.random() * 15 + 20; // Size
-                // Spawn along screen borders
-                if (Math.random() < 0.5) {
-                    this.x = Math.random() < 0.5 ? -this.radius : canvas.width + this.radius;
-                    this.y = Math.random() * canvas.height;
-                } else {
-                    this.x = Math.random() * canvas.width;
-                    this.y = Math.random() < 0.5 ? -this.radius : canvas.height + this.radius;
-                }
-
-                // Types: standard, runner, tank, explosive
-                const types = ['standard', 'runner', 'tank'];
-                if (wave >= 2) types.push('explosive');
-                
-                this.type = types[Math.floor(Math.random() * types.length)];
-                
-                // Behavior / Stats based on type
-                this.color = '#00f0ff';
-                this.hp = 30 + (wave * 5);
-                this.maxHp = this.hp;
-                this.speed = (Math.random() * 1.5 + 1) * (1 + wave * 0.05);
-                this.points = 50;
-
-                if (this.type === 'runner') {
-                    this.color = '#ff007f';
-                    this.speed *= 1.8;
-                    this.radius *= 0.75;
-                    this.hp *= 0.6;
-                    this.points = 75;
-                } else if (this.type === 'tank') {
-                    this.color = '#39ff14';
-                    this.speed *= 0.6;
-                    this.radius *= 1.5;
-                    this.hp *= 2.5;
-                    this.points = 120;
-                } else if (this.type === 'explosive') {
-                    this.color = '#ffff00';
-                    this.speed *= 1.2;
-                    this.hp *= 0.8;
-                    this.points = 100;
-                }
-
-                // Movement towards center/player zone slowly
-                const targetX = canvas.width / 2 + (Math.random() - 0.5) * 400;
-                const targetY = canvas.height / 2 + (Math.random() - 0.5) * 400;
-                const angle = Math.atan2(targetY - this.y, targetX - this.x);
-                this.vx = Math.cos(angle) * this.speed;
-                this.vy = Math.sin(angle) * this.speed;
-
-                // Pulsate effect
-                this.pulse = 0;
-            }
-
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-                this.pulse += 0.05;
-
-                // If target reaches edge screen borders inside, damage player if dangerous
-                if (this.x < -100 || this.x > canvas.width + 100 || this.y < -100 || this.y > canvas.height + 100) {
-                    this.markedForDeletion = true;
-                }
-            }
-
-            draw() {
-                ctx.save();
-                ctx.translate(this.x, this.y);
-
-                // Neon Outer Glow
-                ctx.shadowBlur = 15;
-                ctx.shadowColor = this.color;
-                ctx.strokeStyle = this.color;
-                ctx.lineWidth = 3;
-
-                // Draw Polygon shape
-                ctx.beginPath();
-                const sides = this.type === 'tank' ? 6 : (this.type === 'runner' ? 3 : 5);
-                for (let i = 0; i < sides; i++) {
-                    const angle = (i * 2 * Math.PI / sides) + this.pulse;
-                    const r = this.radius + Math.sin(this.pulse * 2) * 2;
-                    const px = Math.cos(angle) * r;
-                    const py = Math.sin(angle) * r;
-                    if (i === 0) ctx.moveTo(px, py);
-                    else ctx.lineTo(px, py);
-                }
-                ctx.closePath();
-                ctx.stroke();
-
-                // Inner HP Core
-                const hpPercent = Math.max(0, this.hp / this.maxHp);
-                ctx.fillStyle = this.color;
-                ctx.globalAlpha = 0.3 * hpPercent;
-                ctx.fill();
-                ctx.globalAlpha = 1.0;
-
-                ctx.restore();
-            }
-        }
-
-        class Particle {
-            constructor(x, y, color) {
-                this.x = x;
-                this.y = y;
-                this.color = color;
-                this.radius = Math.random() * 3 + 1;
-                const angle = Math.random() * Math.PI * 2;
-                const speed = Math.random() * 6 + 1;
-                this.vx = Math.cos(angle) * speed;
-                this.vy = Math.sin(angle) * speed;
-                this.alpha = 1;
-                this.decay = Math.random() * 0.03 + 0.015;
-            }
-
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-                this.vx *= 0.96;
-                this.vy *= 0.96;
-                this.alpha -= this.decay;
-            }
-
-            draw() {
-                ctx.save();
-                ctx.globalAlpha = Math.max(0, this.alpha);
-                ctx.shadowBlur = 8;
-                ctx.shadowColor = this.color;
-                ctx.fillStyle = this.color;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.restore();
-            }
-        }
-
-        class FloatingText {
-            constructor(x, y, text, color = '#fff') {
-                this.x = x;
-                this.y = y;
-                this.text = text;
-                this.color = color;
-                this.alpha = 1;
-                this.vy = -1.5;
-            }
-
-            update() {
-                this.y += this.vy;
-                this.alpha -= 0.02;
-            }
-
-            draw() {
-                ctx.save();
-                ctx.globalAlpha = Math.max(0, this.alpha);
-                ctx.font = 'bold 16px Orbitron';
-                ctx.fillStyle = this.color;
-                ctx.shadowBlur = 6;
-                ctx.shadowColor = this.color;
-                ctx.fillText(this.text, this.x, this.y);
-                ctx.restore();
-            }
-        }
-
-        class BulletEffect {
-            constructor(startX, startY, targetX, targetY, color) {
-                this.startX = startX;
-                this.startY = startY;
-                this.targetX = targetX;
-                this.targetY = targetY;
-                this.color = color;
-                this.alpha = 1;
-            }
-
-            update() {
-                this.alpha -= 0.1;
-            }
-
-            draw() {
-                ctx.save();
-                ctx.globalAlpha = Math.max(0, this.alpha);
-                ctx.strokeStyle = this.color;
-                ctx.lineWidth = 2;
-                ctx.shadowBlur = 10;
-                ctx.shadowColor = this.color;
-                ctx.beginPath();
-                ctx.moveTo(this.startX, this.startY);
-                ctx.lineTo(this.targetX, this.targetY);
-                ctx.stroke();
-                ctx.restore();
-            }
-        }
-
-        // --- SHOOT MECHANICS ---
-
-        function shootWeapon() {
-            const now = Date.now();
-            const weapon = WEAPONS[currentWeaponIndex];
-
-            if (now - lastShotTime < weapon.rate) return;
-            lastShotTime = now;
-
-            audio.playShoot(weapon.pitch);
-
-            // Center bottom origin for player gun effect
-            const startX = canvas.width / 2;
-            const startY = canvas.height;
-
-            for (let i = 0; i < weapon.count; i++) {
-                const spreadX = (Math.random() - 0.5) * weapon.spread * 300;
-                const spreadY = (Math.random() - 0.5) * weapon.spread * 300;
-                const tx = mouse.x + spreadX;
-                const ty = mouse.y + spreadY;
-
-                bullets.push(new BulletEffect(startX, startY, tx, ty, weapon.color));
-
-                // Check Target Hit
-                let hitAny = false;
-                targets.forEach(target => {
-                    const dist = Math.hypot(target.x - tx, target.y - ty);
-                    if (dist < target.radius + 10) {
-                        hitTarget(target, weapon.damage, tx, ty);
-                        hitAny = true;
-                    }
-                });
-
-                if (!hitAny) {
-                    // Reset combo on miss if not shotgun
-                    if (weapon.id !== 'shotgun') resetCombo();
-                }
-            }
-        }
-
-        function hitTarget(target, damage, hitX, hitY) {
-            target.hp -= damage;
-            audio.playHit();
-
-            // Spawn Particles
-            for (let i = 0; i < 8; i++) {
-                particles.push(new Particle(hitX, hitY, target.color));
-            }
-
-            createFloatingText(hitX, hitY - 10, `-${damage}`, '#ff0055');
-
-            if (target.hp <= 0) {
-                target.markedForDeletion = true;
-                
-                // Add Combo & Score
-                combo++;
-                if (combo > maxCombo) maxCombo = combo;
-                
-                const comboMult = 1 + Math.floor(combo / 5) * 0.5;
-                const earnedPoints = Math.round(target.points * comboMult);
-                const earnedMoney = Math.round((target.points / 10) * comboMult);
-
-                score += earnedPoints;
-                money += earnedMoney;
-
-                createFloatingText(target.x, target.y, `+${earnedPoints}`, '#00f0ff');
-                
-                // Explosive target area damage
-                if (target.type === 'explosive') {
-                    triggerExplosion(target.x, target.y);
-                }
-
-                updateComboUI();
-                updateHUD();
-            }
-        }
-
-        function triggerExplosion(x, y) {
-            for (let i = 0; i < 25; i++) {
-                particles.push(new Particle(x, y, '#ffff00'));
-            }
-            targets.forEach(t => {
-                const d = Math.hypot(t.x - x, t.y - y);
-                if (d < 150 && !t.markedForDeletion) {
-                    hitTarget(t, 80, t.x, t.y);
-                }
-            });
-        }
-
-        function resetCombo() {
-            combo = 0;
-            updateComboUI();
-        }
-
-        function updateComboUI() {
-            const comboContainer = document.getElementById('comboContainer');
-            const comboText = document.getElementById('comboText');
-
-            if (combo >= 3) {
-                comboContainer.classList.remove('opacity-0', 'scale-75');
-                comboContainer.classList.add('opacity-100', 'scale-100');
-                const mult = (1 + Math.floor(combo / 5) * 0.5).toFixed(1);
-                comboText.innerText = `${combo}x KOMBO (${mult}x Puan)`;
-            } else {
-                comboContainer.classList.add('opacity-0', 'scale-75');
-                comboContainer.classList.remove('opacity-100', 'scale-100');
-            }
-        }
-
-        function createFloatingText(x, y, text, color) {
-            floatingTexts.push(new FloatingText(x, y, text, color));
-        }
-
-        // --- GAME LOOP & SPAWNER ---
-
-        let targetSpawnTimer = 0;
-
-        function gameLoop(timestamp) {
-            if (!isRunning) return;
-
-            // Clear Screen
-            ctx.fillStyle = 'rgba(5, 5, 10, 0.3)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            // Spawn Targets
-            targetSpawnTimer++;
-            const spawnInterval = Math.max(30, 90 - wave * 5);
-            if (targetSpawnTimer > spawnInterval) {
-                targets.push(new Target());
-                targetSpawnTimer = 0;
-            }
-
-            // Update & Draw Bullets
-            bullets.forEach((b, index) => {
-                b.update();
-                b.draw();
-                if (b.alpha <= 0) bullets.splice(index, 1);
-            });
-
-            // Update & Draw Targets
-            targets.forEach((target, index) => {
-                target.update();
-                target.draw();
-
-                // Check distance to player area (bottom center / hit player)
-                const distToPlayer = Math.hypot(target.x - canvas.width / 2, target.y - canvas.height);
-                if (distToPlayer < 120) {
-                    target.markedForDeletion = true;
-                    damagePlayer(15);
-                }
-
-                if (target.markedForDeletion) {
-                    targets.splice(index, 1);
-                }
-            });
-
-            // Update & Draw Particles
-            particles.forEach((p, index) => {
-                p.update();
-                p.draw();
-                if (p.alpha <= 0) particles.splice(index, 1);
-            });
-
-            // Update & Draw Floating Text
-            floatingTexts.forEach((ft, index) => {
-                ft.update();
-                ft.draw();
-                if (ft.alpha <= 0) floatingTexts.splice(index, 1);
-            });
-
-            // Draw Crosshair
-            drawCrosshair();
-
-            // Wave progression
-            if (score > wave * 600) {
-                wave++;
-                createFloatingText(canvas.width / 2 - 50, canvas.height / 2, `DALGA ${wave}!`, '#ff007f');
-                updateHUD();
-            }
-
-            animationFrameId = requestAnimationFrame(gameLoop);
-        }
-
-        function drawCrosshair() {
-            const { x, y } = mouse;
-            const w = WEAPONS[currentWeaponIndex];
-
-            ctx.save();
-            ctx.shadowBlur = 10;
-            ctx.shadowColor = w.color;
-            ctx.strokeStyle = w.color;
-            ctx.lineWidth = 2;
-
-            // Outer ring
-            ctx.beginPath();
-            ctx.arc(x, y, 16, 0, Math.PI * 2);
-            ctx.stroke();
-
-            // Inner Dot
-            ctx.fillStyle = w.color;
-            ctx.beginPath();
-            ctx.arc(x, y, 3, 0, Math.PI * 2);
-            ctx.fill();
-
-            // Reticle Lines
-            ctx.beginPath();
-            ctx.moveTo(x - 24, y); ctx.lineTo(x - 12, y);
-            ctx.moveTo(x + 12, y); ctx.lineTo(x + 24, y);
-            ctx.moveTo(x, y - 24); ctx.lineTo(x, y - 12);
-            ctx.moveTo(x, y + 12); ctx.lineTo(x, y + 24);
-            ctx.stroke();
-
-            ctx.restore();
-        }
-
-        function damagePlayer(amount) {
-            health -= amount;
-            audio.playDamage();
-            if (health <= 0) {
-                health = 0;
-                endGame();
-            }
-            updateHUD();
-        }
-
-        function updateHUD() {
-            document.getElementById('scoreText').innerText = score;
-            document.getElementById('waveText').innerText = wave;
-            document.getElementById('moneyText').innerText = `$${money}`;
-            document.getElementById('hpText').innerText = `${health}/${maxHealth}`;
-            document.getElementById('hpBar').style.width = `${(health / maxHealth) * 100}%`;
-            document.getElementById('hudHighScore').innerText = highScore;
-            
-            const w = WEAPONS[currentWeaponIndex];
-            const ammoEl = document.getElementById('currentWeaponName');
-            ammoEl.innerText = w.name;
-            ammoEl.style.color = w.color;
-
-            // Save state
-            localStorage.setItem('neon_strike_money', money);
-        }
-
-        // --- START / END GAME CONTROLS ---
-
-        function startGame() {
-            score = 0;
-            combo = 0;
-            maxCombo = 0;
-            wave = 1;
-            health = maxHealth;
-            targets = [];
-            particles = [];
-            bullets = [];
-            floatingTexts = [];
-
-            document.getElementById('startScreen').classList.add('hidden');
-            document.getElementById('gameOverScreen').classList.add('hidden');
-            document.getElementById('hud').classList.remove('opacity-0');
-
-            updateHUD();
-            isRunning = true;
-            requestAnimationFrame(gameLoop);
-        }
-
-        function endGame() {
-            isRunning = false;
-            if (animationFrameId) cancelAnimationFrame(animationFrameId);
-
-            if (score > highScore) {
-                highScore = score;
-                localStorage.setItem('neon_strike_highscore', highScore);
-            }
-
-            document.getElementById('finalScore').innerText = score;
-            document.getElementById('finalCombo').innerText = `${maxCombo}x`;
-            document.getElementById('finalMoney').innerText = `+$${Math.round(score / 10)}`;
-            document.getElementById('finalHighScore').innerText = highScore;
-
-            document.getElementById('gameOverScreen').classList.remove('hidden');
-            document.getElementById('hud').classList.add('opacity-0');
-        }
-
-        // --- SHOP & MARKET SYSTEM ---
-
-        function renderShop() {
-            const container = document.getElementById('weaponsContainer');
-            document.getElementById('shopMoneyText').innerText = `$${money}`;
-            container.innerHTML = '';
-
-            WEAPONS.forEach((weapon, idx) => {
-                const card = document.createElement('div');
-                card.className = `p-4 rounded-xl bg-gray-900/90 border flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 ${
-                    currentWeaponIndex === idx ? 'border-cyan-400 bg-cyan-950/20' : 'border-gray-800'
-                }`;
-
-                card.innerHTML = `
-                    <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 rounded-lg flex items-center justify-center font-bold text-xl border" style="color:${weapon.color}; border-color:${weapon.color}">
-                            <i class="fa-solid fa-crosshair"></i>
-                        </div>
+        function renderActivitiesGrid() {
+            const grid = document.getElementById('actGrid');
+            const filtered = state.activeTab === 'all'
+                ? ACTIVITIES
+                : ACTIVITIES.filter(a => a.category === state.activeTab);
+
+            grid.innerHTML = filtered.map(act => {
+                const isFav = state.favorites.includes(act.id);
+                return `
+                    <div class="card glass-card">
                         <div>
-                            <h3 class="font-orbitron font-bold text-lg" style="color:${weapon.color}">${weapon.name}</h3>
-                            <div class="flex gap-3 text-xs text-gray-400 font-orbitron">
-                                <span>HASAR: <b class="text-white">${weapon.damage}</b></span>
-                                <span>HIZ: <b class="text-white">${1000/weapon.rate}/sn</b></span>
+                            <div class="card-header">
+                                <div class="card-icon active-icon"><i class="fa-solid ${act.icon}"></i></div>
+                                <div>
+                                    <div class="card-title">${act.title}</div>
+                                    <span class="badge-diff">${act.categoryName}</span>
+                                </div>
+                            </div>
+                            <div class="card-desc">${act.desc}</div>
+                        </div>
+                        <div class="card-footer">
+                            <span><i class="fa-regular fa-clock"></i> ${act.duration} dk</span>
+                            <div style="display:flex; gap:8px;">
+                                <button class="btn btn-sm btn-outline" onclick="toggleFav('${act.id}')">
+                                    <i class="fa-${isFav ? 'solid' : 'regular'} fa-heart" style="color:${isFav ? '#ef4444' : 'inherit'}"></i>
+                                </button>
+                                <button class="btn btn-sm btn-active" onclick="openTimerModal('${act.id}')">Başlat</button>
                             </div>
                         </div>
                     </div>
-                    <div class="flex items-center gap-2 w-full sm:w-auto">
-                        ${weapon.owned ? `
-                            <button onclick="selectWeaponFromShop(${idx})" class="w-full sm:w-auto px-5 py-2 rounded-lg font-orbitron font-bold text-xs transition ${
-                                currentWeaponIndex === idx 
-                                ? 'bg-cyan-500 text-black shadow-lg shadow-cyan-500/30' 
-                                : 'bg-gray-800 hover:bg-gray-700 text-cyan-400 border border-cyan-500/30'
-                            }">
-                                ${currentWeaponIndex === idx ? 'KUŞANILDI' : 'SEÇ'}
-                            </button>
-                        ` : `
-                            <button onclick="buyWeapon(${idx})" class="w-full sm:w-auto px-5 py-2 bg-gradient-to-r from-yellow-500 to-amber-600 hover:from-yellow-400 hover:to-amber-500 text-black font-orbitron font-bold text-xs rounded-lg transition shadow-md shadow-yellow-500/20">
-                                SATIN AL ($${weapon.cost})
-                            </button>
-                        `}
-                    </div>
                 `;
-                container.appendChild(card);
-            });
+            }).join('');
         }
 
-        window.selectWeaponFromShop = function(index) {
-            switchWeapon(index);
-            renderShop();
-        };
+        let timerInterval = null;
+        let timerSeconds = 0;
+        let currentAct = null;
 
-        window.buyWeapon = function(index) {
-            const w = WEAPONS[index];
-            if (money >= w.cost) {
-                money -= w.cost;
-                w.owned = true;
-                
-                // Save weapons
-                const ownedIds = WEAPONS.filter(x => x.owned).map(x => x.id);
-                localStorage.setItem('neon_strike_weapons', JSON.stringify(ownedIds));
-                localStorage.setItem('neon_strike_money', money);
+        function openTimerModal(actId) {
+            currentAct = ACTIVITIES.find(a => a.id === actId) || ACTIVITIES[0];
+            document.getElementById('modalActTitle').innerText = currentAct.title;
+            document.getElementById('modalActDesc').innerText = currentAct.desc;
+            document.getElementById('modalCategoryBadge').innerText = currentAct.categoryName;
 
-                switchWeapon(index);
-                renderShop();
-                audio.playBonus();
+            const stepsContainer = document.getElementById('modalActSteps');
+            stepsContainer.innerHTML = currentAct.steps.map(s => `<li>${s}</li>`).join('');
+
+            timerSeconds = currentAct.duration * 60;
+            updateTimerDisplay();
+
+            document.getElementById('btnTimerStart').style.display = 'inline-flex';
+            document.getElementById('btnTimerPause').style.display = 'none';
+            document.getElementById('timerModal').classList.add('active');
+        }
+
+        function closeTimerModal() {
+            pauseTimer();
+            document.getElementById('timerModal').classList.remove('active');
+        }
+
+        function updateTimerDisplay() {
+            const mins = Math.floor(timerSeconds / 60).toString().padStart(2, '0');
+            const secs = (timerSeconds % 60).toString().padStart(2, '0');
+            document.getElementById('modalTimerDisplay').innerText = `${mins}:${secs}`;
+        }
+
+        function startTimer() {
+            document.getElementById('btnTimerStart').style.display = 'none';
+            document.getElementById('btnTimerPause').style.display = 'inline-flex';
+
+            timerInterval = setInterval(() => {
+                if(timerSeconds > 0) {
+                    timerSeconds--;
+                    updateTimerDisplay();
+                } else {
+                    pauseTimer();
+                    alert('Harika! Aktiviteyi başarıyla tamamladın.');
+                    saveCompletedActivity(currentAct);
+                    closeTimerModal();
+                }
+            }, 1000);
+        }
+
+        function pauseTimer() {
+            clearInterval(timerInterval);
+            document.getElementById('btnTimerStart').style.display = 'inline-flex';
+            document.getElementById('btnTimerPause').style.display = 'none';
+        }
+
+        function saveCompletedActivity(act) {
+            const entry = {
+                title: act.title,
+                date: new Date().toLocaleDateString('tr-TR'),
+                time: new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })
+            };
+            state.history.unshift(entry);
+            localStorage.setItem('pratikim_history', JSON.stringify(state.history));
+            renderHistoryStats();
+        }
+
+        function addPlanItem() {
+            const time = document.getElementById('planTime').value;
+            const title = document.getElementById('planTitle').value.trim();
+            if(!title) return;
+
+            state.plans.push({ id: Date.now(), time, title, done: false });
+            localStorage.setItem('pratikim_plans', JSON.stringify(state.plans));
+            document.getElementById('planTitle').value = '';
+            renderPlanList();
+        }
+
+        function togglePlan(id) {
+            state.plans = state.plans.map(p => p.id === id ? { ...p, done: !p.done } : p);
+            localStorage.setItem('pratikim_plans', JSON.stringify(state.plans));
+            renderPlanList();
+        }
+
+        function deletePlan(id) {
+            state.plans = state.plans.filter(p => p.id !== id);
+            localStorage.setItem('pratikim_plans', JSON.stringify(state.plans));
+            renderPlanList();
+        }
+
+        function renderPlanList() {
+            const container = document.getElementById('planListContainer');
+            if(state.plans.length === 0) {
+                container.innerHTML = `<p style="color:var(--subtext-color); text-align:center;">Henüz bir plan eklemedin.</p>`;
+                return;
             }
-        };
 
-        // Event Listeners for Buttons
-        document.getElementById('startBtn').addEventListener('click', startGame);
-        document.getElementById('restartBtn').addEventListener('click', startGame);
+            container.innerHTML = state.plans.map(p => `
+                <div class="plan-item ${p.done ? 'done' : ''}">
+                    <div>
+                        <strong style="color:var(--accent-active); margin-right:10px;">${p.time}</strong>
+                        <span>${p.title}</span>
+                    </div>
+                    <div>
+                        <button class="btn btn-sm btn-outline" onclick="togglePlan(${p.id})"><i class="fa-solid fa-check"></i></button>
+                        <button class="btn btn-sm btn-outline" onclick="deletePlan(${p.id})"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                </div>
+            `).join('');
+        }
 
-        document.getElementById('openShopBtn').addEventListener('click', () => {
-            renderShop();
-            document.getElementById('shopScreen').classList.remove('hidden');
-        });
+        function renderHistoryStats() {
+            document.getElementById('statTotal').innerText = state.history.length;
+            const todayStr = new Date().toLocaleDateString('tr-TR');
+            const todayCount = state.history.filter(h => h.date === todayStr).length;
+            document.getElementById('statToday').innerText = todayCount;
 
-        document.getElementById('gameOverShopBtn').addEventListener('click', () => {
-            renderShop();
-            document.getElementById('shopScreen').classList.remove('hidden');
-        });
+            const container = document.getElementById('historyListContainer');
+            if(state.history.length === 0) {
+                container.innerHTML = `<p style="color:var(--subtext-color); text-align:center;">Henüz tamamlanan aktivite yok.</p>`;
+                return;
+            }
 
-        document.getElementById('closeShopBtn').addEventListener('click', () => {
-            document.getElementById('shopScreen').classList.add('hidden');
-        });
+            container.innerHTML = state.history.slice(0, 5).map(h => `
+                <div class="plan-item">
+                    <span><i class="fa-solid fa-circle-check" style="color:var(--accent-active); margin-right:8px;"></i> ${h.title}</span>
+                    <span style="font-size:0.8rem; color:var(--subtext-color);">${h.date} - ${h.time}</span>
+                </div>
+            `).join('');
+        }
 
-        // Initialize HUD
-        document.getElementById('hudHighScore').innerText = highScore;
+        function toggleFav(id) {
+            if(state.favorites.includes(id)) {
+                state.favorites = state.favorites.filter(f => f !== id);
+            } else {
+                state.favorites.push(id);
+            }
+            localStorage.setItem('pratikim_favs', JSON.stringify(state.favorites));
+            renderActivitiesGrid();
+            renderFeaturedActivity();
+        }
+
+        function openFavModal() {
+            const container = document.getElementById('favListContainer');
+            const favActs = ACTIVITIES.filter(a => state.favorites.includes(a.id));
+
+            if(favActs.length === 0) {
+                container.innerHTML = `<p style="color:var(--subtext-color); text-align:center;">Favorilere eklenmiş aktivite bulunamadı.</p>`;
+            } else {
+                container.innerHTML = favActs.map(a => `
+                    <div class="plan-item">
+                        <span>${a.title}</span>
+                        <button class="btn btn-sm btn-active" onclick="closeFavModal(); openTimerModal('${a.id}');">Başlat</button>
+                    </div>
+                `).join('');
+            }
+            document.getElementById('favModal').classList.add('active');
+        }
+
+        function closeFavModal() {
+            document.getElementById('favModal').classList.remove('active');
+        }
+
+        function calcPct() {
+            const num = parseFloat(document.getElementById('pctNum').value);
+            const rate = parseFloat(document.getElementById('pctRate').value);
+            const res = document.getElementById('pctRes');
+
+            if(isNaN(num) || isNaN(rate)) {
+                res.style.display = 'block';
+                res.innerText = 'Lütfen geçerli sayılar girin.';
+                return;
+            }
+            const val = (num * rate) / 100;
+            res.style.display = 'block';
+            res.innerText = `Sonuç: ${val}`;
+        }
+
+        function calcKDV() {
+            const amount = parseFloat(document.getElementById('kdvAmount').value);
+            const rate = parseFloat(document.getElementById('kdvRate').value);
+            const res = document.getElementById('kdvRes');
+
+            if(isNaN(amount)) {
+                res.style.display = 'block';
+                res.innerText = 'Lütfen geçerli bir tutar girin.';
+                return;
+            }
+            const kdvVal = (amount * rate) / 100;
+            const total = amount + kdvVal;
+            res.style.display = 'block';
+            res.innerText = `KDV Tutarı: ${kdvVal.toFixed(2)} TL | Toplam: ${total.toFixed(2)} TL`;
+        }
+
+        function calcAge() {
+            const birth = new Date(document.getElementById('birthDate').value);
+            const res = document.getElementById('ageRes');
+
+            if(isNaN(birth.getTime())) {
+                res.style.display = 'block';
+                res.innerText = 'Lütfen geçerli bir tarih seçin.';
+                return;
+            }
+            const diff = new Date(Date.now() - birth.getTime());
+            const age = Math.abs(diff.getUTCFullYear() - 1970);
+            res.style.display = 'block';
+            res.innerText = `Yaşınız: ${age}`;
+        }
+
+        function calcEbobEkok() {
+            let a = parseInt(document.getElementById('ebobNum1').value);
+            let b = parseInt(document.getElementById('ebobNum2').value);
+            const res = document.getElementById('ebobRes');
+
+            if(isNaN(a) || isNaN(b)) {
+                res.style.display = 'block';
+                res.innerText = 'Lütfen her iki sayıyı da girin.';
+                return;
+            }
+
+            const gcd = (x, y) => y === 0 ? x : gcd(y, x % y);
+            const ebob = gcd(a, b);
+            const ekok = (a * b) / ebob;
+
+            res.style.display = 'block';
+            res.innerText = `EBOB: ${ebob} | EKOK: ${ekok}`;
+        }
+
+        function renderDocFields() {
+            const type = document.getElementById('docTypeSelect').value;
+            const container = document.getElementById('docFieldsContainer');
+
+            if(type === 'dilekce') {
+                container.innerHTML = `
+                    <div class="form-group"><label class="form-label">Kurum Adı</label><input type="text" class="form-control" id="dKurum" placeholder="Örn: X MÜDÜRLÜĞÜNE"></div>
+                    <div class="form-group"><label class="form-label">Konu / Talep</label><textarea class="form-control" id="dKonu" placeholder="Talebinizi detaylandırın..."></textarea></div>
+                    <div class="form-group"><label class="form-label">Ad Soyad</label><input type="text" class="form-control" id="dAd"></div>
+                `;
+            } else if(type === 'cv') {
+                container.innerHTML = `
+                    <div class="form-group"><label class="form-label">Ad Soyad</label><input type="text" class="form-control" id="cvAd"></div>
+                    <div class="form-group"><label class="form-label">Deneyim / Özet</label><textarea class="form-control" id="cvOzet"></textarea></div>
+                `;
+            } else {
+                container.innerHTML = `
+                    <div class="form-group"><label class="form-label">Konu</label><input type="text" class="form-control" id="emKonu"></div>
+                    <div class="form-group"><label class="form-label">Mesaj İçeriği</label><textarea class="form-control" id="emMesaj"></textarea></div>
+                `;
+            }
+        }
+
+        function generateDoc() {
+            const type = document.getElementById('docTypeSelect').value;
+            let text = '';
+
+            if(type === 'dilekce') {
+                const kurum = document.getElementById('dKurum')?.value || '';
+                const konu = document.getElementById('dKonu')?.value || '';
+                const ad = document.getElementById('dAd')?.value || '';
+                text = `${kurum.toUpperCase()}\n\n${konu}\n\nGereğini bilgilerinize arz ederim.\n\nAd Soyad: ${ad}\nTarih: ${new Date().toLocaleDateString('tr-TR')}`;
+            } else if(type === 'cv') {
+                const ad = document.getElementById('cvAd')?.value || '';
+                const ozet = document.getElementById('cvOzet')?.value || '';
+                text = `ÖZGEÇMİŞ\n\nAd Soyad: ${ad}\n\nÖZET VE DENEYİMLER:\n${ozet}`;
+            } else {
+                const konu = document.getElementById('emKonu')?.value || '';
+                const mesaj = document.getElementById('emMesaj')?.value || '';
+                text = `Konu: ${konu}\n\nMerhaba,\n\n${mesaj}\n\nİyi çalışmalar.`;
+            }
+
+            document.getElementById('docOutputText').value = text;
+            document.getElementById('docOutputWrap').style.display = 'block';
+        }
+
+        function addTodo() {
+            const val = document.getElementById('todoInput').value.trim();
+            if(!val) return;
+            state.todos.push({ id: Date.now(), text: val, done: false });
+            localStorage.setItem('pratikim_todos', JSON.stringify(state.todos));
+            document.getElementById('todoInput').value = '';
+            renderTodos();
+        }
+
+        function renderTodos() {
+            const container = document.getElementById('todoList');
+            if(state.todos.length === 0) {
+                container.innerHTML = `<p style="color:var(--subtext-color);">Henüz yapılacak görev yok.</p>`;
+                return;
+            }
+
+            container.innerHTML = state.todos.map(t => `
+                <div class="plan-item ${t.done ? 'done' : ''}">
+                    <span>${t.text}</span>
+                    <button class="btn btn-sm btn-outline" onclick="deleteTodo(${t.id})"><i class="fa-solid fa-trash"></i></button>
+                </div>
+            `).join('');
+        }
+
+        function deleteTodo(id) {
+            state.todos = state.todos.filter(t => t.id !== id);
+            localStorage.setItem('pratikim_todos', JSON.stringify(state.todos));
+            renderTodos();
+        }
+
+        function fixGrammar() {
+            let input = document.getElementById('aiInputText').value;
+            if(!input.trim()) return;
+
+            const rules = [
+                { reg: /bugun/gi, val: 'bugün' },
+                { reg: /cunku/gi, val: 'çünkü' },
+                { reg: /hissetmiyodum/gi, val: 'hissetmiyordum' },
+                { reg: /geliyom/gi, val: 'geliyorum' },
+                { reg: /gidiyom/gi, val: 'gidiyorum' },
+                { reg: /herkez/gi, val: 'herkes' },
+                { reg: /yalnış/gi, val: 'yanlış' }
+            ];
+
+            rules.forEach(r => { input = input.replace(r.reg, r.val); });
+            input = input.charAt(0).toUpperCase() + input.slice(1);
+
+            document.getElementById('aiOutputText').value = input;
+            document.getElementById('aiResultBox').style.display = 'block';
+        }
+
+        function downloadTxtFile() {
+            const content = document.getElementById('txtFileContent').value;
+            if(!content.trim()) return;
+
+            const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'pratikim-not.txt';
+            a.click();
+        }
+
+        function handleSearch(val) {
+            const dropdown = document.getElementById('searchResults');
+            if(!val.trim()) {
+                dropdown.style.display = 'none';
+                return;
+            }
+
+            const query = val.toLowerCase();
+            const results = [
+                { title: 'PRATİKİM Active - Günlük Hareket', sec: 'active', icon: 'fa-person-running' },
+                { title: 'Yüzde Hesaplama', sec: 'smart-tools', icon: 'fa-percent' },
+                { title: 'KDV Hesaplama', sec: 'smart-tools', icon: 'fa-receipt' },
+                { title: 'Belge Hazırlama (CV/Dilekçe)', sec: 'docs', icon: 'fa-file-contract' },
+                { title: 'Yapılacaklar Listesi', sec: 'daily', icon: 'fa-check-double' },
+                { title: 'İmla ve Yazım Düzeltici', sec: 'ai', icon: 'fa-wand-magic-sparkles' }
+            ].filter(r => r.title.toLowerCase().includes(query));
+
+            if(results.length > 0) {
+                dropdown.innerHTML = results.map(r => `
+                    <div class="search-item" onclick="navTo('${r.sec}'); document.getElementById('searchResults').style.display='none';">
+                        <i class="fa-solid ${r.icon}"></i>
+                        <span>${r.title}</span>
+                    </div>
+                `).join('');
+                dropdown.style.display = 'block';
+            } else {
+                dropdown.style.display = 'none';
+            }
+        }
+
+        function copyToClipboard(elemId) {
+            const copyText = document.getElementById(elemId);
+            copyText.select();
+            document.execCommand('copy');
+            alert('Metin panoya kopyalandı!');
+        }
     </script>
 </body>
 </html>
