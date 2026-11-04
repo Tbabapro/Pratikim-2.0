@@ -1,916 +1,924 @@
 <!DOCTYPE html>
-<html lang="tr" class="dark">
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dünyanın En Efsane Sitesi</title>
-    <!-- Tailwind CSS CDN -->
+    <title>Neon Strike - Cyber Shooter</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        neonCyan: '#00f3ff',
-                        neonPurple: '#b000ff',
-                        neonGold: '#ffd700',
-                        neonPink: '#ff007f'
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    animation: {
-                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'float': 'float 6s ease-in-out infinite',
-                        'glow': 'glow 2s ease-in-out infinite alternate',
-                    },
-                    keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0px)' },
-                            '50%': { transform: 'translateY(-15px)' },
-                        },
-                        glow: {
-                            '0%': { filter: 'drop-shadow(0 0 15px rgba(0, 243, 255, 0.6))' },
-                            '100%': { filter: 'drop-shadow(0 0 35px rgba(176, 0, 255, 0.9))' },
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <!-- FontAwesome for Icons -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+    <!-- Tone.js for Sound Effects -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    
     <style>
+        * {
+            box-sizing: border-box;
+            user-select: none;
+        }
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Rajdhani', sans-serif;
             background-color: #05050a;
-            color: #ffffff;
-            overflow-x: hidden;
+            color: #fff;
+            overflow: hidden;
         }
-
-        /* Glassmorphism Styles */
-        .glass-panel {
-            background: rgba(15, 15, 30, 0.55);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+        .font-orbitron {
+            font-family: 'Orbitron', sans-serif;
         }
-
-        .glass-panel-glow {
-            background: rgba(20, 20, 45, 0.6);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(0, 243, 255, 0.25);
-            box-shadow: 0 0 25px rgba(0, 243, 255, 0.15);
+        /* Canvas Styling */
+        #gameCanvas {
+            cursor: none; /* Hide default cursor for custom crosshair */
+            background: radial-gradient(circle at center, #0d0f1d 0%, #05050a 100%);
+            box-shadow: inset 0 0 50px rgba(0, 240, 255, 0.1);
         }
-
-        /* Custom Glowing Scrollbar */
+        /* Custom Neon Scrollbar for Shop */
         ::-webkit-scrollbar {
-            width: 8px;
+            width: 6px;
         }
         ::-webkit-scrollbar-track {
-            background: #05050a;
+            background: #0a0d1a;
         }
         ::-webkit-scrollbar-thumb {
-            background: linear-gradient(to bottom, #00f3ff, #b000ff);
-            border-radius: 4px;
+            background: #00f0ff;
+            border-radius: 3px;
         }
-
-        /* Neon Text Glow */
-        .neon-text-cyan {
-            text-shadow: 0 0 10px rgba(0, 243, 255, 0.7), 0 0 20px rgba(0, 243, 255, 0.5), 0 0 30px rgba(0, 243, 255, 0.3);
+        /* Glowing Text Effects */
+        .glow-text-cyan {
+            text-shadow: 0 0 10px rgba(0, 240, 255, 0.7), 0 0 20px rgba(0, 240, 255, 0.4);
         }
-        .neon-text-purple {
-            text-shadow: 0 0 10px rgba(176, 0, 255, 0.7), 0 0 20px rgba(176, 0, 255, 0.5), 0 0 30px rgba(176, 0, 255, 0.3);
+        .glow-text-pink {
+            text-shadow: 0 0 10px rgba(255, 0, 127, 0.7), 0 0 20px rgba(255, 0, 127, 0.4);
         }
-        .neon-text-gold {
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.7), 0 0 20px rgba(255, 215, 0, 0.5), 0 0 30px rgba(255, 215, 0, 0.3);
+        .glow-box-cyan {
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+            border: 1px solid rgba(0, 240, 255, 0.5);
         }
-
-        /* Dynamic Canvas Position */
-        #bgCanvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
+        .glow-box-pink {
+            box-shadow: 0 0 15px rgba(255, 0, 127, 0.3);
+            border: 1px solid rgba(255, 0, 127, 0.5);
         }
-
-        .interactive-canvas {
-            touch-action: none;
+        /* Modal Backdrop */
+        .glass-panel {
+            background: rgba(10, 13, 26, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 240, 255, 0.2);
         }
     </style>
 </head>
-<body class="relative min-h-screen selection:bg-neonCyan selection:text-black">
+<body class="w-screen h-screen flex flex-col justify-between items-center relative overflow-hidden select-none">
 
-    <!-- Background Dynamic Interactive Canvas -->
-    <canvas id="bgCanvas"></canvas>
+    <!-- GAME CANVAS -->
+    <canvas id="gameCanvas" class="absolute inset-0 w-full h-full z-0"></canvas>
 
-    <!-- Navigation Header -->
-    <header class="fixed top-0 left-0 w-full z-50 transition-all duration-300 px-4 md:px-12 py-4">
-        <div class="max-w-7xl mx-auto glass-panel rounded-2xl px-6 py-3 flex items-center justify-between border-opacity-30">
-            <!-- Logo -->
-            <div class="flex items-center space-x-3 cursor-pointer group">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-neonCyan via-neonPurple to-neonPink flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
-                    <i class="fa-solid font-bold fa-bolt text-black text-xl"></i>
-                </div>
-                <span class="font-extrabold text-xl tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-neonCyan via-white to-neonPurple">
-                    EFSANE<span class="text-neonCyan">.AI</span>
-                </span>
+    <!-- TOP HUD OVERLAY -->
+    <div id="hud" class="relative z-10 w-full max-w-7xl p-4 flex justify-between items-center pointer-events-none opacity-0 transition-opacity duration-300">
+        <!-- Health & Shield Bar -->
+        <div class="flex flex-col gap-1 w-64">
+            <div class="flex justify-between text-sm font-orbitron font-semibold text-cyan-400">
+                <span><i class="fa-solid fa-heart text-red-500 mr-1"></i> SAĞLIK</span>
+                <span id="hpText">100/100</span>
             </div>
-
-            <!-- Nav Links -->
-            <nav class="hidden md:flex items-center space-x-8 font-medium text-sm text-gray-300">
-                <a href="#hero" class="hover:text-neonCyan transition-colors duration-200">Ana Sayfa</a>
-                <a href="#features" class="hover:text-neonCyan transition-colors duration-200">Özellikler</a>
-                <a href="#arcade" class="hover:text-neonCyan transition-colors duration-200">Neon Arcade</a>
-                <a href="#visualizer" class="hover:text-neonCyan transition-colors duration-200">Görselleştirici</a>
-            </nav>
-
-            <!-- Sound & CTA Controls -->
-            <div class="flex items-center space-x-4">
-                <button id="audioToggleBtn" class="p-2.5 rounded-xl glass-panel hover:bg-white/10 text-gray-300 hover:text-neonCyan transition-all duration-300 relative group" title="Ses Efektleri">
-                    <i id="audioIcon" class="fa-solid fa-volume-xmark text-lg"></i>
-                    <span class="absolute -bottom-8 left-1/2 -translate-x-1/2 text-xs bg-black/80 px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none">Ses Kapalı</span>
-                </button>
-                <a href="#arcade" class="hidden sm:inline-flex px-5 py-2.5 rounded-xl font-semibold text-xs tracking-wider uppercase bg-gradient-to-r from-neonCyan to-neonPurple text-black font-bold hover:brightness-125 transition-all duration-300 shadow-[0_0_20px_rgba(0,243,255,0.4)] hover:shadow-[0_0_30px_rgba(176,0,255,0.7)] hover:-translate-y-0.5">
-                    Hemen Oyna
-                </a>
+            <div class="w-full bg-gray-950 h-3 rounded-full border border-gray-800 overflow-hidden p-0.5">
+                <div id="hpBar" class="bg-gradient-to-r from-red-600 via-pink-500 to-cyan-400 h-full rounded-full w-full transition-all duration-200"></div>
+            </div>
+            <!-- Ammo Info -->
+            <div class="flex justify-between items-center mt-1 text-xs text-gray-400 font-orbitron">
+                <span>SİLAH: <span id="currentWeaponName" class="text-cyan-300 font-bold">PISTOL</span></span>
+                <span id="ammoText" class="text-yellow-400 font-bold text-sm">∞</span>
             </div>
         </div>
-    </header>
 
-    <!-- Main Content Container -->
-    <main class="relative z-10 pt-28 pb-16 px-4 md:px-8 max-w-7xl mx-auto space-y-32">
-
-        <!-- HERO SECTION -->
-        <section id="hero" class="min-h-[85vh] flex flex-col justify-center items-center text-center relative py-12">
-            <!-- Glow FX Behind Title -->
-            <div class="absolute w-72 h-72 md:w-[500px] md:h-[500px] bg-gradient-to-r from-neonCyan/20 to-neonPurple/20 rounded-full blur-[120px] pointer-events-none -z-10 animate-pulse-slow"></div>
-
-            <!-- Badge -->
-            <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full glass-panel border border-neonCyan/30 mb-8 animate-bounce">
-                <span class="w-2.5 h-2.5 rounded-full bg-neonCyan animate-ping"></span>
-                <span class="text-xs font-semibold tracking-widest uppercase text-neonCyan">Geleceğin Dijital Deneyimi</span>
-            </div>
-
-            <!-- Main Title -->
-            <h1 class="text-5xl md:text-8xl font-black tracking-tight leading-none mb-6">
-                <span class="block bg-clip-text text-transparent bg-gradient-to-b from-white via-gray-200 to-gray-500">
-                    DÜNYANIN EN
-                </span>
-                <span class="block text-transparent bg-clip-text bg-gradient-to-r from-neonCyan via-neonPurple to-neonPink animate-glow font-extrabold mt-2">
-                    EFSANE SİTESİ
-                </span>
-            </h1>
-
-            <p class="max-w-2xl text-lg md:text-xl text-gray-400 font-light leading-relaxed mb-10">
-                Sınırsız görsellik, etkileşimli neon efektler ve yüksek performanslı dijital içeriklerle tasarlanmış büyüleyici bir evrene hoş geldiniz.
-            </p>
-
-            <!-- Hero Action Buttons -->
-            <div class="flex flex-col sm:flex-row gap-5 w-full sm:w-auto justify-center">
-                <button onclick="scrollToSection('arcade')" class="px-8 py-4 rounded-2xl font-bold text-black bg-neonCyan hover:bg-white shadow-[0_0_25px_rgba(0,243,255,0.6)] hover:shadow-[0_0_35px_rgba(255,255,255,0.8)] transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center space-x-3">
-                    <i class="fa-solid fa-gamepad text-lg"></i>
-                    <span>Neon Arcade'i Keşfet</span>
-                </button>
-                <button onclick="scrollToSection('visualizer')" class="px-8 py-4 rounded-2xl font-bold text-white glass-panel border-neonPurple/40 hover:border-neonPurple hover:bg-neonPurple/20 shadow-[0_0_20px_rgba(176,0,255,0.2)] hover:shadow-[0_0_30px_rgba(176,0,255,0.5)] transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center space-x-3">
-                    <i class="fa-solid fa-wand-magic-sparkles text-lg text-neonPurple"></i>
-                    <span>Sihirli Görselleştirici</span>
-                </button>
-            </div>
-
-            <!-- Stats Bar -->
-            <div class="mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-4xl">
-                <div class="glass-panel p-5 rounded-2xl text-center border-t border-neonCyan/30">
-                    <div class="text-3xl font-black text-neonCyan font-mono" id="statFps">60 FPS</div>
-                    <div class="text-xs text-gray-400 uppercase tracking-wider mt-1">Akıcı Performans</div>
-                </div>
-                <div class="glass-panel p-5 rounded-2xl text-center border-t border-neonPurple/30">
-                    <div class="text-3xl font-black text-neonPurple font-mono">100%</div>
-                    <div class="text-xs text-gray-400 uppercase tracking-wider mt-1">İnteraktif Güç</div>
-                </div>
-                <div class="glass-panel p-5 rounded-2xl text-center border-t border-neonPink/30">
-                    <div class="text-3xl font-black text-neonPink font-mono" id="statParticles">500+</div>
-                    <div class="text-xs text-gray-400 uppercase tracking-wider mt-1">Canlı Parçacık</div>
-                </div>
-                <div class="glass-panel p-5 rounded-2xl text-center border-t border-neonGold/30">
-                    <div class="text-3xl font-black text-neonGold font-mono">∞</div >
-                    <div class="text-xs text-gray-400 uppercase tracking-wider mt-1">Sınırsız Eğlence</div>
-                </div>
-            </div>
-        </section>
-
-
-        <!-- FEATURES SECTION -->
-        <section id="features" class="py-12">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-5xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-neonCyan to-neonPurple">
-                    Efsanevi Özellikler
-                </h2>
-                <p class="text-gray-400 max-w-xl mx-auto">
-                    Modern web teknolojilerinin sınırlarını zorlayan benzersiz dijital bileşenler.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Feature 1 -->
-                <div class="glass-panel p-8 rounded-3xl border border-white/10 hover:border-neonCyan/50 transition-all duration-500 hover:-translate-y-2 group relative overflow-hidden">
-                    <div class="w-14 h-14 rounded-2xl bg-neonCyan/10 border border-neonCyan/30 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                        <i class="fa-solid fa-atom text-2xl text-neonCyan"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3 text-white group-hover:text-neonCyan transition-colors">Yüksek Hızlı Parçacık Motoru</h3>
-                    <p class="text-gray-400 leading-relaxed text-sm">
-                        HTML5 Canvas tabanlı 60 FPS fiziki simülasyon motoru ile ekranınızda akıcı ışık gösterileri.
-                    </p>
-                    <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-neonCyan/10 rounded-full blur-2xl group-hover:bg-neonCyan/20 transition-all duration-500"></div>
-                </div>
-
-                <!-- Feature 2 -->
-                <div class="glass-panel p-8 rounded-3xl border border-white/10 hover:border-neonPurple/50 transition-all duration-500 hover:-translate-y-2 group relative overflow-hidden">
-                    <div class="w-14 h-14 rounded-2xl bg-neonPurple/10 border border-neonPurple/30 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                        <i class="fa-solid fa-layer-group text-2xl text-neonPurple"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3 text-white group-hover:text-neonPurple transition-colors">Ultra Neon Glassmorphism</h3>
-                    <p class="text-gray-400 leading-relaxed text-sm">
-                        Derinlik hissi yaratan özel cam katmanları ve neon parıltılarla donatılmış modern arayüz mimarisi.
-                    </p>
-                    <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-neonPurple/10 rounded-full blur-2xl group-hover:bg-neonPurple/20 transition-all duration-500"></div>
-                </div>
-
-                <!-- Feature 3 -->
-                <div class="glass-panel p-8 rounded-3xl border border-white/10 hover:border-neonGold/50 transition-all duration-500 hover:-translate-y-2 group relative overflow-hidden">
-                    <div class="w-14 h-14 rounded-2xl bg-neonGold/10 border border-neonGold/30 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                        <i class="fa-solid fa-wave-square text-2xl text-neonGold"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3 text-white group-hover:text-neonGold transition-colors">Web Audio Sentezleyici</h3>
-                    <p class="text-gray-400 leading-relaxed text-sm">
-                        Tamamen kod ile anlık olarak üretilen dinamik ses Efektleri (SFX) ile zenginleştirilmiş etkileşimler.
-                    </p>
-                    <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-neonGold/10 rounded-full blur-2xl group-hover:bg-neonGold/20 transition-all duration-500"></div>
-                </div>
-            </div>
-        </section>
-
-
-        <!-- NEON ARCADE MINI GAME SECTION -->
-        <section id="arcade" class="py-12 scroll-mt-28">
-            <div class="glass-panel-glow p-6 md:p-10 rounded-3xl relative overflow-hidden border border-neonCyan/40">
-                <div class="flex flex-col lg:flex-row items-center justify-between gap-8 mb-8">
-                    <div>
-                        <div class="inline-flex items-center space-x-2 text-neonCyan text-xs font-mono uppercase tracking-widest mb-2">
-                            <i class="fa-solid fa-gamepad"></i>
-                            <span>Mini Arcade Widget</span>
-                        </div>
-                        <h2 class="text-3xl md:text-4xl font-black text-white">Neon Catcher: Çılgın Av</h2>
-                        <p class="text-gray-400 text-sm mt-1">Ekranda beliren neon küreleri süre dolmadan yakala, kombonu katla!</p>
-                    </div>
-
-                    <!-- Game Stats Header -->
-                    <div class="flex items-center space-x-6 bg-black/40 px-6 py-3 rounded-2xl border border-white/10">
-                        <div class="text-center">
-                            <div class="text-xs text-gray-400 uppercase">Skor</div>
-                            <div id="gameScore" class="text-2xl font-black text-neonCyan font-mono">0</div>
-                        </div>
-                        <div class="h-8 w-px bg-white/10"></div>
-                        <div class="text-center">
-                            <div class="text-xs text-gray-400 uppercase">En Yüksek</div>
-                            <div id="gameHighScore" class="text-2xl font-black text-neonGold font-mono">0</div>
-                        </div>
-                        <div class="h-8 w-px bg-white/10"></div>
-                        <div class="text-center">
-                            <div class="text-xs text-gray-400 uppercase">Süre</div>
-                            <div id="gameTimer" class="text-2xl font-black text-neonPink font-mono">30s</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Game Canvas Area -->
-                <div class="relative w-full h-[380px] md:h-[450px] bg-black/60 rounded-2xl border border-white/10 overflow-hidden cursor-crosshair">
-                    <canvas id="gameCanvas" class="w-full h-full"></canvas>
-
-                    <!-- Overlay Start/Over Screen -->
-                    <div id="gameOverlay" class="absolute inset-0 bg-black/80 backdrop-blur-md flex flex-col items-center justify-center p-6 text-center z-20">
-                        <div id="gameOverlayIcon" class="w-20 h-20 rounded-full bg-neonCyan/20 text-neonCyan flex items-center justify-center text-4xl mb-4 animate-bounce">
-                            <i class="fa-solid fa-play"></i>
-                        </div>
-                        <h3 id="gameOverlayTitle" class="text-3xl font-black text-white mb-2">Neon Avına Hazır Mısın?</h3>
-                        <p id="gameOverlayDesc" class="text-gray-300 max-w-md text-sm mb-6">Hedefleri tıklayarak yok et. Altın küreler +3 puan verir. Süre bitmeden rekor kır!</p>
-                        <button id="startGameBtn" class="px-8 py-3.5 rounded-xl font-bold text-black bg-gradient-to-r from-neonCyan to-neonPurple hover:brightness-125 transition-all shadow-[0_0_20px_rgba(0,243,255,0.5)] transform hover:scale-105">
-                            Oyunu Başlat
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
-        <!-- MAGIC VISUALIZER SECTION -->
-        <section id="visualizer" class="py-12 scroll-mt-28">
-            <div class="glass-panel p-6 md:p-10 rounded-3xl border border-neonPurple/30">
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
-                    <div>
-                        <h2 class="text-3xl md:text-4xl font-extrabold text-white">Sihirli Görselleştirici</h2>
-                        <p class="text-gray-400 text-sm">Etkileşimli parçacık simülatörünün ayarlarını kendi zevkine göre özelleştir.</p>
-                    </div>
-
-                    <!-- Controls Bar -->
-                    <div class="flex flex-wrap gap-3">
-                        <button onclick="setVisualizerPreset('galaxy')" class="px-4 py-2 rounded-xl text-xs font-bold glass-panel hover:border-neonCyan hover:text-neonCyan transition-all">
-                            🌌 Galaksi
-                        </button>
-                        <button onclick="setVisualizerPreset('supernova')" class="px-4 py-2 rounded-xl text-xs font-bold glass-panel hover:border-neonPink hover:text-neonPink transition-all">
-                            💥 Süpernova
-                        </button>
-                        <button onclick="setVisualizerPreset('matrix')" class="px-4 py-2 rounded-xl text-xs font-bold glass-panel hover:border-green-400 hover:text-green-400 transition-all">
-                            🟢 Matrix
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Canvas Area -->
-                <div class="relative w-full h-[350px] md:h-[400px] bg-black/80 rounded-2xl border border-white/10 overflow-hidden mb-6">
-                    <canvas id="visualizerCanvas" class="w-full h-full cursor-pointer"></canvas>
-                    <div class="absolute bottom-4 left-4 text-xs text-gray-400 pointer-events-none bg-black/60 px-3 py-1.5 rounded-lg border border-white/10">
-                        💡 İpucu: Tuval üzerine tıklayarak veya sürükleyerek parçacık patlamaları yaratın.
-                    </div>
-                </div>
-
-                <!-- Customization Sliders -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 bg-black/30 p-6 rounded-2xl border border-white/5">
-                    <div>
-                        <label class="text-xs font-bold text-gray-300 uppercase tracking-wider block mb-2">Parçacık Hızı</label>
-                        <input type="range" id="vizSpeed" min="1" max="10" value="3" class="w-full accent-neonCyan cursor-pointer">
-                    </div>
-                    <div>
-                        <label class="text-xs font-bold text-gray-300 uppercase tracking-wider block mb-2">Boyut Ölçeği</label>
-                        <input type="range" id="vizSize" min="1" max="8" value="3" class="w-full accent-neonPurple cursor-pointer">
-                    </div>
-                    <div>
-                        <label class="text-xs font-bold text-gray-300 uppercase tracking-wider block mb-2">Renk Paleti</label>
-                        <select id="vizColorMode" class="w-full bg-slate-900 text-white text-xs font-bold p-2.5 rounded-xl border border-white/20 focus:outline-none focus:border-neonCyan">
-                            <option value="cyber">Cyberpunk (Siyan & Mor)</option>
-                            <option value="fire">Ateş Fırtınası (Altın & Kırmızı)</option>
-                            <option value="neon">Neon Gökkuşağı</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- Footer -->
-    <footer class="relative z-10 border-t border-white/10 bg-black/60 backdrop-blur-md py-8">
-        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
-            <div class="flex items-center space-x-3">
-                <div class="w-8 h-8 rounded-lg bg-neonCyan flex items-center justify-center text-black font-bold">E</div>
-                <span class="font-bold text-sm text-gray-300">Dünyanın En Efsane Sitesi &copy; 2026</span>
-            </div>
-            <div class="text-xs text-gray-500">
-                Göz Alıcı Görsellik • Yüksek Performans • Sınırsız Etkileşim
+        <!-- Combo & Score -->
+        <div class="text-center">
+            <div id="scoreText" class="text-4xl sm:text-5xl font-extrabold font-orbitron text-white tracking-wider glow-text-cyan">0</div>
+            <div class="text-xs uppercase tracking-widest text-gray-400">Puan</div>
+            <!-- Multiplier Badge -->
+            <div id="comboContainer" class="mt-1 opacity-0 transition-all transform scale-75">
+                <span id="comboText" class="bg-pink-600 text-white font-orbitron text-xs font-bold px-2 py-0.5 rounded-full glow-box-pink">2x KOMBO!</span>
             </div>
         </div>
-    </footer>
 
+        <!-- Stats & Wave -->
+        <div class="flex flex-col items-end gap-1 font-orbitron">
+            <div class="text-right">
+                <div class="text-xs text-gray-400">DALGA</div>
+                <div id="waveText" class="text-2xl font-bold text-pink-500 glow-text-pink">1</div>
+            </div>
+            <div class="text-right flex gap-3 text-xs text-gray-300 mt-1">
+                <div>PARA: <span id="moneyText" class="text-yellow-400 font-bold">$0</span></div>
+                <div>EN YÜKSEK: <span id="hudHighScore" class="text-cyan-400 font-bold">0</span></div>
+            </div>
+        </div>
+    </div>
 
-    <!-- JAVASCRIPT LOGIC -->
+    <!-- MAIN START SCREEN OVERLAY -->
+    <div id="startScreen" class="absolute inset-0 z-20 flex items-center justify-center bg-black/80 backdrop-blur-md">
+        <div class="glass-panel p-8 sm:p-10 rounded-2xl max-w-lg w-full text-center glow-box-cyan mx-4 transform transition-all">
+            <div class="inline-block p-4 rounded-full bg-cyan-950/60 border border-cyan-500/30 mb-4">
+                <i class="fa-solid fa-crosshair text-5xl text-cyan-400 animate-pulse"></i>
+            </div>
+            <h1 class="text-4xl sm:text-5xl font-black font-orbitron tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-pink-500 to-purple-500 mb-2">NEON STRIKE</h1>
+            <p class="text-gray-400 text-sm mb-6">Cyberpunk arenada hayatta kal! Hedefleri yok et, silahlarını yükselt ve en yüksek skora ulaş.</p>
+            
+            <div class="space-y-3 mb-8">
+                <button id="startBtn" class="w-full py-4 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-black font-orbitron font-extrabold text-lg rounded-xl transition duration-200 shadow-lg shadow-cyan-500/30 hover:scale-[1.02]">
+                    OYUNA BAŞLA <i class="fa-solid fa-play ml-2"></i>
+                </button>
+                <button id="openShopBtn" class="w-full py-3 bg-gray-900/80 hover:bg-gray-800 border border-pink-500/40 text-pink-400 font-orbitron font-bold text-sm rounded-xl transition duration-200">
+                    SİLAH MARKETİ <i class="fa-solid fa-store ml-2"></i>
+                </button>
+            </div>
+
+            <!-- Controls Info -->
+            <div class="grid grid-cols-2 gap-2 text-xs text-gray-400 border-t border-gray-800 pt-4 font-orbitron">
+                <div class="flex items-center gap-2 justify-center"><i class="fa-solid fa-mouse text-cyan-400"></i> Nişan Al & Ateş Et</div>
+                <div class="flex items-center gap-2 justify-center"><i class="fa-solid fa-keyboard text-cyan-400"></i> [R] Şarjör Değiştir</div>
+                <div class="flex items-center gap-2 justify-center"><i class="fa-solid fa-list-ol text-cyan-400"></i> [1-4] Silah Değiş</div>
+                <div class="flex items-center gap-2 justify-center"><i class="fa-solid fa-shield-halved text-cyan-400"></i> Kırmızı Hedefler Saldırır</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MARKET / SHOP OVERLAY -->
+    <div id="shopScreen" class="absolute inset-0 z-30 flex items-center justify-center bg-black/85 backdrop-blur-lg hidden">
+        <div class="glass-panel p-6 sm:p-8 rounded-2xl max-w-2xl w-full max-h-[90vh] flex flex-col glow-box-pink mx-4">
+            <div class="flex justify-between items-center mb-6 pb-4 border-b border-gray-800">
+                <div>
+                    <h2 class="text-2xl font-bold font-orbitron text-pink-500 flex items-center gap-2">
+                        <i class="fa-solid fa-gun"></i> SİLAH CEPHANELİĞİ
+                    </h2>
+                    <p class="text-xs text-gray-400">Yeni silahlar satın al ve güçlerini artır.</p>
+                </div>
+                <div class="text-right">
+                    <span class="text-xs text-gray-400 block">MEVCUT BAKİYE</span>
+                    <span id="shopMoneyText" class="text-xl font-bold font-orbitron text-yellow-400">$0</span>
+                </div>
+            </div>
+
+            <!-- Weapons List Container -->
+            <div id="weaponsContainer" class="flex-1 overflow-y-auto space-y-4 pr-1 mb-6">
+                <!-- Dynamically Populated by JS -->
+            </div>
+
+            <button id="closeShopBtn" class="w-full py-3 bg-gray-800 hover:bg-gray-700 text-white font-orbitron font-bold rounded-xl border border-gray-600 transition">
+                MENÜYE DÖN
+            </button>
+        </div>
+    </div>
+
+    <!-- GAME OVER SCREEN OVERLAY -->
+    <div id="gameOverScreen" class="absolute inset-0 z-20 flex items-center justify-center bg-black/90 backdrop-blur-md hidden">
+        <div class="glass-panel p-8 sm:p-10 rounded-2xl max-w-md w-full text-center border-red-500/50 shadow-2xl shadow-red-500/20 mx-4">
+            <div class="inline-block p-4 rounded-full bg-red-950/60 border border-red-500/40 mb-3 text-red-500">
+                <i class="fa-solid fa-skull text-5xl animate-bounce"></i>
+            </div>
+            <h2 class="text-3xl font-black font-orbitron text-red-500 mb-1">GÖREV BAŞARISIZ</h2>
+            <p class="text-xs text-gray-400 mb-6">Savunma hattı çöktü!</p>
+
+            <div class="bg-gray-950/60 rounded-xl p-4 border border-gray-800 space-y-3 mb-6 font-orbitron">
+                <div class="flex justify-between text-sm">
+                    <span class="text-gray-400">TOPLAM SKOR:</span>
+                    <span id="finalScore" class="font-bold text-cyan-400">0</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                    <span class="text-gray-400">MAX KOMBO:</span>
+                    <span id="finalCombo" class="font-bold text-pink-500">0x</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                    <span class="text-gray-400">KAZANILAN PARA:</span>
+                    <span id="finalMoney" class="font-bold text-yellow-400">+$0</span>
+                </div>
+                <div class="flex justify-between text-sm pt-2 border-t border-gray-800">
+                    <span class="text-gray-400">EN YÜKSEK REKOR:</span>
+                    <span id="finalHighScore" class="font-bold text-green-400">0</span>
+                </div>
+            </div>
+
+            <div class="flex gap-3">
+                <button id="restartBtn" class="flex-1 py-3 bg-gradient-to-r from-red-600 to-pink-600 hover:from-red-500 hover:to-pink-500 text-white font-orbitron font-bold text-sm rounded-xl transition shadow-lg shadow-red-600/30">
+                    TEKRAR DENE <i class="fa-solid fa-rotate-right ml-1"></i>
+                </button>
+                <button id="gameOverShopBtn" class="py-3 px-4 bg-gray-900 hover:bg-gray-800 border border-gray-700 text-yellow-400 font-orbitron font-bold text-sm rounded-xl transition">
+                    <i class="fa-solid fa-store"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- GAMEPLAY SCRIPT -->
     <script>
-        /* ==========================================
-           1. AUDIO SYNTHESIZER (Web Audio API)
-           ========================================== */
-        let audioCtx = null;
-        let isAudioMuted = true;
+        // --- AUDIO ENGINE (Tone.js wrapper) ---
+        class SoundController {
+            constructor() {
+                this.initialized = false;
+            }
 
-        function initAudio() {
-            if (!audioCtx) {
-                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            init() {
+                if (this.initialized) return;
+                Tone.start();
+                
+                // Synth for normal laser shots
+                this.laserSynth = new Tone.PolySynth(Tone.Synth, {
+                    oscillator: { type: "sawtooth" },
+                    envelope: { attack: 0.005, decay: 0.1, sustain: 0, release: 0.1 }
+                }).toDestination();
+                this.laserSynth.volume.value = -12;
+
+                // Noise synth for explosions / impacts
+                this.expSynth = new Tone.NoiseSynth({
+                    noise: { type: 'white' },
+                    envelope: { attack: 0.005, decay: 0.2, sustain: 0 }
+                }).toDestination();
+                this.expSynth.volume.value = -10;
+
+                // Synth for UI clicks & weapon switch
+                this.uiSynth = new Tone.MembraneSynth().toDestination();
+                this.uiSynth.volume.value = -16;
+
+                this.initialized = true;
+            }
+
+            playShoot(pitch = "C5") {
+                if (!this.initialized) return;
+                try {
+                    this.laserSynth.triggerAttackRelease(pitch, "8n");
+                } catch(e){}
+            }
+
+            playHit() {
+                if (!this.initialized) return;
+                try {
+                    this.expSynth.triggerAttackRelease("16n");
+                } catch(e){}
+            }
+
+            playBonus() {
+                if (!this.initialized) return;
+                try {
+                    this.uiSynth.triggerAttackRelease("E5", "16n");
+                } catch(e){}
+            }
+
+            playDamage() {
+                if (!this.initialized) return;
+                try {
+                    this.uiSynth.triggerAttackRelease("C2", "8n");
+                } catch(e){}
             }
         }
 
-        function playSound(type) {
-            if (isAudioMuted || !audioCtx) return;
+        const audio = new SoundController();
 
-            try {
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
+        // --- GAME STATE VARIABLES ---
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
 
-                const now = audioCtx.currentTime;
+        let isRunning = false;
+        let animationFrameId = null;
+        
+        let score = 0;
+        let highScore = parseInt(localStorage.getItem('neon_strike_highscore') || '0');
+        let money = parseInt(localStorage.getItem('neon_strike_money') || '100');
+        let combo = 0;
+        let maxCombo = 0;
+        let comboTimer = null;
+        let wave = 1;
+        let health = 100;
+        let maxHealth = 100;
 
-                if (type === 'pop') {
-                    osc.type = 'sine';
-                    osc.frequency.setValueAtTime(400, now);
-                    osc.frequency.exponentialRampToValueAtTime(800, now + 0.08);
-                    gain.gain.setValueAtTime(0.3, now);
-                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.08);
-                    osc.start(now);
-                    osc.stop(now + 0.08);
-                } else if (type === 'gold') {
-                    osc.type = 'triangle';
-                    osc.frequency.setValueAtTime(600, now);
-                    osc.frequency.setValueAtTime(1200, now + 0.08);
-                    gain.gain.setValueAtTime(0.4, now);
-                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.2);
-                    osc.start(now);
-                    osc.stop(now + 0.2);
-                } else if (type === 'gameover') {
-                    osc.type = 'sawtooth';
-                    osc.frequency.setValueAtTime(300, now);
-                    osc.frequency.linearRampToValueAtTime(100, now + 0.4);
-                    gain.gain.setValueAtTime(0.3, now);
-                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
-                    osc.start(now);
-                    osc.stop(now + 0.4);
-                }
-            } catch (e) {
-                console.error("Audio playback error", e);
-            }
+        // Mouse & Crosshair Position
+        const mouse = { x: 0, y: 0, radius: 15 };
+
+        // Entities arrays
+        let targets = [];
+        let particles = [];
+        let floatingTexts = [];
+        let bullets = [];
+
+        // Weapon Configs
+        const WEAPONS = [
+            { id: 'pistol', name: 'PLASMA PISTOL', damage: 35, rate: 250, count: 1, spread: 0, cost: 0, owned: true, color: '#00f0ff', pitch: 'C5' },
+            { id: 'shotgun', name: 'NEON SHOTGUN', damage: 22, rate: 650, count: 6, spread: 0.25, cost: 300, owned: false, color: '#ff007f', pitch: 'G4' },
+            { id: 'smg', name: 'CYBER RIFLE', damage: 18, rate: 100, count: 1, spread: 0.08, cost: 600, owned: false, color: '#39ff14', pitch: 'E5' },
+            { id: 'railgun', name: 'RAIL CANNON', damage: 150, rate: 900, count: 1, spread: 0, cost: 1200, owned: false, color: '#ffff00', pitch: 'C6' }
+        ];
+
+        let currentWeaponIndex = 0;
+        let lastShotTime = 0;
+
+        // Load saved weapons ownership
+        const savedWeapons = JSON.parse(localStorage.getItem('neon_strike_weapons') || '[]');
+        if (savedWeapons.length > 0) {
+            WEAPONS.forEach(w => {
+                if (savedWeapons.includes(w.id)) w.owned = true;
+            });
         }
 
-        // Toggle Sound Button
-        const audioBtn = document.getElementById('audioToggleBtn');
-        const audioIcon = document.getElementById('audioIcon');
-        audioBtn.addEventListener('click', () => {
-            initAudio();
-            isAudioMuted = !isAudioMuted;
-            if (isAudioMuted) {
-                audioIcon.className = "fa-solid fa-volume-xmark text-lg text-gray-400";
-                audioBtn.querySelector('span').innerText = "Ses Kapalı";
-            } else {
-                audioIcon.className = "fa-solid fa-volume-high text-lg text-neonCyan";
-                audioBtn.querySelector('span').innerText = "Ses Açık";
-                playSound('pop');
-            }
-        });
-
-
-        /* ==========================================
-           2. INTERACTIVE BACKGROUND PARTICLES CANVAS
-           ========================================== */
-        const bgCanvas = document.getElementById('bgCanvas');
-        const bgCtx = bgCanvas.getContext('2d');
-        let bgWidth, bgHeight;
-        let bgParticles = [];
-        let mouse = { x: null, y: null, radius: 150 };
-
-        function resizeBg() {
-            bgWidth = bgCanvas.width = window.innerWidth;
-            bgHeight = bgCanvas.height = window.innerHeight;
+        // Window Resize Handling
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
         }
-        window.addEventListener('resize', resizeBg);
-        resizeBg();
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
 
+        // Mouse Movement Track
         window.addEventListener('mousemove', (e) => {
             mouse.x = e.clientX;
             mouse.y = e.clientY;
-            // Create trailing dust
-            if (Math.random() > 0.4) {
-                createBgDust(mouse.x, mouse.y);
+        });
+
+        // Keyboard Weapon Switching
+        window.addEventListener('keydown', (e) => {
+            if (!isRunning) return;
+            const key = parseInt(e.key);
+            if (key >= 1 && key <= WEAPONS.length) {
+                switchWeapon(key - 1);
             }
         });
 
-        class BgParticle {
+        // Click to Shoot
+        window.addEventListener('mousedown', (e) => {
+            if (!isRunning || e.button !== 0) return;
+            audio.init();
+            shootWeapon();
+        });
+
+        function switchWeapon(index) {
+            if (WEAPONS[index] && WEAPONS[index].owned) {
+                currentWeaponIndex = index;
+                updateHUD();
+                createFloatingText(mouse.x, mouse.y - 20, WEAPONS[index].name, WEAPONS[index].color);
+                audio.playBonus();
+            }
+        }
+
+        // --- GAME CLASSES ---
+
+        class Target {
             constructor() {
-                this.reset();
-            }
-            reset() {
-                this.x = Math.random() * bgWidth;
-                this.y = Math.random() * bgHeight;
-                this.size = Math.random() * 2 + 0.5;
-                this.vx = (Math.random() - 0.5) * 0.5;
-                this.vy = (Math.random() - 0.5) * 0.5;
-                this.alpha = Math.random() * 0.5 + 0.2;
-                this.color = Math.random() > 0.5 ? '#00f3ff' : '#b000ff';
-            }
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-
-                if (this.x < 0 || this.x > bgWidth || this.y < 0 || this.y > bgHeight) {
-                    this.reset();
+                this.radius = Math.random() * 15 + 20; // Size
+                // Spawn along screen borders
+                if (Math.random() < 0.5) {
+                    this.x = Math.random() < 0.5 ? -this.radius : canvas.width + this.radius;
+                    this.y = Math.random() * canvas.height;
+                } else {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() < 0.5 ? -this.radius : canvas.height + this.radius;
                 }
 
-                // Interactive Mouse Avoidance/Pull
-                if (mouse.x && mouse.y) {
-                    let dx = mouse.x - this.x;
-                    let dy = mouse.y - this.y;
-                    let dist = Math.sqrt(dx * dx + dy * dy);
-                    if (dist < mouse.radius) {
-                        let force = (mouse.radius - dist) / mouse.radius;
-                        this.x -= (dx / dist) * force * 3;
-                        this.y -= (dy / dist) * force * 3;
-                    }
+                // Types: standard, runner, tank, explosive
+                const types = ['standard', 'runner', 'tank'];
+                if (wave >= 2) types.push('explosive');
+                
+                this.type = types[Math.floor(Math.random() * types.length)];
+                
+                // Behavior / Stats based on type
+                this.color = '#00f0ff';
+                this.hp = 30 + (wave * 5);
+                this.maxHp = this.hp;
+                this.speed = (Math.random() * 1.5 + 1) * (1 + wave * 0.05);
+                this.points = 50;
+
+                if (this.type === 'runner') {
+                    this.color = '#ff007f';
+                    this.speed *= 1.8;
+                    this.radius *= 0.75;
+                    this.hp *= 0.6;
+                    this.points = 75;
+                } else if (this.type === 'tank') {
+                    this.color = '#39ff14';
+                    this.speed *= 0.6;
+                    this.radius *= 1.5;
+                    this.hp *= 2.5;
+                    this.points = 120;
+                } else if (this.type === 'explosive') {
+                    this.color = '#ffff00';
+                    this.speed *= 1.2;
+                    this.hp *= 0.8;
+                    this.points = 100;
                 }
-            }
-            draw() {
-                bgCtx.save();
-                bgCtx.globalAlpha = this.alpha;
-                bgCtx.fillStyle = this.color;
-                bgCtx.beginPath();
-                bgCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                bgCtx.fill();
-                bgCtx.restore();
-            }
-        }
 
-        // Starburst dust on movement
-        function createBgDust(x, y) {
-            if (bgParticles.length > 250) return;
-            let dust = new BgParticle();
-            dust.x = x;
-            dust.y = y;
-            dust.vx = (Math.random() - 0.5) * 2;
-            dust.vy = (Math.random() - 0.5) * 2;
-            dust.size = Math.random() * 3 + 1;
-            dust.color = '#ffd700';
-            bgParticles.push(dust);
-        }
+                // Movement towards center/player zone slowly
+                const targetX = canvas.width / 2 + (Math.random() - 0.5) * 400;
+                const targetY = canvas.height / 2 + (Math.random() - 0.5) * 400;
+                const angle = Math.atan2(targetY - this.y, targetX - this.x);
+                this.vx = Math.cos(angle) * this.speed;
+                this.vy = Math.sin(angle) * this.speed;
 
-        // Initialize BG Particles
-        for (let i = 0; i < 120; i++) {
-            bgParticles.push(new BgParticle());
-        }
-
-        // Constellation Lines
-        function drawConstellations() {
-            for (let i = 0; i < bgParticles.length; i++) {
-                for (let j = i + 1; j < bgParticles.length; j++) {
-                    let dx = bgParticles[i].x - bgParticles[j].x;
-                    let dy = bgParticles[i].y - bgParticles[j].y;
-                    let dist = Math.sqrt(dx * dx + dy * dy);
-
-                    if (dist < 100) {
-                        bgCtx.save();
-                        bgCtx.globalAlpha = (1 - dist / 100) * 0.15;
-                        bgCtx.strokeStyle = '#00f3ff';
-                        bgCtx.lineWidth = 0.5;
-                        bgCtx.beginPath();
-                        bgCtx.moveTo(bgParticles[i].x, bgParticles[i].y);
-                        bgCtx.lineTo(bgParticles[j].x, bgParticles[j].y);
-                        bgCtx.stroke();
-                        bgCtx.restore();
-                    }
-                }
-            }
-        }
-
-
-        /* ==========================================
-           3. NEON ARCADE MINI GAME LOGIC
-           ========================================== */
-        const gameCanvas = document.getElementById('gameCanvas');
-        const gameCtx = gameCanvas.getContext('2d');
-        const gameOverlay = document.getElementById('gameOverlay');
-        const startGameBtn = document.getElementById('startGameBtn');
-        const scoreElem = document.getElementById('gameScore');
-        const highScoreElem = document.getElementById('gameHighScore');
-        const timerElem = document.getElementById('gameTimer');
-
-        let isGameRunning = false;
-        let score = 0;
-        let highScore = 0;
-        let timeLeft = 30;
-        let gameTimerId = null;
-        let gameTargets = [];
-        let gameExplosions = [];
-
-        function resizeGameCanvas() {
-            if (!gameCanvas.parentElement) return;
-            gameCanvas.width = gameCanvas.parentElement.clientWidth;
-            gameCanvas.height = gameCanvas.parentElement.clientHeight;
-        }
-        window.addEventListener('resize', resizeGameCanvas);
-        resizeGameCanvas();
-
-        class GameTarget {
-            constructor() {
-                this.radius = Math.random() * 15 + 15;
-                this.x = Math.random() * (gameCanvas.width - this.radius * 2) + this.radius;
-                this.y = Math.random() * (gameCanvas.height - this.radius * 2) + this.radius;
-                this.vx = (Math.random() - 0.5) * 3;
-                this.vy = (Math.random() - 0.5) * 3;
-                this.isGold = Math.random() < 0.25; // 25% chance of gold target
-                this.color = this.isGold ? '#ffd700' : (Math.random() > 0.5 ? '#00f3ff' : '#ff007f');
+                // Pulsate effect
                 this.pulse = 0;
             }
+
             update() {
                 this.x += this.vx;
                 this.y += this.vy;
-
-                if (this.x - this.radius < 0 || this.x + this.radius > gameCanvas.width) this.vx *= -1;
-                if (this.y - this.radius < 0 || this.y + this.radius > gameCanvas.height) this.vy *= -1;
-
                 this.pulse += 0.05;
-            }
-            draw() {
-                gameCtx.save();
-                gameCtx.shadowColor = this.color;
-                gameCtx.shadowBlur = 15;
-                gameCtx.fillStyle = this.color;
-                gameCtx.beginPath();
-                let currentRadius = this.radius + Math.sin(this.pulse) * 2;
-                gameCtx.arc(this.x, this.y, Math.max(2, currentRadius), 0, Math.PI * 2);
-                gameCtx.fill();
 
-                // Inner core
-                gameCtx.fillStyle = '#ffffff';
-                gameCtx.beginPath();
-                gameCtx.arc(this.x, this.y, currentRadius * 0.4, 0, Math.PI * 2);
-                gameCtx.fill();
-                gameCtx.restore();
+                // If target reaches edge screen borders inside, damage player if dangerous
+                if (this.x < -100 || this.x > canvas.width + 100 || this.y < -100 || this.y > canvas.height + 100) {
+                    this.markedForDeletion = true;
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+
+                // Neon Outer Glow
+                ctx.shadowBlur = 15;
+                ctx.shadowColor = this.color;
+                ctx.strokeStyle = this.color;
+                ctx.lineWidth = 3;
+
+                // Draw Polygon shape
+                ctx.beginPath();
+                const sides = this.type === 'tank' ? 6 : (this.type === 'runner' ? 3 : 5);
+                for (let i = 0; i < sides; i++) {
+                    const angle = (i * 2 * Math.PI / sides) + this.pulse;
+                    const r = this.radius + Math.sin(this.pulse * 2) * 2;
+                    const px = Math.cos(angle) * r;
+                    const py = Math.sin(angle) * r;
+                    if (i === 0) ctx.moveTo(px, py);
+                    else ctx.lineTo(px, py);
+                }
+                ctx.closePath();
+                ctx.stroke();
+
+                // Inner HP Core
+                const hpPercent = Math.max(0, this.hp / this.maxHp);
+                ctx.fillStyle = this.color;
+                ctx.globalAlpha = 0.3 * hpPercent;
+                ctx.fill();
+                ctx.globalAlpha = 1.0;
+
+                ctx.restore();
             }
         }
 
-        // Particle Burst FX for game clicks
-        class Spark {
+        class Particle {
             constructor(x, y, color) {
                 this.x = x;
                 this.y = y;
                 this.color = color;
-                this.vx = (Math.random() - 0.5) * 8;
-                this.vy = (Math.random() - 0.5) * 8;
-                this.life = 1.0;
-                this.decay = Math.random() * 0.05 + 0.02;
+                this.radius = Math.random() * 3 + 1;
+                const angle = Math.random() * Math.PI * 2;
+                const speed = Math.random() * 6 + 1;
+                this.vx = Math.cos(angle) * speed;
+                this.vy = Math.sin(angle) * speed;
+                this.alpha = 1;
+                this.decay = Math.random() * 0.03 + 0.015;
             }
+
             update() {
                 this.x += this.vx;
                 this.y += this.vy;
-                this.life -= this.decay;
+                this.vx *= 0.96;
+                this.vy *= 0.96;
+                this.alpha -= this.decay;
             }
+
             draw() {
-                gameCtx.save();
-                gameCtx.globalAlpha = Math.max(0, this.life);
-                gameCtx.fillStyle = this.color;
-                gameCtx.beginPath();
-                gameCtx.arc(this.x, this.y, 3, 0, Math.PI * 2);
-                gameCtx.fill();
-                gameCtx.restore();
+                ctx.save();
+                ctx.globalAlpha = Math.max(0, this.alpha);
+                ctx.shadowBlur = 8;
+                ctx.shadowColor = this.color;
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
             }
         }
 
-        function spawnGameTargets() {
-            gameTargets = [];
-            for (let i = 0; i < 6; i++) {
-                gameTargets.push(new GameTarget());
+        class FloatingText {
+            constructor(x, y, text, color = '#fff') {
+                this.x = x;
+                this.y = y;
+                this.text = text;
+                this.color = color;
+                this.alpha = 1;
+                this.vy = -1.5;
+            }
+
+            update() {
+                this.y += this.vy;
+                this.alpha -= 0.02;
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = Math.max(0, this.alpha);
+                ctx.font = 'bold 16px Orbitron';
+                ctx.fillStyle = this.color;
+                ctx.shadowBlur = 6;
+                ctx.shadowColor = this.color;
+                ctx.fillText(this.text, this.x, this.y);
+                ctx.restore();
             }
         }
+
+        class BulletEffect {
+            constructor(startX, startY, targetX, targetY, color) {
+                this.startX = startX;
+                this.startY = startY;
+                this.targetX = targetX;
+                this.targetY = targetY;
+                this.color = color;
+                this.alpha = 1;
+            }
+
+            update() {
+                this.alpha -= 0.1;
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = Math.max(0, this.alpha);
+                ctx.strokeStyle = this.color;
+                ctx.lineWidth = 2;
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = this.color;
+                ctx.beginPath();
+                ctx.moveTo(this.startX, this.startY);
+                ctx.lineTo(this.targetX, this.targetY);
+                ctx.stroke();
+                ctx.restore();
+            }
+        }
+
+        // --- SHOOT MECHANICS ---
+
+        function shootWeapon() {
+            const now = Date.now();
+            const weapon = WEAPONS[currentWeaponIndex];
+
+            if (now - lastShotTime < weapon.rate) return;
+            lastShotTime = now;
+
+            audio.playShoot(weapon.pitch);
+
+            // Center bottom origin for player gun effect
+            const startX = canvas.width / 2;
+            const startY = canvas.height;
+
+            for (let i = 0; i < weapon.count; i++) {
+                const spreadX = (Math.random() - 0.5) * weapon.spread * 300;
+                const spreadY = (Math.random() - 0.5) * weapon.spread * 300;
+                const tx = mouse.x + spreadX;
+                const ty = mouse.y + spreadY;
+
+                bullets.push(new BulletEffect(startX, startY, tx, ty, weapon.color));
+
+                // Check Target Hit
+                let hitAny = false;
+                targets.forEach(target => {
+                    const dist = Math.hypot(target.x - tx, target.y - ty);
+                    if (dist < target.radius + 10) {
+                        hitTarget(target, weapon.damage, tx, ty);
+                        hitAny = true;
+                    }
+                });
+
+                if (!hitAny) {
+                    // Reset combo on miss if not shotgun
+                    if (weapon.id !== 'shotgun') resetCombo();
+                }
+            }
+        }
+
+        function hitTarget(target, damage, hitX, hitY) {
+            target.hp -= damage;
+            audio.playHit();
+
+            // Spawn Particles
+            for (let i = 0; i < 8; i++) {
+                particles.push(new Particle(hitX, hitY, target.color));
+            }
+
+            createFloatingText(hitX, hitY - 10, `-${damage}`, '#ff0055');
+
+            if (target.hp <= 0) {
+                target.markedForDeletion = true;
+                
+                // Add Combo & Score
+                combo++;
+                if (combo > maxCombo) maxCombo = combo;
+                
+                const comboMult = 1 + Math.floor(combo / 5) * 0.5;
+                const earnedPoints = Math.round(target.points * comboMult);
+                const earnedMoney = Math.round((target.points / 10) * comboMult);
+
+                score += earnedPoints;
+                money += earnedMoney;
+
+                createFloatingText(target.x, target.y, `+${earnedPoints}`, '#00f0ff');
+                
+                // Explosive target area damage
+                if (target.type === 'explosive') {
+                    triggerExplosion(target.x, target.y);
+                }
+
+                updateComboUI();
+                updateHUD();
+            }
+        }
+
+        function triggerExplosion(x, y) {
+            for (let i = 0; i < 25; i++) {
+                particles.push(new Particle(x, y, '#ffff00'));
+            }
+            targets.forEach(t => {
+                const d = Math.hypot(t.x - x, t.y - y);
+                if (d < 150 && !t.markedForDeletion) {
+                    hitTarget(t, 80, t.x, t.y);
+                }
+            });
+        }
+
+        function resetCombo() {
+            combo = 0;
+            updateComboUI();
+        }
+
+        function updateComboUI() {
+            const comboContainer = document.getElementById('comboContainer');
+            const comboText = document.getElementById('comboText');
+
+            if (combo >= 3) {
+                comboContainer.classList.remove('opacity-0', 'scale-75');
+                comboContainer.classList.add('opacity-100', 'scale-100');
+                const mult = (1 + Math.floor(combo / 5) * 0.5).toFixed(1);
+                comboText.innerText = `${combo}x KOMBO (${mult}x Puan)`;
+            } else {
+                comboContainer.classList.add('opacity-0', 'scale-75');
+                comboContainer.classList.remove('opacity-100', 'scale-100');
+            }
+        }
+
+        function createFloatingText(x, y, text, color) {
+            floatingTexts.push(new FloatingText(x, y, text, color));
+        }
+
+        // --- GAME LOOP & SPAWNER ---
+
+        let targetSpawnTimer = 0;
+
+        function gameLoop(timestamp) {
+            if (!isRunning) return;
+
+            // Clear Screen
+            ctx.fillStyle = 'rgba(5, 5, 10, 0.3)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Spawn Targets
+            targetSpawnTimer++;
+            const spawnInterval = Math.max(30, 90 - wave * 5);
+            if (targetSpawnTimer > spawnInterval) {
+                targets.push(new Target());
+                targetSpawnTimer = 0;
+            }
+
+            // Update & Draw Bullets
+            bullets.forEach((b, index) => {
+                b.update();
+                b.draw();
+                if (b.alpha <= 0) bullets.splice(index, 1);
+            });
+
+            // Update & Draw Targets
+            targets.forEach((target, index) => {
+                target.update();
+                target.draw();
+
+                // Check distance to player area (bottom center / hit player)
+                const distToPlayer = Math.hypot(target.x - canvas.width / 2, target.y - canvas.height);
+                if (distToPlayer < 120) {
+                    target.markedForDeletion = true;
+                    damagePlayer(15);
+                }
+
+                if (target.markedForDeletion) {
+                    targets.splice(index, 1);
+                }
+            });
+
+            // Update & Draw Particles
+            particles.forEach((p, index) => {
+                p.update();
+                p.draw();
+                if (p.alpha <= 0) particles.splice(index, 1);
+            });
+
+            // Update & Draw Floating Text
+            floatingTexts.forEach((ft, index) => {
+                ft.update();
+                ft.draw();
+                if (ft.alpha <= 0) floatingTexts.splice(index, 1);
+            });
+
+            // Draw Crosshair
+            drawCrosshair();
+
+            // Wave progression
+            if (score > wave * 600) {
+                wave++;
+                createFloatingText(canvas.width / 2 - 50, canvas.height / 2, `DALGA ${wave}!`, '#ff007f');
+                updateHUD();
+            }
+
+            animationFrameId = requestAnimationFrame(gameLoop);
+        }
+
+        function drawCrosshair() {
+            const { x, y } = mouse;
+            const w = WEAPONS[currentWeaponIndex];
+
+            ctx.save();
+            ctx.shadowBlur = 10;
+            ctx.shadowColor = w.color;
+            ctx.strokeStyle = w.color;
+            ctx.lineWidth = 2;
+
+            // Outer ring
+            ctx.beginPath();
+            ctx.arc(x, y, 16, 0, Math.PI * 2);
+            ctx.stroke();
+
+            // Inner Dot
+            ctx.fillStyle = w.color;
+            ctx.beginPath();
+            ctx.arc(x, y, 3, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Reticle Lines
+            ctx.beginPath();
+            ctx.moveTo(x - 24, y); ctx.lineTo(x - 12, y);
+            ctx.moveTo(x + 12, y); ctx.lineTo(x + 24, y);
+            ctx.moveTo(x, y - 24); ctx.lineTo(x, y - 12);
+            ctx.moveTo(x, y + 12); ctx.lineTo(x, y + 24);
+            ctx.stroke();
+
+            ctx.restore();
+        }
+
+        function damagePlayer(amount) {
+            health -= amount;
+            audio.playDamage();
+            if (health <= 0) {
+                health = 0;
+                endGame();
+            }
+            updateHUD();
+        }
+
+        function updateHUD() {
+            document.getElementById('scoreText').innerText = score;
+            document.getElementById('waveText').innerText = wave;
+            document.getElementById('moneyText').innerText = `$${money}`;
+            document.getElementById('hpText').innerText = `${health}/${maxHealth}`;
+            document.getElementById('hpBar').style.width = `${(health / maxHealth) * 100}%`;
+            document.getElementById('hudHighScore').innerText = highScore;
+            
+            const w = WEAPONS[currentWeaponIndex];
+            const ammoEl = document.getElementById('currentWeaponName');
+            ammoEl.innerText = w.name;
+            ammoEl.style.color = w.color;
+
+            // Save state
+            localStorage.setItem('neon_strike_money', money);
+        }
+
+        // --- START / END GAME CONTROLS ---
 
         function startGame() {
-            initAudio();
             score = 0;
-            timeLeft = 30;
-            isGameRunning = true;
-            scoreElem.innerText = score;
-            timerElem.innerText = timeLeft + 's';
-            gameOverlay.classList.add('hidden');
-            spawnGameTargets();
+            combo = 0;
+            maxCombo = 0;
+            wave = 1;
+            health = maxHealth;
+            targets = [];
+            particles = [];
+            bullets = [];
+            floatingTexts = [];
 
-            clearInterval(gameTimerId);
-            gameTimerId = setInterval(() => {
-                timeLeft--;
-                timerElem.innerText = timeLeft + 's';
-                if (timeLeft <= 0) {
-                    endGame();
-                }
-            }, 1000);
+            document.getElementById('startScreen').classList.add('hidden');
+            document.getElementById('gameOverScreen').classList.add('hidden');
+            document.getElementById('hud').classList.remove('opacity-0');
+
+            updateHUD();
+            isRunning = true;
+            requestAnimationFrame(gameLoop);
         }
 
         function endGame() {
-            isGameRunning = false;
-            clearInterval(gameTimerId);
-            playSound('gameover');
+            isRunning = false;
+            if (animationFrameId) cancelAnimationFrame(animationFrameId);
 
             if (score > highScore) {
                 highScore = score;
-                highScoreElem.innerText = highScore;
+                localStorage.setItem('neon_strike_highscore', highScore);
             }
 
-            document.getElementById('gameOverlayIcon').innerHTML = '<i class="fa-solid fa-trophy"></i>';
-            document.getElementById('gameOverlayTitle').innerText = 'Oyun Bitti!';
-            document.getElementById('gameOverlayDesc').innerText = `Tebrikler! Toplam Skorun: ${score}`;
-            startGameBtn.innerText = 'Tekrar Oyna';
-            gameOverlay.classList.remove('hidden');
+            document.getElementById('finalScore').innerText = score;
+            document.getElementById('finalCombo').innerText = `${maxCombo}x`;
+            document.getElementById('finalMoney').innerText = `+$${Math.round(score / 10)}`;
+            document.getElementById('finalHighScore').innerText = highScore;
+
+            document.getElementById('gameOverScreen').classList.remove('hidden');
+            document.getElementById('hud').classList.add('opacity-0');
         }
 
-        gameCanvas.addEventListener('mousedown', (e) => {
-            if (!isGameRunning) return;
-            const rect = gameCanvas.getBoundingClientRect();
-            const clickX = e.clientX - rect.left;
-            const clickY = e.clientY - rect.top;
+        // --- SHOP & MARKET SYSTEM ---
 
-            for (let i = gameTargets.length - 1; i >= 0; i--) {
-                let t = gameTargets[i];
-                let dist = Math.hypot(clickX - t.x, clickY - t.y);
+        function renderShop() {
+            const container = document.getElementById('weaponsContainer');
+            document.getElementById('shopMoneyText').innerText = `$${money}`;
+            container.innerHTML = '';
 
-                if (dist < t.radius + 10) {
-                    // Target Hit
-                    score += t.isGold ? 3 : 1;
-                    scoreElem.innerText = score;
+            WEAPONS.forEach((weapon, idx) => {
+                const card = document.createElement('div');
+                card.className = `p-4 rounded-xl bg-gray-900/90 border flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 ${
+                    currentWeaponIndex === idx ? 'border-cyan-400 bg-cyan-950/20' : 'border-gray-800'
+                }`;
 
-                    playSound(t.isGold ? 'gold' : 'pop');
-
-                    // Create explosion particles
-                    for (let p = 0; p < 15; p++) {
-                        gameExplosions.push(new Spark(t.x, t.y, t.color));
-                    }
-
-                    // Respawn target
-                    gameTargets[i] = new GameTarget();
-                    break;
-                }
-            }
-        });
-
-        startGameBtn.addEventListener('click', startGame);
-
-
-        /* ==========================================
-           4. MAGIC VISUALIZER CANVAS LOGIC
-           ========================================== */
-        const vizCanvas = document.getElementById('visualizerCanvas');
-        const vizCtx = vizCanvas.getContext('2d');
-        let vizParticles = [];
-        let vizMode = 'cyber';
-
-        function resizeVizCanvas() {
-            if (!vizCanvas.parentElement) return;
-            vizCanvas.width = vizCanvas.parentElement.clientWidth;
-            vizCanvas.height = vizCanvas.parentElement.clientHeight;
-        }
-        window.addEventListener('resize', resizeVizCanvas);
-        resizeVizCanvas();
-
-        class VizParticle {
-            constructor(x, y, vx, vy) {
-                this.x = x || vizCanvas.width / 2;
-                this.y = y || vizCanvas.height / 2;
-                const speed = parseFloat(document.getElementById('vizSpeed').value);
-                this.vx = vx || (Math.random() - 0.5) * speed * 2;
-                this.vy = vy || (Math.random() - 0.5) * speed * 2;
-                this.size = Math.random() * parseFloat(document.getElementById('vizSize').value) + 2;
-                this.life = 1.0;
-                this.decay = Math.random() * 0.015 + 0.005;
-
-                const mode = document.getElementById('vizColorMode').value;
-                if (mode === 'fire') {
-                    this.color = Math.random() > 0.5 ? '#ffd700' : '#ff3300';
-                } else if (mode === 'neon') {
-                    const colors = ['#00f3ff', '#b000ff', '#ff007f', '#00ff88', '#ffd700'];
-                    this.color = colors[Math.floor(Math.random() * colors.length)];
-                } else {
-                    // Cyberpunk
-                    this.color = Math.random() > 0.5 ? '#00f3ff' : '#b000ff';
-                }
-            }
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-                this.life -= this.decay;
-            }
-            draw() {
-                vizCtx.save();
-                vizCtx.globalAlpha = Math.max(0, this.life);
-                vizCtx.shadowColor = this.color;
-                vizCtx.shadowBlur = 10;
-                vizCtx.fillStyle = this.color;
-                vizCtx.beginPath();
-                vizCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                vizCtx.fill();
-                vizCtx.restore();
-            }
+                card.innerHTML = `
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-lg flex items-center justify-center font-bold text-xl border" style="color:${weapon.color}; border-color:${weapon.color}">
+                            <i class="fa-solid fa-crosshair"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-orbitron font-bold text-lg" style="color:${weapon.color}">${weapon.name}</h3>
+                            <div class="flex gap-3 text-xs text-gray-400 font-orbitron">
+                                <span>HASAR: <b class="text-white">${weapon.damage}</b></span>
+                                <span>HIZ: <b class="text-white">${1000/weapon.rate}/sn</b></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2 w-full sm:w-auto">
+                        ${weapon.owned ? `
+                            <button onclick="selectWeaponFromShop(${idx})" class="w-full sm:w-auto px-5 py-2 rounded-lg font-orbitron font-bold text-xs transition ${
+                                currentWeaponIndex === idx 
+                                ? 'bg-cyan-500 text-black shadow-lg shadow-cyan-500/30' 
+                                : 'bg-gray-800 hover:bg-gray-700 text-cyan-400 border border-cyan-500/30'
+                            }">
+                                ${currentWeaponIndex === idx ? 'KUŞANILDI' : 'SEÇ'}
+                            </button>
+                        ` : `
+                            <button onclick="buyWeapon(${idx})" class="w-full sm:w-auto px-5 py-2 bg-gradient-to-r from-yellow-500 to-amber-600 hover:from-yellow-400 hover:to-amber-500 text-black font-orbitron font-bold text-xs rounded-lg transition shadow-md shadow-yellow-500/20">
+                                SATIN AL ($${weapon.cost})
+                            </button>
+                        `}
+                    </div>
+                `;
+                container.appendChild(card);
+            });
         }
 
-        function createVizBurst(x, y, count = 20) {
-            for (let i = 0; i < count; i++) {
-                vizParticles.push(new VizParticle(x, y));
-            }
-        }
+        window.selectWeaponFromShop = function(index) {
+            switchWeapon(index);
+            renderShop();
+        };
 
-        vizCanvas.addEventListener('click', (e) => {
-            const rect = vizCanvas.getBoundingClientRect();
-            createVizBurst(e.clientX - rect.left, e.clientY - rect.top, 35);
-            initAudio();
-            playSound('pop');
-        });
+        window.buyWeapon = function(index) {
+            const w = WEAPONS[index];
+            if (money >= w.cost) {
+                money -= w.cost;
+                w.owned = true;
+                
+                // Save weapons
+                const ownedIds = WEAPONS.filter(x => x.owned).map(x => x.id);
+                localStorage.setItem('neon_strike_weapons', JSON.stringify(ownedIds));
+                localStorage.setItem('neon_strike_money', money);
 
-        vizCanvas.addEventListener('mousemove', (e) => {
-            if (e.buttons === 1) { // Click & Drag
-                const rect = vizCanvas.getBoundingClientRect();
-                createVizBurst(e.clientX - rect.left, e.clientY - rect.top, 5);
-            }
-        });
-
-        window.setVisualizerPreset = function(preset) {
-            vizParticles = [];
-            const centerX = vizCanvas.width / 2;
-            const centerY = vizCanvas.height / 2;
-
-            if (preset === 'galaxy') {
-                document.getElementById('vizColorMode').value = 'cyber';
-                for (let i = 0; i < 150; i++) {
-                    let angle = Math.random() * Math.PI * 2;
-                    let speed = Math.random() * 4 + 1;
-                    vizParticles.push(new VizParticle(centerX, centerY, Math.cos(angle) * speed, Math.sin(angle) * speed));
-                }
-            } else if (preset === 'supernova') {
-                document.getElementById('vizColorMode').value = 'fire';
-                for (let i = 0; i < 200; i++) {
-                    let angle = Math.random() * Math.PI * 2;
-                    let speed = Math.random() * 8 + 2;
-                    vizParticles.push(new VizParticle(centerX, centerY, Math.cos(angle) * speed, Math.sin(angle) * speed));
-                }
-            } else if (preset === 'matrix') {
-                document.getElementById('vizColorMode').value = 'neon';
-                for (let i = 0; i < 100; i++) {
-                    let p = new VizParticle(Math.random() * vizCanvas.width, 0, 0, Math.random() * 5 + 2);
-                    p.color = '#00ff88';
-                    vizParticles.push(p);
-                }
+                switchWeapon(index);
+                renderShop();
+                audio.playBonus();
             }
         };
 
+        // Event Listeners for Buttons
+        document.getElementById('startBtn').addEventListener('click', startGame);
+        document.getElementById('restartBtn').addEventListener('click', startGame);
 
-        /* ==========================================
-           5. MAIN UNIFIED ANIMATION LOOP
-           ========================================== */
-        let lastTime = performance.now();
-        let frameCount = 0;
-        const statFps = document.getElementById('statFps');
-        const statParticles = document.getElementById('statParticles');
+        document.getElementById('openShopBtn').addEventListener('click', () => {
+            renderShop();
+            document.getElementById('shopScreen').classList.remove('hidden');
+        });
 
-        function mainLoop(now) {
-            // FPS Calculation
-            frameCount++;
-            if (now - lastTime >= 1000) {
-                statFps.innerText = frameCount + ' FPS';
-                frameCount = 0;
-                lastTime = now;
-            }
+        document.getElementById('gameOverShopBtn').addEventListener('click', () => {
+            renderShop();
+            document.getElementById('shopScreen').classList.remove('hidden');
+        });
 
-            // 1. Draw Background Particles
-            bgCtx.clearRect(0, 0, bgWidth, bgHeight);
-            for (let i = 0; i < bgParticles.length; i++) {
-                bgParticles[i].update();
-                bgParticles[i].draw();
-            }
-            drawConstellations();
+        document.getElementById('closeShopBtn').addEventListener('click', () => {
+            document.getElementById('shopScreen').classList.add('hidden');
+        });
 
-            // 2. Draw Arcade Game
-            gameCtx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
-            if (isGameRunning) {
-                for (let t of gameTargets) {
-                    t.update();
-                    t.draw();
-                }
-            }
-            for (let i = gameExplosions.length - 1; i >= 0; i--) {
-                gameExplosions[i].update();
-                gameExplosions[i].draw();
-                if (gameExplosions[i].life <= 0) gameExplosions.splice(i, 1);
-            }
-
-            // 3. Draw Visualizer
-            vizCtx.fillStyle = 'rgba(0, 0, 0, 0.15)'; // Trail effect
-            vizCtx.fillRect(0, 0, vizCanvas.width, vizCanvas.height);
-
-            // Keep continuous particles in Visualizer
-            if (vizParticles.length < 60) {
-                vizParticles.push(new VizParticle());
-            }
-
-            for (let i = vizParticles.length - 1; i >= 0; i--) {
-                vizParticles[i].update();
-                vizParticles[i].draw();
-                if (vizParticles[i].life <= 0) {
-                    vizParticles.splice(i, 1);
-                }
-            }
-
-            // Update stats counter
-            statParticles.innerText = (bgParticles.length + vizParticles.length + gameTargets.length) + '+';
-
-            requestAnimationFrame(mainLoop);
-        }
-
-        // Smooth Scroll Helper
-        window.scrollToSection = function(id) {
-            document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-        };
-
-        // Window Load Initializer
-        window.onload = function() {
-            resizeBg();
-            resizeGameCanvas();
-            resizeVizCanvas();
-            requestAnimationFrame(mainLoop);
-        };
+        // Initialize HUD
+        document.getElementById('hudHighScore').innerText = highScore;
     </script>
 </body>
 </html>
