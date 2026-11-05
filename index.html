@@ -135,7 +135,7 @@
                 <button onclick="navTo('home')" id="nav-home" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-slate-300 light:text-slate-600 hover:text-white light:hover:text-slate-900 hover:bg-slate-800/50 transition-all">Ana Sayfa</button>
                 <button onclick="navTo('tools')" id="nav-tools" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-slate-300 light:text-slate-600 hover:text-white light:hover:text-slate-900 hover:bg-slate-800/50 transition-all">Akıllı Araçlar</button>
                 <button onclick="navTo('docs')" id="nav-docs" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-slate-300 light:text-slate-600 hover:text-white light:hover:text-slate-900 hover:bg-slate-800/50 transition-all">Belge Merkezi</button>
-                <button onclick="navTo('sport')" id="nav-sport" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-slate-300 light:text-slate-600 hover:text-white light:hover:text-slate-900 hover:bg-slate-800/50 transition-all">Spor & Egzersiz</button>
+                <button onclick="navTo('learn')" id="nav-learn" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-slate-300 light:text-slate-600 hover:text-white light:hover:text-slate-900 hover:bg-slate-800/50 transition-all">Spor & Egzersiz</button>
                 <button onclick="navTo('life')" id="nav-life" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-slate-300 light:text-slate-600 hover:text-white light:hover:text-slate-900 hover:bg-slate-800/50 transition-all">Günlük Yaşam</button>
                 <button onclick="navTo('ai')" id="nav-ai" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-slate-300 light:text-slate-600 hover:text-white light:hover:text-slate-900 hover:bg-slate-800/50 transition-all">Yapay Zekâ</button>
                 <button onclick="navTo('files')" id="nav-files" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-slate-300 light:text-slate-600 hover:text-white light:hover:text-slate-900 hover:bg-slate-800/50 transition-all">Dosya</button>
@@ -162,7 +162,7 @@
             <button onclick="navTo('home'); toggleMobileMenu()" class="block w-full text-left px-4 py-2.5 rounded-lg text-sm font-medium text-slate-200 hover:bg-slate-800">Ana Sayfa</button>
             <button onclick="navTo('tools'); toggleMobileMenu()" class="block w-full text-left px-4 py-2.5 rounded-lg text-sm font-medium text-slate-200 hover:bg-slate-800">Akıllı Araçlar</button>
             <button onclick="navTo('docs'); toggleMobileMenu()" class="block w-full text-left px-4 py-2.5 rounded-lg text-sm font-medium text-slate-200 hover:bg-slate-800">Belge Merkezi</button>
-            <button onclick="navTo('sport'); toggleMobileMenu()" class="block w-full text-left px-4 py-2.5 rounded-lg text-sm font-medium text-slate-200 hover:bg-slate-800">Spor & Egzersiz</button>
+            <button onclick="navTo('learn'); toggleMobileMenu()" class="block w-full text-left px-4 py-2.5 rounded-lg text-sm font-medium text-slate-200 hover:bg-slate-800">Spor & Egzersiz</button>
             <button onclick="navTo('life'); toggleMobileMenu()" class="block w-full text-left px-4 py-2.5 rounded-lg text-sm font-medium text-slate-200 hover:bg-slate-800">Günlük Yaşam</button>
             <button onclick="navTo('ai'); toggleMobileMenu()" class="block w-full text-left px-4 py-2.5 rounded-lg text-sm font-medium text-slate-200 hover:bg-slate-800">Yapay Zekâ</button>
             <button onclick="navTo('files'); toggleMobileMenu()" class="block w-full text-left px-4 py-2.5 rounded-lg text-sm font-medium text-slate-200 hover:bg-slate-800">Dosya Merkezi</button>
@@ -190,7 +190,7 @@
                 <div class="relative max-w-2xl mx-auto pt-2">
                     <div class="relative flex items-center">
                         <i class="fa-solid fa-magnifying-glass absolute left-4 text-slate-400 text-lg"></i>
-                        <input type="text" id="global-search" oninput="handleGlobalSearch()" placeholder="Ne yapmak istiyorsun? (Örn: yüzde hesapla, CV hazırla, egzersiz takibi, yazım düzelt)..." 
+                        <input type="text" id="global-search" oninput="handleGlobalSearch()" placeholder="Ne yapmak istiyorsun? (Örn: yüzde hesapla, CV hazırla, şınav egzersizi, yazım düzelt)..." 
                             class="w-full pl-12 pr-12 py-4 rounded-2xl glass-panel text-white light:text-slate-900 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500 shadow-2xl transition-all">
                         <button onclick="clearSearch()" id="search-clear-btn" class="hidden absolute right-4 text-slate-400 hover:text-white">
                             <i class="fa-solid fa-xmark text-lg"></i>
@@ -210,7 +210,7 @@
                     <div class="w-10 h-10 mx-auto mb-2 rounded-xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center group-hover:scale-110 transition"><i class="fa-solid fa-file-contract"></i></div>
                     <span class="text-xs font-semibold text-slate-300 light:text-slate-700">Belge Merkezi</span>
                 </button>
-                <button onclick="navTo('sport')" class="p-4 rounded-2xl glass-panel hover:bg-emerald-500/10 border border-slate-800 text-center transition group">
+                <button onclick="navTo('learn')" class="p-4 rounded-2xl glass-panel hover:bg-emerald-500/10 border border-slate-800 text-center transition group">
                     <div class="w-10 h-10 mx-auto mb-2 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center group-hover:scale-110 transition"><i class="fa-solid fa-dumbbell"></i></div>
                     <span class="text-xs font-semibold text-slate-300 light:text-slate-700">Spor & Egzersiz</span>
                 </button>
@@ -253,16 +253,16 @@
                         <button onclick="navTo('tools')" class="w-full py-2.5 rounded-xl glass-btn text-brand-300 font-semibold text-sm flex items-center justify-center gap-2">Hemen Kullan <i class="fa-solid fa-arrow-right text-xs"></i></button>
                     </div>
 
-                    <div class="glass-panel p-6 rounded-2xl border border-slate-800 hover:border-indigo-500/50 transition flex flex-col justify-between group">
+                    <div class="glass-panel p-6 rounded-2xl border border-slate-800 hover:border-emerald-500/50 transition flex flex-col justify-between group">
                         <div>
                             <div class="flex items-center justify-between mb-4">
                                 <div class="w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl"><i class="fa-solid fa-dumbbell"></i></div>
                                 <button onclick="toggleFavorite('spor')" class="text-slate-600 hover:text-amber-400 text-lg transition"><i class="fa-regular fa-star" id="star-spor"></i></button>
                             </div>
-                            <h3 class="text-lg font-bold text-white mb-2">Spor Kartları & Kalori</h3>
-                            <p class="text-sm text-slate-400 mb-4">Egzersiz hareketleri, doğru form ve yakılan kalori bilgileri.</p>
+                            <h3 class="text-lg font-bold text-white mb-2">Spor & Egzersiz Rehberi</h3>
+                            <p class="text-sm text-slate-400 mb-4">Egzersiz hareketleri, doğru form rehberi ve antrenman mola sayacı.</p>
                         </div>
-                        <button onclick="navTo('sport')" class="w-full py-2.5 rounded-xl glass-btn text-emerald-300 font-semibold text-sm flex items-center justify-center gap-2">Spor Modülünü Aç <i class="fa-solid fa-arrow-right text-xs"></i></button>
+                        <button onclick="navTo('learn')" class="w-full py-2.5 rounded-xl glass-btn text-emerald-300 font-semibold text-sm flex items-center justify-center gap-2">Egzersizleri Gör <i class="fa-solid fa-arrow-right text-xs"></i></button>
                     </div>
 
                     <div class="glass-panel p-6 rounded-2xl border border-slate-800 hover:border-pink-500/50 transition flex flex-col justify-between group">
@@ -475,71 +475,68 @@
             </div>
         </section>
 
-        <!-- ==================== PAGE 4: ÖĞRENME MERKEZİ (FIXED FLASHCARDS) ==================== -->
+        <!-- ==================== PAGE 4: SPOR & EGZERSİZ MERKEZİ ==================== -->
         <section id="page-learn" class="page-content hidden space-y-8">
             <div class="border-b border-slate-800 pb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
-        <!-- ==================== PAGE 4: SPOR & EGZERSİZ MERKEZİ ==================== -->
-        <section id="page-sport" class="page-content hidden space-y-8">
-            <div class="border-b border-slate-800 pb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                <div>
                     <h1 class="text-3xl font-bold text-white">Spor & Egzersiz Merkezi</h1>
-                    <p class="text-sm text-slate-400 mt-1">Egzersiz Rehberi, Çalışma Zamanlayıcısı ve Kalori Takibi.</p>
+                    <p class="text-sm text-slate-400 mt-1">Egzersiz hareketleri, rehber ve set mola zamanlayıcısı.</p>
                 </div>
                 <div class="flex items-center space-x-3 bg-slate-900 px-4 py-2 rounded-xl border border-slate-800">
                     <i class="fa-solid fa-stopwatch text-emerald-400 animate-pulse"></i>
-                    <span id="sport-timer-display" class="font-mono font-bold text-white text-lg">00:45</span>
-                    <button onclick="toggleSportTimer()" id="sport-btn" class="px-3 py-1 rounded-lg bg-emerald-600 text-xs text-white font-semibold">Başlat</button>
+                    <span id="pomo-timer-display" class="font-mono font-bold text-white text-lg">01:00</span>
+                    <button onclick="togglePomodoro()" id="pomo-btn" class="px-3 py-1 rounded-lg bg-emerald-600 text-xs text-white font-semibold">Mola Başlat</button>
                 </div>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <!-- SPORT FLASHCARDS MODULE -->
+                <!-- EXERCISE CARDS MODULE -->
                 <div class="lg:col-span-2 glass-panel p-6 rounded-2xl border border-slate-800 space-y-6">
                     <div class="flex items-center justify-between">
                         <h3 class="font-bold text-white text-lg flex items-center gap-2">
-                            <i class="fa-solid fa-person-running text-emerald-400"></i> Egzersiz & Antrenman Kartları
+                            <i class="fa-solid fa-dumbbell text-emerald-400"></i> Temel Egzersiz Rehberi
                         </h3>
                         <div class="flex items-center gap-3">
-                            <span id="completed-counter-badge" class="px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                            <span id="learned-counter-badge" class="px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
                                 Tamamlanan: 0 / 10
                             </span>
-                            <span id="sport-card-counter" class="text-xs text-slate-400">1 / 10</span>
+                            <span id="card-counter" class="text-xs text-slate-400">1 / 10</span>
                         </div>
                     </div>
 
                     <!-- Progress Bar -->
                     <div class="w-full bg-slate-900 h-2 rounded-full overflow-hidden border border-slate-800">
-                        <div id="sport-card-progress-bar" class="bg-gradient-to-r from-emerald-500 to-cyan-400 h-full transition-all duration-300" style="width: 0%"></div>
+                        <div id="card-progress-bar" class="bg-gradient-to-r from-emerald-500 to-teal-400 h-full transition-all duration-300" style="width: 0%"></div>
                     </div>
 
                     <!-- 3D Perspective Card Container -->
-                    <div class="perspective-1000 w-full h-80 cursor-pointer" onclick="flipSportCard()">
-                        <div id="sportcard-inner" class="relative w-full h-full transform-style-3d glass-panel rounded-2xl border border-slate-700 shadow-2xl">
+                    <div class="perspective-1000 w-full h-80 cursor-pointer" onclick="flipCard()">
+                        <div id="flashcard-inner" class="relative w-full h-full transform-style-3d glass-panel rounded-2xl border border-slate-700 shadow-2xl">
                             
-                            <!-- CARD FRONT (Hareket Adı) -->
+                            <!-- CARD FRONT (EGZERSİZ) -->
                             <div class="absolute inset-0 backface-hidden flex flex-col items-center justify-center p-6 text-center space-y-3">
                                 <div class="flex items-center gap-2">
-                                    <span class="px-3 py-1 rounded-full text-[11px] font-bold bg-emerald-500/20 text-emerald-400" id="sport-card-level">Tüm Vücut</span>
-                                    <span id="sport-card-status-tag" class="hidden px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500 text-slate-950">Yapıldı</span>
+                                    <span class="px-3 py-1 rounded-full text-[11px] font-bold bg-emerald-500/20 text-emerald-400" id="card-level">Göğüs & Triceps</span>
+                                    <span id="card-status-tag" class="hidden px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500 text-slate-950">Tamamlandı</span>
                                 </div>
-                                <h2 class="text-3xl font-extrabold text-white" id="sport-card-title">Şınav (Push-up)</h2>
-                                <p class="text-xs text-slate-400 italic" id="sport-card-meta">3 Set x 15 Tekrar • ~10 Kalori</p>
+                                <h2 class="text-4xl font-extrabold text-white" id="card-en">Şınav (Push-up)</h2>
+                                <p class="text-xs text-slate-400 italic" id="card-phonetic">3 Set x 12 Tekrar • Vücut Ağırlığı</p>
                                 <div class="pt-4 flex items-center text-xs text-emerald-400 font-semibold gap-2">
-                                    <i class="fa-solid fa-rotate mr-1"></i> Detay & Doğru Form İçin Tıkla
+                                    <i class="fa-solid fa-rotate mr-1"></i> Doğru Form ve Detaylar İçin Tıkla
                                 </div>
                             </div>
 
-                            <!-- CARD BACK (DETAY & FORM) -->
+                            <!-- CARD BACK (DETAYLAR VE İPUÇLARI) -->
                             <div class="absolute inset-0 backface-hidden rotate-y-180 flex flex-col justify-center p-6 bg-slate-900/95 rounded-2xl border border-emerald-500/40 text-left space-y-3">
                                 <div>
-                                    <span class="text-[10px] font-extrabold uppercase text-emerald-400 tracking-wider">Odak Kas Grubu</span>
-                                    <h3 class="text-xl font-bold text-white mt-0.5" id="sport-card-muscle">Göğüs, Ön Omuz, Triceps</h3>
+                                    <span class="text-[10px] font-extrabold uppercase text-emerald-400 tracking-wider">Hedef Kas Grubu</span>
+                                    <h3 class="text-2xl font-bold text-white mt-0.5" id="card-tr">Göğüs, Omuz ve Arka Kol</h3>
                                 </div>
 
                                 <div class="border-t border-slate-800 pt-2 space-y-1">
-                                    <span class="text-[10px] font-extrabold uppercase text-cyan-400 tracking-wider">Püf Noktaları & Uygulama</span>
-                                    <p class="text-xs text-slate-200 font-medium" id="sport-card-desc">Vücudunuzu başınızdan topuklarınıza kadar düz bir çizgide tutun. Göğsünüzü yere yaklaştırıp patlayıcı kuvvetle yükselin.</p>
+                                    <span class="text-[10px] font-extrabold uppercase text-teal-400 tracking-wider">Püf Noktası & İpucu</span>
+                                    <p class="text-xs text-slate-200 font-medium" id="card-ex-en">"Vücudunuzu baştan topuğa kadar dümdüz tutun ve kalçanızı düşürmeyin."</p>
+                                    <p class="text-xs text-slate-400 italic" id="card-ex-tr">"Nefes alarak inin, zorlanırken (yukarı iterken) nefes verin."</p>
                                 </div>
                             </div>
 
@@ -548,35 +545,38 @@
 
                     <div class="flex flex-wrap justify-between items-center gap-3 pt-2">
                         <div class="flex gap-2">
-                            <button onclick="prevSportCard()" class="px-4 py-2.5 rounded-xl bg-slate-800 text-xs text-slate-300 hover:bg-slate-700 transition"><i class="fa-solid fa-arrow-left mr-1"></i> Önceki</button>
-                            <button onclick="getRandomSportCard()" class="px-3 py-2.5 rounded-xl bg-slate-800 text-xs text-slate-300 hover:bg-slate-700 transition" title="Rastgele Getir"><i class="fa-solid fa-shuffle"></i></button>
-                            <button onclick="nextSportCard()" class="px-4 py-2.5 rounded-xl bg-slate-800 text-xs text-slate-300 hover:bg-slate-700 transition">Sonraki <i class="fa-solid fa-arrow-right ml-1"></i></button>
+                            <button onclick="prevCard()" class="px-4 py-2.5 rounded-xl bg-slate-800 text-xs text-slate-300 hover:bg-slate-700 transition"><i class="fa-solid fa-arrow-left mr-1"></i> Önceki</button>
+                            <button onclick="getRandomCard()" class="px-3 py-2.5 rounded-xl bg-slate-800 text-xs text-slate-300 hover:bg-slate-700 transition" title="Rastgele Getir"><i class="fa-solid fa-shuffle"></i></button>
+                            <button onclick="nextCard()" class="px-4 py-2.5 rounded-xl bg-slate-800 text-xs text-slate-300 hover:bg-slate-700 transition">Sonraki <i class="fa-solid fa-arrow-right ml-1"></i></button>
                         </div>
                         
                         <div class="flex gap-2">
-                            <button onclick="markAsCompletedSport()" id="btn-sport-completed" class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-xs font-bold text-slate-950 transition"><i class="fa-solid fa-check mr-1"></i> Tamamladım</button>
-                            <button onclick="resetSportState()" class="px-3 py-2.5 rounded-xl bg-slate-800 text-xs text-slate-400 hover:text-white transition" title="Sıfırla"><i class="fa-solid fa-arrow-rotate-left"></i></button>
+                            <button onclick="markAsLearned()" id="btn-learned" class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-xs font-bold text-slate-950 transition"><i class="fa-solid fa-check mr-1"></i> Tamamladım</button>
+                            <button onclick="resetLearnedState()" class="px-3 py-2.5 rounded-xl bg-slate-800 text-xs text-slate-400 hover:text-white transition" title="Sıfırla"><i class="fa-solid fa-arrow-rotate-left"></i></button>
                         </div>
                     </div>
                 </div>
 
-                <!-- QUICK HEALTH & FITNESS RULES -->
+                <!-- QUICK FITNESS TIPS -->
                 <div class="glass-panel p-6 rounded-2xl border border-slate-800 space-y-4">
                     <h3 class="font-bold text-white text-base flex items-center gap-2">
-                        <i class="fa-solid fa-heart-pulse text-rose-400"></i> Altın Spor Kuralları
+                        <i class="fa-solid fa-heart-pulse text-emerald-400"></i> Altın Spor Kuralları
                     </h3>
                     <div class="space-y-2 text-xs">
                         <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 flex justify-between items-center">
-                            <span class="text-slate-400">Isınma & Esnetme</span>
-                            <span class="text-emerald-400 font-bold">5-10 dk Ön Isınma</span>
+                            <span class="text-slate-300">Isınmadan Başlama</span>
+                            <i class="fa-solid fa-arrow-right text-slate-600"></i>
+                            <span class="text-emerald-400 font-bold">5 dk Hafif Kardiyo</span>
                         </div>
                         <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 flex justify-between items-center">
-                            <span class="text-slate-400">Günlük Su Tüketimi</span>
-                            <span class="text-cyan-400 font-bold">En az 2.5 Litre</span>
+                            <span class="text-slate-300">Su Tüketimi</span>
+                            <i class="fa-solid fa-arrow-right text-slate-600"></i>
+                            <span class="text-emerald-400 font-bold">Antrenmanda Yudum Yudum</span>
                         </div>
                         <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 flex justify-between items-center">
-                            <span class="text-slate-400">Set Arası Dinlenme</span>
-                            <span class="text-amber-400 font-bold">45 - 90 Saniye</span>
+                            <span class="text-slate-300">Set Arası Mola</span>
+                            <i class="fa-solid fa-arrow-right text-slate-600"></i>
+                            <span class="text-emerald-400 font-bold">45 - 90 Saniye Dinlenme</span>
                         </div>
                     </div>
                 </div>
@@ -716,9 +716,9 @@
                     <p class="text-xs text-slate-400 leading-relaxed">En az 12 karakter, harf, rakam ve sembol içeren karmaşık şifreler kullanın.</p>
                 </div>
                 <div class="glass-panel p-6 rounded-2xl border border-slate-800 space-y-3">
-                    <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-400">Egzersiz</span>
-                    <h3 class="font-bold text-white text-base">Düzenli Spor Disiplini</h3>
-                    <p class="text-xs text-slate-400 leading-relaxed">Haftada en az 3-4 gün düzenli egzersiz yaparak formunuzu koruyun.</p>
+                    <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-400">Verimlilik</span>
+                    <h3 class="font-bold text-white text-base">Set Arası Mola Tekniği</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">Egzersizlerde setler arası 60 saniye dinlenerek kas gelişiminizi maksimuma çıkarın.</p>
                 </div>
                 <div class="glass-panel p-6 rounded-2xl border border-slate-800 space-y-3">
                     <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-pink-500/20 text-pink-400">Kariyer</span>
@@ -756,146 +756,121 @@
         /* ==================== GLOBAL STATE ==================== */
         const state = {
             favorites: JSON.parse(localStorage.getItem('pratikim_favs')) || [],
-            completedSports: JSON.parse(localStorage.getItem('pratikim_completed_sports')) || [],
+            learnedCards: JSON.parse(localStorage.getItem('pratikim_learned_cards')) || [],
             todos: JSON.parse(localStorage.getItem('pratikim_todos')) || [
                 { id: 1, text: 'Pratikim platformunu keşfet', completed: true },
-                { id: 2, text: 'Yazım düzeltici ve spor rehberini dene', completed: false }
+                { id: 2, text: 'Günün egzersizlerini tamamla', completed: false }
             ],
-            sportcardIdx: 0,
-            sportCardFlipped: false,
-            sportTime: 45,
-            sportRunning: false,
-            sportInterval: null,
+            flashcardIdx: 0,
+            cardFlipped: false,
+            pomoTime: 1 * 60,
+            pomoRunning: false,
+            pomoInterval: null,
             loadedImg: null
         };
 
-        /* ==================== SPORT DATA ==================== */
-        const sportcards = [
-            { title: 'Şınav (Push-up)', meta: '3 Set x 15 Tekrar • ~10 Kalori', level: 'Göğüs & Kol', muscle: 'Göğüs, Ön Omuz, Triceps', desc: 'Vücudunuzu düz tutun. Göğsünüzü yere yaklaştırıp kontrollü bir şekilde kalkın.' },
-            { title: 'Lunge (Adımlama)', meta: '3 Set x 12 Tekrar • ~12 Kalori', level: 'Alt Vücut', muscle: 'Ön Bacak, Kalça', desc: 'Bir adım öne atın ve dizlerinizi 90 derece bükün. Arka diziniz yere neredeyse değsin.' },
-            { title: 'Plank', meta: '3 Set x 45 Saniye • ~8 Kalori', level: 'Karın & Merkez', muscle: 'Karın, Bel, Omuz', desc: 'Dirsekleriniz üzerinde durun. Kalçanızı düşürmeden vücudunuzu dümdüz tutun.' },
-            { title: 'Squat (Çökme)', meta: '3 Set x 20 Tekrar • ~15 Kalori', level: 'Bacak & Kalça', muscle: 'Quadriceps, Gluteus', desc: 'Ağırlığınızı topuklarınıza verin, sırtınızı dik tutarak sandalyeye oturur gibi çökün.' },
-            { title: 'Jumping Jacks', meta: '3 Set x 30 Tekrar • ~20 Kalori', level: 'Kardiyo', muscle: 'Tüm Vücut', desc: 'Zıplayarak bacaklarınızı açın ve ellerinizi başınızın üzerinde birleştirin.' },
-            { title: 'Burpee', meta: '3 Set x 10 Tekrar • ~25 Kalori', level: 'Yoğun Kardiyo', muscle: 'Tüm Vücut', desc: 'Şınav pozisyonuna geçin, zıplayarak ayakları çekin ve yukarı doğru patlayıcı şekilde zıplayın.' },
-            { title: 'Mountain Climbers', meta: '3 Set x 40 Saniye • ~18 Kalori', level: 'Karın & Kardiyo', muscle: 'Karın, Bacaklar', desc: 'Plank pozisyonunda sırayla dizlerinizi hızlıca göğsünüze doğru çekin.' },
-            { title: 'Mekik (Crunches)', meta: '3 Set x 20 Tekrar • ~10 Kalori', level: 'Karın', muscle: 'Üst Karın Kasları', desc: 'Sırtüstü yatın, dizleri bükün ve sadece üst gövdenizi karın kaslarınızı sıkarak kaldırın.' },
-            { title: 'Ters Lunge', meta: '3 Set x 12 Tekrar • ~12 Kalori', level: 'Bacak', muscle: 'Kalça, Arka Bacak', desc: 'Geriye doğru adım atarak dizlerinizi bükün, dengenizi koruyarak başlangıç pozisyonuna dönün.' },
-            { title: 'Dips (Sandalye Dips)', meta: '3 Set x 12 Tekrar • ~10 Kalori', level: 'Kol', muscle: 'Arka Kol (Triceps)', desc: 'Ellerinizi sağlam bir sandalyeye koyun, kalçanızı aşağı indirip kollarınızla tekrar yükselin.' }
+        /* ==================== EXERCISES DATA ==================== */
+        const flashcards = [
+            { en: 'Şınav (Push-up)', tr: 'Göğüs, Omuz ve Arka Kol', phonetic: '3 Set x 12 Tekrar • Vücut Ağırlığı', level: 'Göğüs & Triceps', exEn: 'Vücudunuzu baştan topuğa kadar dümdüz tutun ve kalçanızı düşürmeyin.', exTr: 'Nefes alarak inin, zorlanırken (yukarı iterken) nefes verin.' },
+            { en: 'Squat (Çömelme)', tr: 'Ön Bacak, Arka Bacak ve Kalça', phonetic: '3 Set x 15 Tekrar • Vücut Ağırlığı', level: 'Bacak & Kalça', exEn: 'Dizlerinizin ayak parmak ucunu geçmemesine dikkat edin.', exTr: 'Topuklarınıza yük vererek çömelin ve göğsünüzü dik tutun.' },
+            { en: 'Plank', tr: 'Karın (Core) ve Bel Kasları', phonetic: '3 Set x 45 Saniye • İzometrik', level: 'Karın & Core', exEn: 'Dirsekleriniz omuz hizanızda olsun, karnınızı sıkın.', exTr: 'Nefesinizi tutmayın, düzenli ve derin nefes alıp verin.' },
+            { en: 'Lunge (Adımlama)', tr: 'Bacak, Kalça ve Denge', phonetic: '3 Set x 10 Tekrar (Her bacak)', level: 'Bacak & Denge', exEn: 'Öne adım attığınızda arka diziniz yere değmeye yaklaşsın.', exTr: 'Gövdenizi dik tutun, öndeki diziniz 90 derece bükülmelidir.' },
+            { en: 'Mekik (Crunches)', tr: 'Üst Karın Kasları', phonetic: '3 Set x 20 Tekrar • Yer Egzersizi', level: 'Karın Kasları', exEn: 'Boynunuzdan çekmeyin, karın kaslarınızı sıkarak yükselin.', exTr: 'Belinizi yerden tamamen kaldırmadan sadece kürek kemiklerinizi kaldırın.' },
+            { en: 'Burpee', tr: 'Tüm Vücut & Kardiyo', phonetic: '3 Set x 10 Tekrar • Yüksek Yoğunluk', level: 'Tüm Vücut / Yağ Yakımı', exEn: 'Şınav, squat ve sıçrama hareketlerinin dinamik birleşimidir.', exTr: 'Kondisyon ve kalori yakımı için en etkili egzersizlerden biridir.' },
+            { en: 'Dips (Sandalye Dips)', tr: 'Arka Kol (Triceps)', phonetic: '3 Set x 12 Tekrar • Ev Tipi', level: 'Arka Kol', exEn: 'Ellerinizi sağlam bir sandalyeye koyun, dirseklerinizi arkaya kırın.', exTr: 'Omuzlarınızı zorlamamak için 90 dereceden fazla derine inmeyin.' },
+            { en: 'Mountain Climbers', tr: 'Karın Kasları ve Kardiyo', phonetic: '3 Set x 30 Saniye • Hızlı Tempolu', level: 'Kardiyo & Core', exEn: 'Plank pozisyonunda sırayla dizlerinizi göğsünüze çekin.', exTr: 'Temponuzu koruyun ve sırtınızı düz tutmaya çalışın.' },
+            { en: 'Glute Bridge (Kalça Kaldırma)', tr: 'Kalça ve Arka Bacak', phonetic: '3 Set x 15 Tekrar • Yüz Yukarı', level: 'Kalça & Sırt', exEn: 'Sırtüstü yatıp ayak tabanlarınız yerdeyken kalçanızı yukarı itin.', exTr: 'En tepe noktada kalçanızı 1-2 saniye sıkın.' },
+            { en: 'Jumping Jacks', tr: 'Tüm Vücut & Isınma', phonetic: '3 Set x 40 Saniye • Kardiyo', level: 'Kardiyo & Isınma', exEn: 'Zıplayarak bacaklarınızı açın ve ellerinizi başınızın üstünde birleştirin.', exTr: 'Yumuşak şekilde parmak ucunda zıplayarak eklemleri koruyun.' }
         ];
 
-        /* ==================== SPORT CONTROLLER ==================== */
-        function flipSportCard() {
-            const card = document.getElementById('sportcard-inner');
-            state.sportCardFlipped = !state.sportCardFlipped;
-            if (state.sportCardFlipped) {
+        /* ==================== EXERCISE CARDS CONTROLLER ==================== */
+        function flipCard() {
+            const card = document.getElementById('flashcard-inner');
+            state.cardFlipped = !state.cardFlipped;
+            if (state.cardFlipped) {
                 card.classList.add('rotate-y-180');
             } else {
                 card.classList.remove('rotate-y-180');
             }
         }
 
-        function renderSportcard() {
-            const card = sportcards[state.sportcardIdx];
+        function renderFlashcard() {
+            const card = flashcards[state.flashcardIdx];
             
-            state.sportCardFlipped = false;
-            document.getElementById('sportcard-inner').classList.remove('rotate-y-180');
+            // Auto Reset Flip State when changing cards
+            state.cardFlipped = false;
+            document.getElementById('flashcard-inner').classList.remove('rotate-y-180');
 
-            document.getElementById('sport-card-title').innerText = card.title;
-            document.getElementById('sport-card-meta').innerText = card.meta;
-            document.getElementById('sport-card-level').innerText = card.level;
+            // Render Front
+            document.getElementById('card-en').innerText = card.en;
+            document.getElementById('card-phonetic').innerText = card.phonetic;
+            document.getElementById('card-level').innerText = card.level;
 
-            document.getElementById('sport-card-muscle').innerText = card.muscle;
-            document.getElementById('sport-card-desc').innerText = card.desc;
+            // Render Back
+            document.getElementById('card-tr').innerText = card.tr;
+            document.getElementById('card-ex-en').innerText = `"${card.exEn}"`;
+            document.getElementById('card-ex-tr').innerText = `"${card.exTr}"`;
 
-            document.getElementById('sport-card-counter').innerText = `${state.sportcardIdx + 1} / ${sportcards.length}`;
+            // Counter & Status
+            document.getElementById('card-counter').innerText = `${state.flashcardIdx + 1} / ${flashcards.length}`;
             
-            const isCompleted = state.completedSports.includes(card.title);
-            const statusTag = document.getElementById('sport-card-status-tag');
-            const completedBtn = document.getElementById('btn-sport-completed');
+            const isLearned = state.learnedCards.includes(card.en);
+            const statusTag = document.getElementById('card-status-tag');
+            const learnedBtn = document.getElementById('btn-learned');
 
-            if (isCompleted) {
+            if (isLearned) {
                 statusTag.classList.remove('hidden');
-                completedBtn.classList.add('opacity-50');
-                completedBtn.innerText = 'Tamamlandı ✓';
+                learnedBtn.classList.add('opacity-50');
+                learnedBtn.innerText = 'Tamamlandı ✓';
             } else {
                 statusTag.classList.add('hidden');
-                completedBtn.classList.remove('opacity-50');
-                completedBtn.innerText = 'Tamamladım';
+                learnedBtn.classList.remove('opacity-50');
+                learnedBtn.innerText = 'Tamamladım';
             }
 
-            updateSportProgress();
+            updateLearnedProgress();
         }
 
-        function markAsCompletedSport() {
-            const currentCard = sportcards[state.sportcardIdx].title;
-            if (!state.completedSports.includes(currentCard)) {
-                state.completedSports.push(currentCard);
-                localStorage.setItem('pratikim_completed_sports', JSON.stringify(state.completedSports));
+        function markAsLearned() {
+            const currentCard = flashcards[state.flashcardIdx].en;
+            if (!state.learnedCards.includes(currentCard)) {
+                state.learnedCards.push(currentCard);
+                localStorage.setItem('pratikim_learned_cards', JSON.stringify(state.learnedCards));
             } else {
-                state.completedSports = state.completedSports.filter(c => c !== currentCard);
-                localStorage.setItem('pratikim_completed_sports', JSON.stringify(state.completedSports));
+                state.learnedCards = state.learnedCards.filter(c => c !== currentCard);
+                localStorage.setItem('pratikim_learned_cards', JSON.stringify(state.learnedCards));
             }
-            renderSportcard();
+            renderFlashcard();
         }
 
-        function resetSportState() {
-            state.completedSports = [];
-            localStorage.removeItem('pratikim_completed_sports');
-            renderSportcard();
+        function resetLearnedState() {
+            state.learnedCards = [];
+            localStorage.removeItem('pratikim_learned_cards');
+            renderFlashcard();
         }
 
-        function updateSportProgress() {
-            const count = state.completedSports.length;
-            const total = sportcards.length;
-            const pct = Math.round((count / total) * 100);
+        function updateLearnedProgress() {
+            const learnedCount = state.learnedCards.length;
+            const total = flashcards.length;
+            const pct = Math.round((learnedCount / total) * 100);
 
-            document.getElementById('completed-counter-badge').innerText = `Tamamlanan: ${count} / ${total}`;
-            document.getElementById('sport-card-progress-bar').style.width = `${pct}%`;
+            document.getElementById('learned-counter-badge').innerText = `Tamamlanan: ${learnedCount} / ${total}`;
+            document.getElementById('card-progress-bar').style.width = `${pct}%`;
         }
 
-        function nextSportCard() {
-            state.sportcardIdx = (state.sportcardIdx + 1) % sportcards.length;
-            renderSportcard();
+        function nextCard() {
+            state.flashcardIdx = (state.flashcardIdx + 1) % flashcards.length;
+            renderFlashcard();
         }
 
-        function prevSportCard() {
-            state.sportcardIdx = (state.sportcardIdx - 1 + sportcards.length) % sportcards.length;
-            renderSportcard();
+        function prevCard() {
+            state.flashcardIdx = (state.flashcardIdx - 1 + flashcards.length) % flashcards.length;
+            renderFlashcard();
         }
 
-        function getRandomSportCard() {
-            state.sportcardIdx = Math.floor(Math.random() * sportcards.length);
-            renderSportcard();
-        }
-
-        function toggleSportTimer() {
-            const btn = document.getElementById('sport-btn');
-            if (state.sportRunning) {
-                clearInterval(state.sportInterval);
-                state.sportRunning = false;
-                btn.innerText = 'Başlat';
-                btn.className = 'px-3 py-1 rounded-lg bg-emerald-600 text-xs text-white font-semibold';
-            } else {
-                state.sportRunning = true;
-                btn.innerText = 'Durdur';
-                btn.className = 'px-3 py-1 rounded-lg bg-rose-600 text-xs text-white font-semibold';
-                state.sportInterval = setInterval(() => {
-                    if (state.sportTime > 0) {
-                        state.sportTime--;
-                        const mins = Math.floor(state.sportTime / 60);
-                        const secs = state.sportTime % 60;
-                        document.getElementById('sport-timer-display').innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-                    } else {
-                        clearInterval(state.sportInterval);
-                        alert('Egzersiz Seti Süresi Doldu! Dinlenin.');
-                        state.sportTime = 45;
-                        state.sportRunning = false;
-                        btn.innerText = 'Başlat';
-                        btn.className = 'px-3 py-1 rounded-lg bg-emerald-600 text-xs text-white font-semibold';
-                        document.getElementById('sport-timer-display').innerText = '00:45';
-                    }
-                }, 1000);
-            }
+        function getRandomCard() {
+            state.flashcardIdx = Math.floor(Math.random() * flashcards.length);
+            renderFlashcard();
         }
 
         /* ==================== AI SPELLING ENGINE ==================== */
@@ -991,7 +966,7 @@
         window.onload = function() {
             updateUnitOptions();
             renderDocForm();
-            renderSportcard();
+            renderFlashcard();
             renderTodos();
             updateFavBadges();
             const savedNote = localStorage.getItem('pratikim_note');
@@ -1038,7 +1013,7 @@
             { name: 'Çoklu Birim Dönüştürücü', page: 'tools', icon: 'fa-arrows-rotate' },
             { name: 'CV & Özgeçmiş Hazırlama', page: 'docs', icon: 'fa-file-contract' },
             { name: 'Dilekçe & Resmi Yazı', page: 'docs', icon: 'fa-envelope-open-text' },
-            { name: 'Spor & Egzersiz Kartları', page: 'sport', icon: 'fa-dumbbell' },
+            { name: 'Spor & Egzersiz Rehberi', page: 'learn', icon: 'fa-dumbbell' },
             { name: 'Yapılacaklar Listesi (To-Do)', page: 'life', icon: 'fa-square-check' },
             { name: 'Yazım & İmla Düzeltici', page: 'ai', icon: 'fa-spell-check' },
             { name: 'Görsel Boyutlandırma', page: 'files', icon: 'fa-image' }
@@ -1118,7 +1093,7 @@
                 return;
             }
 
-            const favItems = searchableTools.filter(t => state.favorites.includes(t.name.toLowerCase().substring(0, 5)));
+            const favItems = searchableTools.filter(t => state.favorites.includes(t.name.toLowerCase().substring(0, 4)));
             list.innerHTML = favItems.map(f => `
                 <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between">
                     <span class="text-xs font-semibold text-white"><i class="fa-solid ${f.icon} text-brand-400 mr-2"></i>${f.name}</span>
@@ -1395,14 +1370,14 @@
             printWin.print();
         }
 
-        /* ==================== POMODORO & TO-DO ==================== */
+        /* ==================== MOLA TIMER & TO-DO ==================== */
         function togglePomodoro() {
             const btn = document.getElementById('pomo-btn');
             if (state.pomoRunning) {
                 clearInterval(state.pomoInterval);
                 state.pomoRunning = false;
-                btn.innerText = 'Başlat';
-                btn.className = 'px-3 py-1 rounded-lg bg-brand-600 text-xs text-white font-semibold';
+                btn.innerText = 'Mola Başlat';
+                btn.className = 'px-3 py-1 rounded-lg bg-emerald-600 text-xs text-white font-semibold';
             } else {
                 state.pomoRunning = true;
                 btn.innerText = 'Durdur';
@@ -1415,7 +1390,12 @@
                         document.getElementById('pomo-timer-display').innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
                     } else {
                         clearInterval(state.pomoInterval);
-                        alert('Pomodoro Süresi Doldu! Mola Verin.');
+                        alert('Set Mola Süresi Bitti! Yeni Sete Başlayabilirsiniz.');
+                        state.pomoTime = 1 * 60;
+                        state.pomoRunning = false;
+                        btn.innerText = 'Mola Başlat';
+                        btn.className = 'px-3 py-1 rounded-lg bg-emerald-600 text-xs text-white font-semibold';
+                        document.getElementById('pomo-timer-display').innerText = '01:00';
                     }
                 }, 1000);
             }
@@ -1534,3 +1514,6 @@
             document.body.removeChild(temp);
             alert('Metin panoya kopyalandı!');
         }
+    </script>
+</body>
+</html>
